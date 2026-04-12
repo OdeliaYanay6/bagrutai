@@ -2539,7 +2539,7 @@ function StudentLogin({ onLogin }) {
 // ============================================
 // MAIN APP
 // ============================================
-export default function BagrutAI() {
+function BagrutAI() {
   const [studentName, setStudentName] = useState(() => {
     const all = loadAllData();
     return all.lastStudent || null;
@@ -3204,6 +3204,9 @@ export default function BagrutAI() {
     </div>
   );
 }
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<BagrutAI />);
 </script>
 </body>
 </html>
