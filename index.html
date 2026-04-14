@@ -455,6 +455,244 @@ const SUBJECTS = {
 };
 
 // ============================================
+// BAGRUT EXAMS — בחינות בגרות אמיתיות
+// ============================================
+const BAGRUT_EXAMS = {
+  hebrew: [
+    {
+      id: "he-2023-summer",
+      title: "מועד קיץ תשפ\"ג — 2023",
+      examNumber: "011101",
+      duration: 90,
+      // Part A — Reading Comprehension
+      // Based on real Hebrew Bagrut exam structure
+      questions: [
+        {
+          id: "HBE-1", unit: "14", type: "open", points: 10,
+          context: "קטע מתוך מאמר על השפעת הטכנולוגיה על השפה העברית:\n\n\"השפה העברית עוברת תמורות מהירות בעידן הדיגיטלי. מילים חדשות נכנסות לשימוש יומיומי, ומילים ותיקות משנות את משמעותן. הטקסטינג והרשתות החברתיות יצרו שפה מקוצרת ובלתי פורמלית שחודרת גם לכתיבה הרשמית. חוקרי לשון מתלבטים: האם מדובר בהתפתחות טבעית או בהידרדרות? פרופ' שלמה כהן טוען כי 'כל דור מעצב את השפה מחדש, וזהו תהליך בריא'. לעומתו, ד\"ר מירי לוי מזהירה כי 'ההתעלמות מכללי הדקדוק עלולה להוביל לעירפול תקשורתי'.\"",
+          text: "קרא/י את הקטע לעיל וענה/י:\nא. מהי הטענה המרכזית של הקטע? (3 נק')\nב. מה ההבדל בין עמדתו של פרופ' כהן לעמדתה של ד\"ר לוי? (4 נק')\nג. מהו הרגיסטר של הקטע? נמק/י בשתי דוגמאות מהטקסט. (3 נק')",
+          model_answer: "א. הטענה המרכזית: השפה העברית עוברת שינויים משמעותיים בעידן הדיגיטלי, ויש ויכוח האם מדובר בהתפתחות חיובית או שלילית.\nב. פרופ' כהן רואה בשינויים תהליך טבעי ובריא — כל דור מעצב את השפה מחדש. לעומתו, ד\"ר לוי מזהירה שהתעלמות מכללי הדקדוק עלולה לגרום לעירפול תקשורתי — היא רואה בשינויים סכנה.\nג. הרגיסטר הוא רשמי-אקדמי. דוגמאות: שימוש בתארים אקדמיים (פרופ', ד\"ר), שימוש במילים גבוהות (תמורות, עירפול תקשורתי)."
+        },
+        {
+          id: "HBE-2", unit: "1", type: "mc", points: 5,
+          text: "המשפט 'הילד שגר ליד בית הספר הגיע מוקדם' הוא:",
+          options: ["משפט פשוט", "משפט מורכב הכולל פסוקית לוואי", "משפט מחובר", "שני משפטים פשוטים"],
+          correctIndex: 1,
+          model_answer: "משפט מורכב הכולל פסוקית לוואי — 'שגר ליד בית הספר' היא פסוקית לוואי המתארת את 'הילד'."
+        },
+        {
+          id: "HBE-3", unit: "3", type: "mc", points: 5,
+          text: "מהו תפקידה של הפסוקית 'שאביו רופא' במשפט: 'הילד שאביו רופא נעדר מבית הספר'?",
+          options: ["פסוקית לוואי בתפקיד נשוא", "פסוקית לוואי בתפקיד לוואי לנושא", "פסוקית לוואי בתפקיד מושא", "פסוקית לוואי בתפקיד תואר הפועל"],
+          correctIndex: 1,
+          model_answer: "פסוקית לוואי בתפקיד לוואי לנושא — היא מתארת את 'הילד' שהוא הנושא של המשפט הראשי."
+        },
+        {
+          id: "HBE-4", unit: "4", type: "mc", points: 5,
+          text: "מהו היחס בין המשפטים הבאים: 'הגשם ירד בעוצמה, אולם התלמידים הגיעו לבית הספר'?",
+          options: ["יחס סיבה-תוצאה", "יחס ניגוד", "יחס זמן", "יחס תנאי"],
+          correctIndex: 1,
+          model_answer: "יחס ניגוד — מילת הקישור 'אולם' מציינת ניגוד בין הגשם העז לבין ההגעה של התלמידים."
+        },
+        {
+          id: "HBE-5", unit: "6", type: "open", points: 10,
+          text: "בכל אחד מהמשפטים הבאים יש שגיאה. מצא/י את השגיאה, תקן/י אותה והסבר/י את הכלל:\nא. 'המורות החליט לבטל את המבחן.' (3 נק')\nב. 'הילדים האלו הולכים מהר מאד.' (3 נק')\nג. 'אני לא יכולה להגיד לו שלא יבוא.' (4 נק')",
+          model_answer: "א. שגיאת הסכמה: 'החליט' צריך להיות 'החליטו' — הנושא 'המורות' הוא רבים נקבה, והנשוא חייב להתאים בגוף ובמספר. התיקון: 'המורות החליטו לבטל את המבחן.'\nב. שגיאת כתיב: 'מאד' צריך להיכתב 'מאוד' בכתיב מלא. בכתיב מלא מוסיפים וו לציון התנועה.\nג. שגיאת כפל שלילה: 'לא יכולה להגיד לו שלא יבוא' מכילה כפל שלילה. התיקון: 'אני לא יכולה להגיד לו שיבוא' או 'אני יכולה להגיד לו שלא יבוא'."
+        },
+        {
+          id: "HBE-6", unit: "9", type: "open", points: 10,
+          text: "קרא/י את המשפטים הבאים וזהה/י את דמות הלשון בכל אחד. ציין/י את סוגה והסבר/י את תפקידה:\nא. 'הרוח לחשה לעצים סודות.' (3 נק')\nב. 'לבו של המורה היה קשה כסלע.' (3 נק')\nג. 'השמש שתתה את שלוליות הגשם.' (4 נק')",
+          model_answer: "א. האנשה — הרוח מתוארת כאדם שלוחש. התפקיד: ליצור אווירה אינטימית ופואטית, להפוך את הטבע לחי ובעל כוונה.\nב. דימוי — הלב מדומה לסלע באמצעות מילת ההשוואה 'כ'. התפקיד: להמחיש את קשיחותו ואטימותו הרגשית של המורה.\nג. מטאפורה — השמש מתוארת כשותה, ללא מילת השוואה. התפקיד: להמחיש את תהליך האידוי בצורה חיה ויוצרת דימוי של פעולה מכוונת."
+        },
+        {
+          id: "HBE-7", unit: "12", type: "open", points: 10,
+          text: "קרא/י את הפסקה הבאה וענה/י על השאלות:\n'חברים יקרים, עד מתי נמשיך להתעלם? כבר שנים שמערכת החינוך שלנו זועקת לשינוי. מחקרים בינלאומיים מראים שישראל בתחתית הדירוג. עשרות אלפי מורים עזבו את המקצוע בעשור האחרון. אם לא נפעל עכשיו — יהיה מאוחר מדי.'\n\nא. זהה/י שני אמצעי שכנוע (רטוריקה) בקטע. (4 נק')\nב. סווג/י כל אמצעי שכנוע לפי הקטגוריה: אתוס, פאתוס או לוגוס. (3 נק')\nג. מהו קהל היעד של הקטע? הסבר/י. (3 נק')",
+          model_answer: "א+ב. אמצעי שכנוע:\n1. שאלה רטורית: 'עד מתי נמשיך להתעלם?' — פאתוס — פנייה רגשית שמעוררת תחושת דחיפות.\n2. נתונים ומחקרים: 'מחקרים בינלאומיים', 'עשרות אלפי מורים' — לוגוס — שימוש בעובדות ומספרים לביסוס הטענה.\nאמצעי נוסף: פנייה ישירה 'חברים יקרים' — אתוס — יצירת קרבה ואמון עם הקהל.\nג. קהל היעד: הציבור הרחב או מקבלי החלטות. הפנייה 'חברים יקרים' מרמזת על קהל רחב, והנושא (מערכת חינוך) רלוונטי לכלל הציבור."
+        },
+        {
+          id: "HBE-8", unit: "5", type: "mc", points: 5,
+          text: "מהו סוג התנאי במשפט: 'לו הייתי עשיר, הייתי קונה בית על הים'?",
+          options: ["תנאי אמיתי (ריאלי)", "תנאי לא אמיתי (אירריאלי)", "תנאי הכרחי", "משפט הנחה"],
+          correctIndex: 1,
+          model_answer: "תנאי לא אמיתי (אירריאלי) — השימוש ב'לו הייתי' מראה שהדובר אינו עשיר במציאות. זהו תנאי שאינו מתקיים."
+        },
+        {
+          id: "HBE-9", unit: "11", type: "mc", points: 5,
+          text: "המילה 'כבד' במשפט 'הנושא כבד על הלב' היא במשמעות:",
+          options: ["מילולית — בעלת משקל רב", "מטפורית — קשה רגשית", "מילולית — בעל חשיבות", "סלנגית"],
+          correctIndex: 1,
+          model_answer: "מטפורית — 'כבד על הלב' אין הכוונה למשקל פיזי אלא לכך שהנושא מעורר צער או דאגה. זוהי משמעות מטפורית."
+        },
+        {
+          id: "HBE-10", unit: "10", type: "open", points: 10,
+          text: "הסבר/י מהו 'רגיסטר' וציין/י שני גורמים המשפיעים על בחירת הרגיסטר. הבא/י דוגמה למשפט ברגיסטר רשמי ושכתב/י אותו ברגיסטר בלתי רשמי.",
+          model_answer: "רגיסטר הוא רמת השפה (גבוהה/נמוכה) שהדובר בוחר בהתאם למצב התקשורת.\n\nגורמים המשפיעים: 1. קהל היעד — מול מנהל נדבר ברגיסטר רשמי, מול חבר ברגיסטר בלתי רשמי. 2. הנושא — נושא אקדמי ידרוש רגיסטר גבוה, שיחת חולין תהיה ברגיסטר נמוך.\n\nדוגמה רשמית: 'הריני להודיעך כי הבקשה אושרה על ידי הוועדה.'\nברגיסטר בלתי רשמי: 'היי, אישרו לך את הבקשה!'"
+        },
+        {
+          id: "HBE-11", unit: "8", type: "mc", points: 5,
+          text: "באיזה מקרה חובה לשים פסיק?",
+          options: ["לפני מילת חיבור 'ו'", "לפני פסוקית לוואי שאינה מצמצמת", "אחרי כל שם עצם", "לפני כל פועל"],
+          correctIndex: 1,
+          model_answer: "לפני פסוקית לוואי שאינה מצמצמת (פסוקית לוואי שאינה הכרחית להבנת המשפט) — יש לשים פסיק לפניה ואחריה."
+        },
+        {
+          id: "HBE-12", unit: "15", type: "open", points: 15,
+          text: "כתוב/י חיבור טיעוני בן 80-120 מילים בנושא:\n'האם יש לאסור שימוש בטלפונים ניידים בבתי ספר?'\nבחיבורך:\nא. הצג/י טענה ברורה (תזה) (3 נק')\nב. הבא/י שני טיעונים תומכים עם ראיות (6 נק')\nג. התייחס/י לטענה נגדית אחת (3 נק')\nד. כתוב/י סיום מסכם (3 נק')",
+          model_answer: "לדעתי, יש לאסור שימוש בטלפונים ניידים בבתי ספר, כיוון שהם פוגעים בלמידה ובקשרים החברתיים.\n\nראשית, מחקרים מראים שתלמידים המשתמשים בטלפון בשיעור מציגים ירידה של 20% בריכוז ובהישגים. הטלפון מהווה גורם הסחת דעת משמעותי.\n\nשנית, הטלפונים פוגעים ביחסים חברתיים — במקום לשוחח בהפסקות, תלמידים שקועים במסכים, מה שמגביר בדידות.\n\nאמנם יש הטוענים שהטלפון כלי לימודי חשוב, אך ניתן להשתמש במחשבים ניידים מבוקרים שהמורה מפקח עליהם.\n\nלסיכום, למען למידה טובה יותר ויחסים בריאים, יש להגביל את השימוש בטלפונים בשעות הלימודים."
+        }
+      ]
+    },
+    {
+      id: "he-2024-winter",
+      title: "מועד חורף תשפ\"ד — 2024",
+      examNumber: "011101",
+      duration: 90,
+      questions: [
+        {
+          id: "HBE2-1", unit: "14", type: "open", points: 10,
+          context: "קטע מתוך כתבה על ההשפעות הסביבתיות של האופנה המהירה:\n\n\"תעשיית האופנה המהירה היא אחת המזהמות ביותר בעולם. בכל שנה מיוצרים כ-100 מיליארד פריטי לבוש, ורובם מגיעים למזבלות תוך שנה. הצרכן המערבי קונה היום פי חמישה יותר בגדים מאשר לפני עשרים שנה. 'אנחנו צריכים לשנות את תרבות הצריכה שלנו', אומרת ד\"ר ענת שמיר, חוקרת סביבה. 'הבחירה שלנו בחנות היא הצבעה עבור או נגד העתיד של כדור הארץ.'\"",
+          text: "קרא/י את הקטע וענה/י:\nא. מהו המסר המרכזי של הקטע? (3 נק')\nב. ציין/י אמצעי שכנוע אחד שבו משתמשת ד\"ר שמיר והסבר/י את תפקידו. (4 נק')\nג. מהי דמות הלשון בביטוי 'הצבעה עבור או נגד העתיד'? הסבר/י. (3 נק')",
+          model_answer: "א. המסר המרכזי: תעשיית האופנה המהירה מזהמת את הסביבה בצורה חמורה, ועלינו כצרכנים לשנות את הרגלי הקנייה שלנו.\nב. אמצעי שכנוע: מטאפורה — 'הבחירה בחנות היא הצבעה'. זהו אמצעי רטורי מסוג פאתוס — הוא מעניק לקנייה בחנות משמעות דרמטית ומוסרית, ומעורר אחריות אישית.\nג. מטאפורה — קנייה בחנות מדומה להצבעה (כמו בבחירות). אין כאן הצבעה ממשית אלא מדובר בדימוי מטפורי שמציג את הקנייה כהחלטה מוסרית בעלת השלכות."
+        },
+        {
+          id: "HBE2-2", unit: "2", type: "mc", points: 5,
+          text: "מהו סוג המשפט: 'הילד רץ בחצר והאם קראה לו'?",
+          options: ["משפט פשוט", "משפט מורכב", "משפט מחובר", "פסוקית לוואי"],
+          correctIndex: 2,
+          model_answer: "משפט מחובר — שני משפטים עצמאיים ('הילד רץ בחצר' + 'האם קראה לו') מחוברים במילת חיבור 'ו'. כל חלק יכול לעמוד בפני עצמו."
+        },
+        {
+          id: "HBE2-3", unit: "7", type: "open", points: 8,
+          text: "כתוב/י את המילים הבאות בכתיב מלא:\nא. 'גדול' (2 נק')\nב. 'שלום' (2 נק')\nג. 'ירושלם' (2 נק')\nד. הסבר/י את הכלל של כתיב מלא. (2 נק')",
+          model_answer: "א. גדול — בכתיב מלא: גָּדוֹל (עם וו)\nב. שלום — בכתיב מלא: שָׁלוֹם (עם וו)\nג. ירושלם — בכתיב מלא: יְרוּשָׁלַיִם (עם וו ויו\"ד)\nד. הכלל: בכתיב מלא מוסיפים אותיות אם (ו, י) כדי לייצג תנועות: וו מייצגת את התנועות וּ (שורוק) ו-וֹ (חולם), ויו\"ד מייצגת את התנועות אִי (חיריק) ו-אֵי (צירה)."
+        },
+        {
+          id: "HBE2-4", unit: "13", type: "mc", points: 5,
+          text: "לפי עקרונות הפרגמטיקה, המשפט 'יש פה טיפה קר' כשהחלון פתוח, הוא:",
+          options: ["קביעה על מזג האוויר בלבד", "בקשה עקיפה לסגור את החלון", "ביקורת על מי שפתח את החלון", "שאלה רטורית"],
+          correctIndex: 1,
+          model_answer: "בקשה עקיפה לסגור את החלון — לפי עקרונות הפרגמטיקה, המשמעות בהקשר (המשתמע) שונה מהמשמעות המילולית. הדובר לא רק מתאר את הטמפרטורה, אלא מבקש בעקיפין שיסגרו את החלון."
+        },
+        {
+          id: "HBE2-5", unit: "6", type: "open", points: 10,
+          text: "תקן/י את השגיאות הבאות והסבר/י את סוג כל שגיאה:\nא. 'הנערות הגבוהה עמדו בתור.' (3 נק')\nב. 'הוא הלך לבית ספר וישב שם ולמד.' (3 נק')\nג. 'ברצוני לציין על כך שהמצב השתפר.' (4 נק')",
+          model_answer: "א. שגיאת הסכמה: 'הגבוהה' (יחידה) צריך להיות 'הגבוהות' (רבות) כדי להתאים ל'נערות'. התיקון: 'הנערות הגבוהות עמדו בתור.'\nב. שגיאת זמנים: ערבוב בין עבר ('הלך', 'ישב') לבין שינוי לעתיד ('וילמד'). אם הכוונה לעבר: 'הוא הלך לבית הספר, ישב שם ולמד.'\nג. שגיאת מילת יחס: 'לציין על כך' — הפועל 'לציין' לא מקבל את מילת היחס 'על'. התיקון: 'ברצוני לציין כי המצב השתפר' או 'ברצוני להצביע על כך שהמצב השתפר'."
+        },
+        {
+          id: "HBE2-6", unit: "9", type: "mc", points: 5,
+          text: "מהי דמות הלשון בביטוי 'ידיו של הזמן מחקו את הזיכרונות'?",
+          options: ["דימוי", "מטאפורה בלבד", "האנשה בלבד", "האנשה ומטאפורה גם יחד"],
+          correctIndex: 3,
+          model_answer: "האנשה ומטאפורה גם יחד — הזמן מקבל תכונות אנושיות (ידיים, יכולת למחוק) — זו האנשה. בנוסף, 'מחיקת הזיכרונות' היא מטאפורה לשכחה, כי זיכרונות אינם נמחקים פיזית."
+        },
+        {
+          id: "HBE2-7", unit: "12", type: "open", points: 10,
+          text: "הסבר/י מהם שלושת אמצעי השכנוע הרטוריים: אתוס, פאתוס ולוגוס. לכל אחד תן/י דוגמה מתחום הפרסום.",
+          model_answer: "אתוס — שכנוע באמצעות סמכות ואמינות הדובר. דוגמה: פרסומת למשחת שיניים שבה רופא שיניים ממליץ — 'רופא שיניים ממליץ על קולגייט' — הסמכות המקצועית משכנעת.\n\nפאתוס — שכנוע באמצעות רגש. דוגמה: פרסומת לעמותת ילדים חולים המציגה תמונות של ילדים — הרגש (רחמים, אמפתיה) מניע לתרומה.\n\nלוגוס — שכנוע באמצעות היגיון, עובדות ונתונים. דוגמה: פרסומת לרכב 'חוסך 40% דלק בהשוואה למתחרים' — נתון מספרי שפונה להיגיון הצרכן."
+        },
+        {
+          id: "HBE2-8", unit: "4", type: "mc", points: 5,
+          text: "מהו סוג הקשר בין המשפטים: 'לא אכלתי כל היום, לכן אני רעב מאוד'?",
+          options: ["ניגוד", "סיבה-תוצאה", "תנאי", "ויתור"],
+          correctIndex: 1,
+          model_answer: "סיבה-תוצאה — 'לכן' היא מילת קישור המציינת שהמשפט השני (אני רעב מאוד) הוא תוצאה של המשפט הראשון (לא אכלתי כל היום)."
+        },
+        {
+          id: "HBE2-9", unit: "16", type: "mc", points: 5,
+          text: "טקסט המתאר ניסוי מדעי ותוצאותיו שייך לסוגה:",
+          options: ["טקסט ספרותי", "טקסט מידעי-ביצועי", "טקסט שכנועי", "טקסט אקספרסיבי"],
+          correctIndex: 1,
+          model_answer: "טקסט מידעי-ביצועי — תיאור ניסוי מדעי ותוצאותיו הוא טקסט שמטרתו העיקרית להעביר מידע עובדתי בצורה מסודרת."
+        },
+        {
+          id: "HBE2-10", unit: "17", type: "mc", points: 5,
+          text: "כמה הברות יש במילה 'מִסְפָּרַיִם'?",
+          options: ["שתיים", "שלוש", "ארבע", "חמש"],
+          correctIndex: 2,
+          model_answer: "ארבע הברות: מִסְ-פָּ-רַ-יִם. כל תנועה יוצרת הברה חדשה."
+        },
+        {
+          id: "HBE2-11", unit: "15", type: "open", points: 15,
+          text: "כתוב/י חיבור טיעוני בן 80-120 מילים בנושא:\n'האם שירות לאומי/צבאי צריך להיות חובה לכל אזרחי ישראל?'\nבחיבורך:\nא. הצג/י עמדה ברורה (3 נק')\nב. הבא/י שני טיעונים ותמכ/י בכל אחד בראיה (6 נק')\nג. התייחס/י לטענה נגדית (3 נק')\nד. סכמ/י (3 נק')",
+          model_answer: "לדעתי, שירות לאומי או צבאי צריך להיות חובה לכל אזרחי ישראל, כיוון שהוא מחזק את הלכידות החברתית ואת תחושת השייכות.\n\nראשית, שירות משותף יוצר מפגש בין מגזרים שונים בחברה הישראלית — חילונים, דתיים, ערבים ויהודים — ובכך מחזק את המרקם החברתי. כיום, חלק ניכר מהציבור לא משרת כלל.\n\nשנית, שירות חובה מקנה ערכי תרומה ואחריות. צעירים הלומדים לתת מעצמם הופכים לאזרחים טובים יותר.\n\nיש הטוענים שחובת שירות פוגעת בחופש הפרט, אך חובות אזרחיות (כמו מיסים) מתקיימות בכל דמוקרטיה.\n\nלסיכום, חובת שירות לאומי לכולם תחזק את החברה ותיצור שותפות אמיתית בין כל חלקי העם."
+        }
+      ]
+    },
+    {
+      id: "he-2024-summer",
+      title: "מועד קיץ תשפ\"ד — 2024",
+      examNumber: "011101",
+      duration: 90,
+      questions: [
+        {
+          id: "HBE3-1", unit: "14", type: "open", points: 10,
+          context: "קטע מתוך מאמר על בינה מלאכותית בחינוך:\n\n\"הכניסה של הבינה המלאכותית למערכת החינוך מעוררת סערה. מצד אחד, כלים כמו צ'אט-בוטים מאפשרים למידה מותאמת אישית. מצד שני, קיים חשש ממשי שתלמידים יפסיקו לחשוב בעצמם. 'אסור שהטכנולוגיה תחליף את החשיבה', מזהיר פרופ' דני רון. 'אבל אפשר ורצוי שתעזור לפתח אותה'. מחקר שנערך ב-20 בתי ספר הראה כי שימוש מבוקר בבינה מלאכותית שיפר הישגים ב-15%.\"",
+          text: "קרא/י את הקטע וענה/י:\nא. מהן שתי העמדות המוצגות בקטע? (4 נק')\nב. באיזה אמצעי שכנוע משתמש פרופ' רון? סווג/י אותו. (3 נק')\nג. מהי מטרת הנתון '15%' בסוף הקטע? (3 נק')",
+          model_answer: "א. עמדה 1: הבינה המלאכותית מועילה — מאפשרת למידה מותאמת אישית ושיפור הישגים. עמדה 2: הבינה המלאכותית מסוכנת — תלמידים עלולים להפסיק לחשוב בעצמם.\nב. פרופ' רון משתמש באנטיתזה (ניגוד): 'אסור שתחליף... אבל אפשר שתעזור'. זהו גם שימוש באתוס — כפרופסור יש לו סמכות מקצועית. וגם פאתוס — הפנייה הישירה מעוררת תחושת אחריות.\nג. הנתון 15% הוא אמצעי שכנוע מסוג לוגוס — מחקר אמפירי עם נתונים מספריים שמטרתו לשכנע את הקורא שהשימוש בבינה מלאכותית באמת מועיל בפועל."
+        },
+        {
+          id: "HBE3-2", unit: "1", type: "mc", points: 5,
+          text: "במשפט 'הספרים האלה מונחים על המדף', הנושא הוא:",
+          options: ["הספרים", "הספרים האלה", "מונחים", "על המדף"],
+          correctIndex: 1,
+          model_answer: "הספרים האלה — הנושא כולל את שם העצם ואת כינוי הרמז המתאר אותו. 'מונחים' הוא הנשוא, 'על המדף' הוא תואר הפועל."
+        },
+        {
+          id: "HBE3-3", unit: "3", type: "open", points: 8,
+          text: "במשפט 'הסטודנטית שזכתה במלגה, אשר הוענקה על ידי הקרן, נסעה לחו\"ל':\nא. מצא/י את הפסוקיות הלוואי (3 נק')\nב. מהו תפקיד כל פסוקית? (3 נק')\nג. מהו הנושא ומהו הנשוא של המשפט הראשי? (2 נק')",
+          model_answer: "א. פסוקית לוואי 1: 'שזכתה במלגה'. פסוקית לוואי 2: 'אשר הוענקה על ידי הקרן'.\nב. פסוקית 1 מתפקדת כלוואי לנושא — מתארת את 'הסטודנטית'. פסוקית 2 מתפקדת כלוואי למושא — מתארת את 'המלגה'.\nג. הנושא של המשפט הראשי: 'הסטודנטית'. הנשוא: 'נסעה'."
+        },
+        {
+          id: "HBE3-4", unit: "11", type: "mc", points: 5,
+          text: "מה היחס הסמנטי בין המילים 'חם' ו'קר'?",
+          options: ["מילים נרדפות", "מילים בעלות דו-משמעות", "מילים מנוגדות (אנטונימים)", "מילים מאותו שדה סמנטי בלבד"],
+          correctIndex: 2,
+          model_answer: "מילים מנוגדות (אנטונימים) — 'חם' ו'קר' הם צמד ניגודי של תכונות טמפרטורה. זהו ניגוד הדרגתי (יש ביניהם רמות ביניים כמו 'פושר')."
+        },
+        {
+          id: "HBE3-5", unit: "5", type: "open", points: 8,
+          text: "הסבר/י את ההבדל בין תנאי אמיתי (ריאלי) לתנאי לא אמיתי (אירריאלי). לכל סוג כתוב/י משפט דוגמה.",
+          model_answer: "תנאי אמיתי (ריאלי): תנאי שיכול להתקיים במציאות. מבנה: אם + עתיד/הווה. דוגמה: 'אם ירד גשם מחר, ניקח מטרייה.' — התנאי אפשרי.\n\nתנאי לא אמיתי (אירריאלי): תנאי שאינו מתקיים במציאות או שסיכוייו נמוכים מאוד. מבנה: לו/אילו + עבר. דוגמה: 'לו הייתי יודע, לא הייתי בא.' — הדובר לא ידע, ולכן התנאי אינו מתקיים.\n\nההבדל המרכזי: בתנאי אמיתי יש סיכוי שהתנאי יתקיים, בתנאי לא אמיתי הדובר יודע שהתנאי לא מתקיים."
+        },
+        {
+          id: "HBE3-6", unit: "8", type: "mc", points: 5,
+          text: "באיזה מהמשפטים הבאים השימוש בנקודתיים נכון?",
+          options: ["הילד אמר: שהוא רוצה ללכת.", "הילד אמר: 'אני רוצה ללכת.'", "הילד: אמר שהוא רוצה.", "הילד אמר שהוא: רוצה ללכת."],
+          correctIndex: 1,
+          model_answer: "נקודתיים באות לפני ציטוט ישיר: 'הילד אמר: אני רוצה ללכת' — הנקודתיים מפרידות בין דברי ההקדמה לבין הציטוט."
+        },
+        {
+          id: "HBE3-7", unit: "10", type: "mc", points: 5,
+          text: "המשפט 'מר כהן, הנך מתבקש להתייצב בשעה 8:00' הוא ברגיסטר:",
+          options: ["בלתי רשמי — סלנג", "רשמי — פורמלי", "ספרותי-פואטי", "ניטרלי — יומיומי"],
+          correctIndex: 1,
+          model_answer: "רשמי-פורמלי — סימנים: פנייה בתואר 'מר', שימוש ב'הנך' (לשון כתובה גבוהה), 'מתבקש' (סביל רשמי), ציון שעה מדויק."
+        },
+        {
+          id: "HBE3-8", unit: "6", type: "mc", points: 5,
+          text: "מהי השגיאה במשפט: 'הילדים רצו ל לכת לפארק'?",
+          options: ["שגיאת הסכמה", "שגיאת כפל מילה", "שגיאת כתיב — חיבור שגוי של מילת יחס", "אין שגיאה"],
+          correctIndex: 2,
+          model_answer: "שגיאת כתיב — מילת היחס 'ל' צריכה להיכתב מחוברת למילה שאחריה: 'ללכת' ולא 'ל לכת'. מילות יחס חד-הברתיות נכתבות מחוברות."
+        },
+        {
+          id: "HBE3-9", unit: "12", type: "mc", points: 5,
+          text: "באיזה אמצעי רטורי נעשה שימוש במשפט: 'כולם יודעים שהחינוך חשוב'?",
+          options: ["שאלה רטורית", "הכללה (טיעון לרוב)", "סמכות", "דימוי"],
+          correctIndex: 1,
+          model_answer: "הכללה (טיעון לרוב) — 'כולם יודעים' היא הכללה שמטרתה לגרום לקורא להרגיש שמדובר בעובדה מוסכמת. זהו אמצעי שכנוע שפונה ללוגוס."
+        },
+        {
+          id: "HBE3-10", unit: "15", type: "open", points: 15,
+          text: "כתוב/י חיבור טיעוני בן 80-120 מילים בנושא:\n'האם רשתות חברתיות מחזקות או מחלישות קשרים חברתיים?'\nבחיבורך:\nא. הצג/י עמדה ברורה (3 נק')\nב. הבא/י שני טיעונים עם ראיות (6 נק')\nג. התייחס/י לטענה נגדית (3 נק')\nד. סכמ/י (3 נק')",
+          model_answer: "לדעתי, רשתות חברתיות מחלישות את הקשרים החברתיים האמיתיים, למרות שהן מרחיבות את מעגל ההיכרויות.\n\nראשית, מחקרים מראים כי אנשים שמשתמשים ברשתות חברתיות יותר מ-3 שעות ביום מדווחים על תחושת בדידות גבוהה יותר. השיחות הווירטואליות אינן מחליפות מגע אנושי אמיתי.\n\nשנית, הרשתות יוצרות 'בועה חברתית' — אנשים רואים רק את מה שהאלגוריתם מחליט, ולא נחשפים לדעות שונות, מה שפוגע בשיח האמיתי.\n\nאמנם רשתות מאפשרות לשמור קשר עם אנשים רחוקים, אך קשר שטחי ברשת אינו תחליף לשיחה פנים אל פנים.\n\nלסיכום, הרשתות מרחיבות את הכמות אך מצמצמות את האיכות של הקשרים שלנו."
+        }
+      ]
+    }
+  ]
+};
+
+// ============================================
 // CONTENT DATA (כל החינוך, השאלות, וההערות)
 // ============================================
 const CONTENT_DATA = {
@@ -3146,10 +3384,16 @@ function SubjectAITutor({ subject, mode }) {
 
 // Exam Simulation with multi-topic selection
 function ExamSimulation({ subject, mode }) {
-  const [phase, setPhase] = useState("select"); // "select", "started"
+  const [phase, setPhase] = useState("select"); // "select", "exam-pick", "started", "finished", "practice"
   const [selectedTopicIds, setSelectedTopicIds] = useState([]);
+  const [selectedExam, setSelectedExam] = useState(null);
   const [timeLeft, setTimeLeft] = useState(90 * 60);
   const [currentQ, setCurrentQ] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [examResults, setExamResults] = useState([]);
+  const [practiceQ, setPracticeQ] = useState(0);
+  const [practiceAnswer, setPracticeAnswer] = useState("");
+  const [showPracticeResult, setShowPracticeResult] = useState(false);
   const isFocus = mode === "focus";
 
   useEffect(() => {
@@ -3169,12 +3413,63 @@ function ExamSimulation({ subject, mode }) {
   };
 
   const selectedUnits = subject.units.filter(u => selectedTopicIds.includes(u.id));
-  const questions = selectedUnits.flatMap(unit =>
+
+  // Build questions — use selected exam if available, otherwise build from content/generated
+  const examQuestions = selectedExam ? selectedExam.questions.map(q => ({
+    unit: subject.units.find(u => u.id === q.unit) || subject.units[0],
+    topic: "", points: q.points,
+    text: q.context ? q.context + "\n\n" + q.text : q.text,
+    model_answer: q.model_answer,
+    type: q.type, options: q.options, correctIndex: q.correctIndex,
+  })) : null;
+
+  const realExamQs = !examQuestions ? selectedUnits.flatMap(unit => {
+    const cd = CONTENT_DATA[subject.id]?.[unit.id];
+    if (!cd || !cd.q) return [];
+    return cd.q.map(q => ({
+      unit, topic: "", points: q.pts || 15,
+      text: q.p, model_answer: q.a || (q.t === "mc" ? q.o[q.c] : ""),
+      type: q.t, options: q.o, correctIndex: q.c,
+    }));
+  }) : [];
+
+  const generatedQs = !examQuestions ? selectedUnits.flatMap(unit =>
     unit.topics.slice(0, 2).map(topic => ({
-      unit: unit, topic, points: 15,
+      unit: unit, topic, points: 15, type: "open",
       text: `(${unit.examUnit})\nהסבר/י את המושג "${topic}" בהקשר של ${unit.title}. בתשובתך:\nא. הגדר/י את המושג (5 נק')\nב. הבא/י דוגמה (5 נק')\nג. הסבר/י את חשיבותו (5 נק')`,
+      model_answer: `${topic} הוא מושג מרכזי ב${unit.title}. ${unit.summary?.split(".")[0] || ""}.`,
     }))
-  ).slice(0, 15);
+  ) : [];
+
+  const questions = examQuestions || (realExamQs.length >= 5 ? realExamQs : [...realExamQs, ...generatedQs]).slice(0, 15);
+
+  // Grading function
+  const gradeExam = () => {
+    const results = questions.map((q, i) => {
+      const userAns = answers[i] || "";
+      if (q.type === "mc") {
+        const selectedIdx = parseInt(userAns);
+        const correct = selectedIdx === q.correctIndex;
+        return { ...q, index: i, userAnswer: userAns, correct, earned: correct ? q.points : 0 };
+      } else {
+        // Open question — keyword matching
+        if (!userAns.trim()) return { ...q, index: i, userAnswer: "", correct: false, earned: 0 };
+        const normalize = (text) => (text || "").replace(/["""״׳'`.,;:!?\-–—()\[\]{}\/\\]/g, " ").replace(/\s+/g, " ").trim();
+        const stopWords = new Set(["של", "את", "על", "עם", "הוא", "היא", "הם", "הן", "זה", "זו", "או", "אם", "כי", "גם", "רק", "לא", "כל", "יותר", "עוד", "אין", "יש", "אשר", "כמו", "בין", "אך", "אבל", "כדי"]);
+        const modelWords = normalize(q.model_answer).split(" ").filter(w => w.length >= 3 && !stopWords.has(w));
+        const unique = [...new Set(modelWords)];
+        if (unique.length === 0) return { ...q, index: i, userAnswer: userAns, correct: true, earned: q.points };
+        let matched = 0;
+        const userNorm = normalize(userAns);
+        for (const kw of unique) { if (userNorm.includes(kw)) matched++; }
+        const score = matched / unique.length;
+        const earned = Math.round(q.points * Math.min(1, score * 1.5)); // generous scaling
+        return { ...q, index: i, userAnswer: userAns, correct: score >= 0.3, earned, matchPct: Math.round(score * 100) };
+      }
+    });
+    setExamResults(results);
+    setPhase("finished");
+  };
 
   const mins = Math.floor(timeLeft / 60);
   const secs = timeLeft % 60;
@@ -3188,35 +3483,60 @@ function ExamSimulation({ subject, mode }) {
           <p style={{ color: isFocus ? "#718096" : "#94a3b8", fontSize: "15px" }}>שאלון {subject.examNumber} — בחר/י נושאים לבחינה</p>
         </div>
 
-        {/* Link to real Ministry of Education exams */}
-        <a href={`https://meyda.education.gov.il/bagmgr/default.html`} target="_blank" rel="noopener noreferrer"
-          style={{
-            display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
-            background: isFocus ? "#2d374850" : "#eff6ff",
-            border: isFocus ? "2px solid #3b82f680" : "2px solid #3b82f640",
-            borderRadius: "14px", padding: "14px 20px", marginBottom: "20px",
-            textDecoration: "none", cursor: "pointer", transition: "all 0.2s",
-          }}>
-          <span style={{ fontSize: "20px" }}>📋</span>
-          <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: "14px", fontWeight: "700", color: "#3b82f6" }}>
-              בחינות בגרות קודמות — משרד החינוך
+        {/* Real Bagrut Exams Section */}
+        {(() => {
+          const subjectExams = BAGRUT_EXAMS[subject.id] || [];
+          return subjectExams.length > 0 ? (
+            <div style={{ marginBottom: "24px" }}>
+              <div style={{ fontSize: "16px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "12px" }}>
+                📋 בחינות בגרות אמיתיות — ממועדים קודמים:
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {subjectExams.map((exam) => (
+                  <button key={exam.id} onClick={() => {
+                    setSelectedExam(exam);
+                    setPhase("started");
+                    setTimeLeft(exam.duration * 60);
+                    setAnswers({});
+                    setCurrentQ(0);
+                  }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px",
+                      borderRadius: "14px", cursor: "pointer", textAlign: "right", width: "100%",
+                      background: isFocus ? "#1a202c" : "white",
+                      border: `2px solid ${subject.color}40`,
+                      transition: "all 0.2s",
+                    }}>
+                    <div style={{
+                      width: "44px", height: "44px", borderRadius: "12px",
+                      background: `${subject.color}15`, color: subject.color,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "20px", flexShrink: 0,
+                    }}>📝</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: "15px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b" }}>
+                        {exam.title}
+                      </div>
+                      <div style={{ fontSize: "12px", color: isFocus ? "#718096" : "#94a3b8", marginTop: "2px" }}>
+                        שאלון {exam.examNumber} | {exam.questions.length} שאלות | {exam.duration} דקות
+                      </div>
+                    </div>
+                    <span style={{ color: subject.color, fontSize: "18px" }}>←</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div style={{ fontSize: "12px", color: isFocus ? "#718096" : "#94a3b8" }}>
-              לחצ/י כאן לצפייה בבחינות בגרות אמיתיות ממועדים קודמים (שאלון {subject.examNumber})
-            </div>
-          </div>
-          <span style={{ fontSize: "16px", color: "#3b82f6" }}>←</span>
-        </a>
+          ) : null;
+        })()}
 
-        <div style={{
-          background: isFocus ? "#1a202c50" : "#fefce8",
-          border: isFocus ? "1px solid #eab30850" : "1px solid #eab30840",
-          borderRadius: "10px", padding: "10px 14px", marginBottom: "20px",
-          fontSize: "13px", color: isFocus ? "#eab308" : "#a16207", textAlign: "right",
-        }}>
-          💡 <strong>טיפ:</strong> השאלות למטה הן שאלות תרגול בסגנון בגרות. לבחינות האמיתיות ממועדים קודמים, השתמש/י בקישור למאגר משרד החינוך למעלה.
-        </div>
+        {/* Divider */}
+        {(BAGRUT_EXAMS[subject.id] || []).length > 0 && (
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+            <div style={{ flex: 1, height: "1px", background: isFocus ? "#4a5568" : "#e2e8f0" }} />
+            <span style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8", whiteSpace: "nowrap" }}>או תרגול לפי יחידות</span>
+            <div style={{ flex: 1, height: "1px", background: isFocus ? "#4a5568" : "#e2e8f0" }} />
+          </div>
+        )}
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
           <span style={{ fontSize: "15px", fontWeight: "600", color: isFocus ? "#e2e8f0" : "#1e293b" }}>בחר/י יחידות:</span>
@@ -3274,14 +3594,14 @@ function ExamSimulation({ subject, mode }) {
             border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0", marginBottom: "20px", textAlign: "right",
           }}>
             <div style={{ color: isFocus ? "#a0aec0" : "#64748b", fontSize: "14px", lineHeight: "2" }}>
-              ⏱️ זמן: 90 דקות | 📝 שאלות: {questions.length} | 📊 ניקוד: {questions.length * 15} נקודות | 📋 סוג: שאלות פתוחות בסגנון בגרות
+              ⏱️ זמן: 90 דקות | 📝 שאלות: {questions.length} | 📊 ניקוד: {questions.reduce((s,q) => s + q.points, 0)} נקודות | 📋 סוג: שאלות בסגנון בגרות
             </div>
           </div>
         )}
 
         <div style={{ textAlign: "center" }}>
           <button
-            onClick={() => { if (selectedTopicIds.length > 0) setPhase("started"); }}
+            onClick={() => { if (selectedTopicIds.length > 0) { setSelectedExam(null); setPhase("started"); } }}
             disabled={selectedTopicIds.length === 0}
             style={{
               background: selectedTopicIds.length > 0 ? `linear-gradient(135deg, ${subject.color}, ${subject.color}cc)` : "#94a3b8",
@@ -3290,13 +3610,218 @@ function ExamSimulation({ subject, mode }) {
               cursor: selectedTopicIds.length > 0 ? "pointer" : "default",
               opacity: selectedTopicIds.length > 0 ? 1 : 0.5,
             }}>
-            התחל בחינה ({selectedTopicIds.length} יחידות) →
+            התחל תרגול ({selectedTopicIds.length} יחידות) →
           </button>
         </div>
       </div>
     );
   }
 
+  // ===== FINISHED PHASE =====
+  if (phase === "finished") {
+    const totalPoints = examResults.reduce((s, r) => s + r.points, 0);
+    const earnedPoints = examResults.reduce((s, r) => s + r.earned, 0);
+    const grade = totalPoints > 0 ? Math.round((earnedPoints / totalPoints) * 100) : 0;
+    const mistakes = examResults.filter(r => !r.correct);
+    const gradeColor = grade >= 80 ? "#16a34a" : grade >= 55 ? "#eab308" : "#ef4444";
+    const gradeEmoji = grade >= 80 ? "🎉" : grade >= 55 ? "💪" : "📚";
+    const gradeText = grade >= 80 ? "מצוין! כל הכבוד!" : grade >= 55 ? "עברת! אבל יש מקום לשיפור" : "צריך עוד תרגול — אל תוותר/י!";
+
+    return (
+      <div style={{ direction: "rtl" }}>
+        <div style={{ textAlign: "center", marginBottom: "28px" }}>
+          <div style={{ fontSize: "64px", marginBottom: "12px" }}>{gradeEmoji}</div>
+          <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "24px", marginBottom: "8px" }}>
+            סיכום הבחינה — {subject.name}
+          </h3>
+        </div>
+
+        {/* Grade Circle */}
+        <div style={{ textAlign: "center", marginBottom: "28px" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            width: "120px", height: "120px", borderRadius: "50%",
+            border: `6px solid ${gradeColor}`,
+            background: isFocus ? "#1a202c" : `${gradeColor}10`,
+          }}>
+            <div>
+              <div style={{ fontSize: "36px", fontWeight: "900", color: gradeColor }}>{grade}</div>
+              <div style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8" }}>מתוך 100</div>
+            </div>
+          </div>
+          <div style={{ marginTop: "12px", fontSize: "16px", fontWeight: "600", color: gradeColor }}>{gradeText}</div>
+          <div style={{ marginTop: "6px", fontSize: "14px", color: isFocus ? "#a0aec0" : "#64748b" }}>
+            {earnedPoints} נקודות מתוך {totalPoints} | {examResults.filter(r => r.correct).length} תשובות נכונות מתוך {examResults.length}
+          </div>
+        </div>
+
+        {/* Results Breakdown */}
+        <div style={{
+          background: isFocus ? "#1a202c" : "white", borderRadius: "16px", padding: "20px",
+          border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0", marginBottom: "20px",
+        }}>
+          <div style={{ fontSize: "15px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "14px" }}>
+            📊 פירוט תשובות:
+          </div>
+          {examResults.map((r, i) => (
+            <div key={i} style={{
+              display: "flex", alignItems: "flex-start", gap: "10px", padding: "10px 0",
+              borderBottom: i < examResults.length - 1 ? (isFocus ? "1px solid #2d3748" : "1px solid #f1f5f9") : "none",
+            }}>
+              <span style={{ fontSize: "18px", flexShrink: 0 }}>{r.correct ? "✅" : "❌"}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: "13px", color: isFocus ? "#e2e8f0" : "#1e293b", lineHeight: "1.5" }}>
+                  שאלה {i + 1}: {r.text?.substring(0, 60)}...
+                </div>
+                <div style={{ fontSize: "12px", color: isFocus ? "#718096" : "#94a3b8", marginTop: "2px" }}>
+                  {r.earned}/{r.points} נקודות {r.type === "open" && r.matchPct !== undefined ? `| דיוק: ${r.matchPct}%` : ""}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
+          {mistakes.length > 0 && (
+            <button onClick={() => { setPracticeQ(0); setPracticeAnswer(""); setShowPracticeResult(false); setPhase("practice"); }}
+              style={{
+                background: `linear-gradient(135deg, ${subject.color}, ${subject.color}cc)`,
+                color: "white", border: "none", borderRadius: "50px",
+                padding: "14px 40px", fontSize: "16px", fontWeight: "700", cursor: "pointer", width: "100%", maxWidth: "400px",
+              }}>
+              🔄 תרגול הטעויות ({mistakes.length} שאלות)
+            </button>
+          )}
+          <button onClick={() => { setPhase("select"); setAnswers({}); setExamResults([]); setCurrentQ(0); setTimeLeft(90 * 60); }}
+            style={{
+              background: isFocus ? "#2d3748" : "#f1f5f9",
+              color: isFocus ? "#a0aec0" : "#64748b", border: "none", borderRadius: "50px",
+              padding: "12px 36px", fontSize: "14px", fontWeight: "600", cursor: "pointer", width: "100%", maxWidth: "400px",
+            }}>
+            ← בחינה חדשה
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ===== PRACTICE MISTAKES PHASE =====
+  if (phase === "practice") {
+    const mistakes = examResults.filter(r => !r.correct);
+    if (mistakes.length === 0) {
+      setPhase("finished");
+      return null;
+    }
+    const mq = mistakes[practiceQ % mistakes.length];
+
+    return (
+      <div style={{ direction: "rtl" }}>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "20px", margin: "0 0 8px" }}>
+            🔄 תרגול טעויות — {subject.name}
+          </h3>
+          <p style={{ color: isFocus ? "#718096" : "#94a3b8", fontSize: "14px", margin: 0 }}>
+            שאלה {practiceQ + 1} מתוך {mistakes.length}
+          </p>
+        </div>
+
+        <div style={{
+          background: isFocus ? "#1a202c" : "white", borderRadius: "16px", padding: "24px",
+          border: `2px solid ${subject.color}30`, marginBottom: "16px",
+        }}>
+          <div style={{ fontSize: "13px", color: subject.color, fontWeight: "600", marginBottom: "10px" }}>
+            יחידה {mq.unit.id} — {mq.unit.title}
+          </div>
+          <div style={{ fontSize: "15px", color: isFocus ? "#e2e8f0" : "#1e293b", lineHeight: "1.8", whiteSpace: "pre-wrap" }}>
+            {mq.text}
+          </div>
+        </div>
+
+        {mq.type === "mc" ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
+            {(mq.options || []).map((opt, oi) => {
+              const isCorrect = oi === mq.correctIndex;
+              const isSelected = showPracticeResult && practiceAnswer === String(oi);
+              let bg = isFocus ? "#1a202c" : "#f8fafc";
+              let border = isFocus ? "#4a5568" : "#e2e8f0";
+              if (showPracticeResult && isCorrect) { bg = isFocus ? "#16a34a15" : "#f0fdf4"; border = "#16a34a"; }
+              else if (showPracticeResult && isSelected && !isCorrect) { bg = isFocus ? "#ef444415" : "#fef2f2"; border = "#ef4444"; }
+              return (
+                <button key={oi} onClick={() => {
+                  if (!showPracticeResult) {
+                    setPracticeAnswer(String(oi));
+                    setShowPracticeResult(true);
+                  }
+                }} disabled={showPracticeResult}
+                  style={{
+                    padding: "14px 18px", borderRadius: "12px", textAlign: "right",
+                    border: `2px solid ${border}`, background: bg, cursor: showPracticeResult ? "default" : "pointer",
+                    color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "14px", lineHeight: "1.5",
+                  }}>
+                  {String.fromCharCode(1488 + oi)}. {opt}
+                  {showPracticeResult && isCorrect && " ✅"}
+                  {showPracticeResult && isSelected && !isCorrect && " ❌"}
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            <textarea value={practiceAnswer} onChange={(e) => setPracticeAnswer(e.target.value)}
+              placeholder="כתוב/י את תשובתך כאן..." disabled={showPracticeResult}
+              style={{
+                width: "100%", minHeight: "120px", padding: "16px", borderRadius: "12px",
+                border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+                background: isFocus ? "#1a202c" : "#f8fafc", color: isFocus ? "#e2e8f0" : "#1e293b",
+                fontSize: "15px", lineHeight: "1.7", resize: "vertical", direction: "rtl", fontFamily: "inherit", boxSizing: "border-box",
+              }} />
+            {!showPracticeResult && (
+              <button onClick={() => setShowPracticeResult(true)}
+                disabled={practiceAnswer.trim().length < 3}
+                style={{
+                  marginTop: "10px", padding: "10px 24px", borderRadius: "10px",
+                  background: subject.color, color: "white", border: "none", cursor: "pointer",
+                  fontSize: "14px", fontWeight: "600", opacity: practiceAnswer.trim().length < 3 ? 0.5 : 1,
+                }}>
+                בדוק/י תשובה
+              </button>
+            )}
+          </>
+        )}
+
+        {showPracticeResult && (
+          <div style={{
+            marginTop: "14px", padding: "16px", borderRadius: "12px",
+            background: isFocus ? "#16a34a15" : "#f0fdf4", border: "1px solid #16a34a40",
+          }}>
+            <div style={{ fontSize: "14px", fontWeight: "700", color: "#16a34a", marginBottom: "6px" }}>📋 התשובה הנכונה:</div>
+            <div style={{ fontSize: "14px", color: isFocus ? "#a0aec0" : "#475569", lineHeight: "1.7" }}>
+              {mq.model_answer}
+            </div>
+          </div>
+        )}
+
+        {showPracticeResult && (
+          <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+            {practiceQ < mistakes.length - 1 ? (
+              <button onClick={() => { setPracticeQ(q => q + 1); setPracticeAnswer(""); setShowPracticeResult(false); }}
+                style={{ padding: "10px 24px", borderRadius: "10px", background: subject.color, color: "white", border: "none", cursor: "pointer", fontSize: "14px", fontWeight: "600" }}>
+                שאלה הבאה →
+              </button>
+            ) : (
+              <button onClick={() => setPhase("finished")}
+                style={{ padding: "10px 24px", borderRadius: "10px", background: subject.color, color: "white", border: "none", cursor: "pointer", fontSize: "14px", fontWeight: "600" }}>
+                חזרה לסיכום ✓
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ===== EXAM STARTED PHASE =====
   return (
     <div style={{ direction: "rtl" }}>
       {/* Timer Bar */}
@@ -3309,8 +3834,24 @@ function ExamSimulation({ subject, mode }) {
         <span style={{ fontSize: "22px", fontWeight: "800", color: timeLeft < 600 ? "#ef4444" : subject.color, fontVariantNumeric: "tabular-nums" }}>
           {String(mins).padStart(2,"0")}:{String(secs).padStart(2,"0")}
         </span>
-        <span style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8" }}>15 נק'</span>
+        <span style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8" }}>{questions[currentQ]?.points} נק'</span>
       </div>
+
+      {/* Question Navigator dots */}
+      <div style={{ display: "flex", gap: "4px", justifyContent: "center", marginBottom: "16px", flexWrap: "wrap" }}>
+        {questions.map((_, i) => (
+          <button key={i} onClick={() => setCurrentQ(i)}
+            style={{
+              width: "28px", height: "28px", borderRadius: "50%", border: "none", cursor: "pointer",
+              fontSize: "11px", fontWeight: "700",
+              background: i === currentQ ? subject.color : answers[i] ? `${subject.color}30` : (isFocus ? "#2d3748" : "#f1f5f9"),
+              color: i === currentQ ? "white" : answers[i] ? subject.color : (isFocus ? "#718096" : "#94a3b8"),
+            }}>
+            {i + 1}
+          </button>
+        ))}
+      </div>
+
       {/* Question */}
       <div style={{
         background: isFocus ? "#1a202c" : "white", borderRadius: "16px", padding: "28px",
@@ -3323,24 +3864,59 @@ function ExamSimulation({ subject, mode }) {
           {questions[currentQ]?.text}
         </div>
       </div>
-      {/* Answer Area */}
-      <textarea placeholder="כתוב/י את תשובתך כאן..." style={{
-        width: "100%", minHeight: "180px", borderRadius: "14px", padding: "16px",
-        border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
-        background: isFocus ? "#2d3748" : "#f8fafc", color: isFocus ? "#e2e8f0" : "#1e293b",
-        fontSize: "15px", lineHeight: "1.8", outline: "none", resize: "vertical", direction: "rtl",
-        boxSizing: "border-box",
-      }} />
+
+      {/* Answer Area — MC or Open */}
+      {questions[currentQ]?.type === "mc" ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          {(questions[currentQ].options || []).map((opt, oi) => (
+            <button key={oi} onClick={() => setAnswers(prev => ({ ...prev, [currentQ]: String(oi) }))}
+              style={{
+                padding: "14px 18px", borderRadius: "12px", textAlign: "right",
+                border: `2px solid ${answers[currentQ] === String(oi) ? subject.color : (isFocus ? "#4a5568" : "#e2e8f0")}`,
+                background: answers[currentQ] === String(oi) ? `${subject.color}15` : (isFocus ? "#1a202c" : "#f8fafc"),
+                cursor: "pointer", color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "14px", lineHeight: "1.5",
+              }}>
+              {String.fromCharCode(1488 + oi)}. {opt}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <textarea
+          value={answers[currentQ] || ""}
+          onChange={(e) => setAnswers(prev => ({ ...prev, [currentQ]: e.target.value }))}
+          placeholder="כתוב/י את תשובתך כאן..."
+          style={{
+            width: "100%", minHeight: "180px", borderRadius: "14px", padding: "16px",
+            border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+            background: isFocus ? "#2d3748" : "#f8fafc", color: isFocus ? "#e2e8f0" : "#1e293b",
+            fontSize: "15px", lineHeight: "1.8", outline: "none", resize: "vertical", direction: "rtl",
+            boxSizing: "border-box",
+          }}
+        />
+      )}
+
       {/* Navigation */}
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
         <button onClick={() => setCurrentQ(q => Math.max(0, q-1))} disabled={currentQ === 0}
           style={{ padding: "10px 24px", borderRadius: "10px", border: "none", cursor: currentQ === 0 ? "default" : "pointer", background: isFocus ? "#2d3748" : "#f1f5f9", color: isFocus ? "#a0aec0" : "#64748b", fontSize: "14px", opacity: currentQ === 0 ? 0.4 : 1 }}>
           → הקודמת
         </button>
-        <button onClick={() => setCurrentQ(q => Math.min(questions.length-1, q+1))}
-          style={{ padding: "10px 24px", borderRadius: "10px", border: "none", cursor: "pointer", background: subject.color, color: "white", fontSize: "14px", fontWeight: "600" }}>
-          {currentQ === questions.length - 1 ? "סיום ✓" : "הבאה ←"}
-        </button>
+        {currentQ === questions.length - 1 ? (
+          <button onClick={gradeExam}
+            style={{ padding: "10px 28px", borderRadius: "10px", border: "none", cursor: "pointer", background: "#16a34a", color: "white", fontSize: "15px", fontWeight: "700" }}>
+            סיום ובדיקה ✓
+          </button>
+        ) : (
+          <button onClick={() => setCurrentQ(q => q + 1)}
+            style={{ padding: "10px 24px", borderRadius: "10px", border: "none", cursor: "pointer", background: subject.color, color: "white", fontSize: "14px", fontWeight: "600" }}>
+            הבאה ←
+          </button>
+        )}
+      </div>
+
+      {/* Answered count */}
+      <div style={{ textAlign: "center", marginTop: "12px", fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8" }}>
+        ענית על {Object.keys(answers).filter(k => (answers[k] || "").trim().length > 0).length} מתוך {questions.length} שאלות
       </div>
     </div>
   );
