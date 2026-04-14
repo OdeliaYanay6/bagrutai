@@ -226,7 +226,7 @@ const CORRECTIVE_TEACHING = {
       // Hebrew/Lashon mnemonics
       "פסוקית לוואי": { acronym: "ז.ס.ת.מ.י", phrase: "זמן, סיבה, תנאי, מקום, ייעוד — כל סוגי הלוואי!", visual: "דמיין עץ גדול (גרעין) עם ענפים (לוואי) — כל ענף סוג אחר" },
       "בניינים": { acronym: "פ.נ.פ.פ.ה.ה.ה", phrase: "פָּעַל נִפְעַל פִּעֵל פֻּעַל הִפְעִיל הֻפְעַל הִתְפַּעֵל — 7 בניינים כמו 7 ימים בשבוע!", visual: "דמיין בניין עם 7 קומות — כל קומה בניין אחר" },
-      "דמויות לשון": { acronym: "ד.מ.ה.ס.מ", phrase: "דימוי, מטאפורה, האנשה, סינקדוכה, מטונימיה", visual: "דמיין צייר שמשתמש ב-5 מכחולים שונים — כל אחד דמות לשון" },
+      "דמויות לשון": { acronym: "ד.מ.ה.ס.מ", phrase: "דימוי, מטאפורה, האנשה, סינקדוכה, מטונימיה", visual: "דמיין צייר שמשתמש ב-5 מכחולים שונים — כל אחד דמות ל��ון" },
       "רגיסטר": { acronym: null, phrase: "רגיסטר = שפה בהתאם למצב. בבית = סלנג, בבית משפט = רשמי", visual: "דמיין ארון בגדים: פיג'מה לבית, חליפה לעבודה — שפה עובדת אותו דבר!" },
       // Civics mnemonics
       "הכרזת העצמאות": { acronym: "ה.ב.ט.ה", phrase: "היסטורית, בינלאומית, טבעית, הצהרת בלפור — 4 הצדקות!", visual: "דמיין 4 עמודים שמחזיקים גג — כל עמוד הצדקה אחת למדינה" },
@@ -289,6 +289,8 @@ const SUBJECTS = {
   hebrew: {
     id: "hebrew",
     name: "עברית (לשון)",
+    icon: "📝",
+    color: "#6366f1",
     examNumber: "011101",
     units: [
       { id: "A01", title: "סוגי משפטים — משפט פשוט", examUnit: "יח011101 — יחידה 1", topics: ["משפט פשוט", "נושא ונשוא", "משפט חד-נשואי", "סדר מילים"], summary: "המשפט הפשוט מכיל נשוא אחד בלבד.", status: "ready" },
@@ -313,6 +315,8 @@ const SUBJECTS = {
   civics: {
     id: "civics",
     name: "אזרחות",
+    icon: "🏛️",
+    color: "#64748b",
     examNumber: "011102",
     units: [
       { id: "A01", title: "הכרזת העצמאות ועקרונותיה", examUnit: "יח011102 — יחידה 1", topics: ["הכרזת העצמאות", "זכויות", "חירויות"], summary: "הכרזת העצמאות של ישראל היא התיעוד היסודי של זכויות אדם.", status: "ready" },
@@ -328,6 +332,8 @@ const SUBJECTS = {
   history: {
     id: "history",
     name: "היסטוריה",
+    icon: "📜",
+    color: "#a855f7",
     examNumber: "011103",
     units: [
       { id: "A01", title: "לאומיות מודרנית באירופה", examUnit: "יח011103 — יחידה 1", topics: ["לאומיות", "מדינה-עם", "תנועות לאומיות"], summary: "לאומיות מודרנית נולדה בעת המודרנה בעקבות הרנסנס.", status: "ready" },
@@ -345,6 +351,8 @@ const SUBJECTS = {
   literature: {
     id: "literature",
     name: "ספרות",
+    icon: "📖",
+    color: "#ec4899",
     examNumber: "011104",
     units: [
       { id: "A01", title: "תנועות ספרותיות ודורות בספרות עברית", examUnit: "יח011104 — יחידה 1", topics: ["תנועות", "דורות", "ספרות עברית"], summary: "ספרות עברית עברה דורות וגלויות מרובות.", status: "ready" },
@@ -360,6 +368,8 @@ const SUBJECTS = {
   biology: {
     id: "biology",
     name: "ביולוגיה",
+    icon: "🧬",
+    color: "#10b981",
     examNumber: "011105",
     units: [
       { id: "A01", title: "התא — מבנה וחילוף חומרים", examUnit: "יח011105 — יחידה 1", topics: ["תא", "אברונים", "חילוף חומרים"], summary: "התא הוא יחידת החיים הבסיסית של כל היצורים.", status: "ready" },
@@ -374,6 +384,8 @@ const SUBJECTS = {
   geography: {
     id: "geography",
     name: "גיאוגרפיה",
+    icon: "🌍",
+    color: "#0ea5e9",
     examNumber: "011106",
     units: [
       { id: "A01", title: "גיאוגרפיה פיזית — מעלות וגבהות", examUnit: "יח011106 — יחידה 1", topics: ["טופוגרפיה", "גבוהות", "עמקים"], summary: "טופוגרפיה עושה צורת יבשת וזרימת מים.", status: "ready" },
@@ -383,6 +395,61 @@ const SUBJECTS = {
       { id: "A05", title: "בעיות גיאוגרפיות — שינוי אקלים ודיגרדציה", examUnit: "יח011106 — יחידה 5", topics: ["שינוי אקלים", "דיגרדציה", "הידרה"], summary: "שינוי אקלים משנה קשרים גיאוגרפיים בעולם.", status: "ready" },
       { id: "A06", title: "ישראל — גיאוגרפיה פיזית", examUnit: "יח011106 — יחידה 6", topics: ["גיאוגרפיה ישראל", "אקלים", "אזורים"], summary: "ישראל בעלת מגוון גיאוגרפי ברחוק הערבה.", status: "ready" },
       { id: "A07", title: "ישראל — סוגיות חברתיות וכלכליות", examUnit: "יח011106 — יחידה 7", topics: ["חברה", "כלכלה", "סוגיות"], summary: "ישראל עומדת בפני סוגיות חברתיות וכלכליות מורכבות.", status: "ready" },
+    ]
+  },
+  math: {
+    id: "math",
+    name: "מתמטיקה",
+    icon: "📐",
+    color: "#ef4444",
+    examNumber: "035801",
+    units: [
+      { id: "A01", title: "אלגברה — משוואות ואי-שוויונות", examUnit: "יח035801 — יחידה 1", topics: ["משוואות ליניאריות", "אי-שוויונות", "ערך מוחלט", "משוואות ריבועיות"], summary: "פתרון משוואות ואי-שוויונות הוא הבסיס לאלגברה.", status: "ready" },
+      { id: "A02", title: "פונקציות — הגדרה וייצוג", examUnit: "יח035801 — יחידה 2", topics: ["פונקציה", "תחום", "טווח", "גרף"], summary: "פונקציה היא התאמה שבה לכל ערך בתחום מתאים ערך יחיד בטווח.", status: "ready" },
+      { id: "A03", title: "פונקציה ריבועית ומשוואה ריבועית", examUnit: "יח035801 — יחידה 3", topics: ["פרבולה", "קודקוד", "דיסקרימיננטה", "נוסחת השורשים"], summary: "הפונקציה הריבועית מיוצגת בגרף כפרבולה עם קודקוד.", status: "ready" },
+      { id: "A04", title: "סדרות חשבוניות והנדסיות", examUnit: "יח035801 — יחידה 4", topics: ["סדרה חשבונית", "סדרה הנדסית", "נוסחת האיבר הכללי", "סכום סדרה"], summary: "סדרה חשבונית בעלת הפרש קבוע וסדרה הנדסית בעלת מנה קבועה.", status: "ready" },
+      { id: "A05", title: "טריגונומטריה במשולש", examUnit: "יח035801 — יחידה 5", topics: ["סינוס", "קוסינוס", "טנגנס", "משפט הסינוסים"], summary: "טריגונומטריה עוסקת ביחסים בין צלעות וזוויות במשולש.", status: "ready" },
+      { id: "A06", title: "גיאומטריה אנליטית — ישרים ומעגלים", examUnit: "יח035801 — יחידה 6", topics: ["משוואת ישר", "שיפוע", "מרחק בין נקודות", "משוואת מעגל"], summary: "גיאומטריה אנליטית משלבת אלגברה וגיאומטריה במערכת צירים.", status: "ready" },
+      { id: "A07", title: "הסתברות וקומבינטוריקה", examUnit: "יח035801 — יחידה 7", topics: ["הסתברות", "עץ הסתברות", "תמורות", "צירופים"], summary: "הסתברות מודדת את הסיכוי שמאורע מסוים יתרחש.", status: "ready" },
+      { id: "A08", title: "חדו״א — נגזרות", examUnit: "יח035801 — יחידה 8", topics: ["נגזרת", "כללי גזירה", "נקודות קיצון", "משיק"], summary: "הנגזרת מודדת את קצב השינוי של פונקציה בנקודה.", status: "ready" },
+      { id: "A09", title: "חדו״א — אינטגרלים", examUnit: "יח035801 — יחידה 9", topics: ["אינטגרל", "שטח מתחת לגרף", "אינטגרל מסוים", "פונקציה קדומה"], summary: "האינטגרל הוא הפעולה ההפוכה לגזירה ומשמש לחישוב שטחים.", status: "ready" },
+      { id: "A10", title: "סטטיסטיקה ונתונים", examUnit: "יח035801 — יחידה 10", topics: ["ממוצע", "חציון", "סטיית תקן", "התפלגות נורמלית"], summary: "סטטיסטיקה עוסקת באיסוף נתונים, ניתוחם והסקת מסקנות.", status: "ready" },
+    ]
+  },
+  english: {
+    id: "english",
+    name: "אנגלית",
+    icon: "🇬🇧",
+    color: "#3b82f6",
+    examNumber: "016101",
+    units: [
+      { id: "A01", title: "Reading Comprehension — Unseen Texts", examUnit: "יח016101 — יחידה 1", topics: ["Main idea", "Supporting details", "Inference", "Vocabulary in context"], summary: "הבנת הנקרא של טקסטים שלא נלמדו מראש, כולל זיהוי רעיון מרכזי.", status: "ready" },
+      { id: "A02", title: "Reading Comprehension — Literature", examUnit: "יח016101 — יחידה 2", topics: ["Literary analysis", "Characters", "Theme", "Tone"], summary: "ניתוח יצירות ספרותיות באנגלית — דמויות, נושאים, וסגנון.", status: "ready" },
+      { id: "A03", title: "Writing — Essay & Composition", examUnit: "יח016101 — יחידה 3", topics: ["Essay structure", "Thesis statement", "Paragraphs", "Transitions"], summary: "כתיבת חיבור באנגלית עם מבנה ברור: פתיחה, גוף, וסיכום.", status: "ready" },
+      { id: "A04", title: "Grammar — Tenses & Verb Forms", examUnit: "יח016101 — יחידה 4", topics: ["Present tenses", "Past tenses", "Future", "Perfect tenses"], summary: "שליטה בזמני הפועל באנגלית — הווה, עבר, עתיד, ומושלם.", status: "ready" },
+      { id: "A05", title: "Grammar — Sentence Structure", examUnit: "יח016101 — יחידה 5", topics: ["Active/Passive", "Conditionals", "Relative clauses", "Reported speech"], summary: "מבני משפט מתקדמים — סביל, תנאי, פסוקיות יחס, ודיבור עקיף.", status: "ready" },
+      { id: "A06", title: "Vocabulary Building", examUnit: "יח016101 — יחידה 6", topics: ["Word families", "Prefixes", "Suffixes", "Collocations"], summary: "הרחבת אוצר מילים באמצעות משפחות מילים, תחיליות וסיומות.", status: "ready" },
+      { id: "A07", title: "Listening Comprehension", examUnit: "יח016101 — יחידה 7", topics: ["Main idea", "Details", "Inference", "Note-taking"], summary: "הבנת הנשמע — זיהוי מידע עיקרי ומשני מתוך הקלטה.", status: "ready" },
+      { id: "A08", title: "Oral Presentation & Interaction", examUnit: "יח016101 — יחידה 8", topics: ["Presentation skills", "Discussion", "Fluency", "Pronunciation"], summary: "מיומנויות דיבור — הצגה בעל-פה, דיון, והגייה נכונה.", status: "ready" },
+    ]
+  },
+  tanach: {
+    id: "tanach",
+    name: "תנ״ך",
+    icon: "📕",
+    color: "#b45309",
+    examNumber: "001101",
+    units: [
+      { id: "A01", title: "בראשית — סיפורי האבות", examUnit: "יח001101 — יחידה 1", topics: ["אברהם", "יצחק", "יעקב", "ברית"], summary: "סיפורי האבות עוסקים בהבטחות האל ובבניית זהות עם ישראל.", status: "ready" },
+      { id: "A02", title: "שמות — יציאת מצרים ומתן תורה", examUnit: "יח001101 — יחידה 2", topics: ["עבדות", "משה", "עשר המכות", "מעמד הר סיני"], summary: "יציאת מצרים היא אירוע מכונן בהיסטוריה של עם ישראל.", status: "ready" },
+      { id: "A03", title: "שופטים — מנהיגות ומשפט", examUnit: "יח001101 — יחידה 3", topics: ["דבורה", "גדעון", "שמשון", "מחזוריות"], summary: "ספר שופטים מציג דפוס מחזורי של חטא, עונש, זעקה, והצלה.", status: "ready" },
+      { id: "A04", title: "שמואל — המלוכה בישראל", examUnit: "יח001101 — יחידה 4", topics: ["שאול", "דוד", "שמואל", "מלוכה"], summary: "ספר שמואל עוסק בהקמת המלוכה ובמעבר משופטים למלכים.", status: "ready" },
+      { id: "A05", title: "מלכים — פילוג הממלכה ונביאי ישראל", examUnit: "יח001101 — יחידה 5", topics: ["שלמה", "ירבעם", "אליהו", "פילוג"], summary: "ספר מלכים מתאר את פילוג הממלכה ואת פעילות הנביאים.", status: "ready" },
+      { id: "A06", title: "ישעיהו — נבואות תוכחה ונחמה", examUnit: "יח001101 — יחידה 6", topics: ["נבואה", "תוכחה", "נחמה", "גאולה"], summary: "ישעיהו מוכיח את העם על חטאיו ומנחם בחזון הגאולה.", status: "ready" },
+      { id: "A07", title: "ירמיהו — נבואה בתקופת החורבן", examUnit: "יח001101 — יחידה 7", topics: ["ירמיהו", "חורבן", "גלות", "תשובה"], summary: "ירמיהו ניבא על חורבן בית המקדש וקרא לעם לחזור בתשובה.", status: "ready" },
+      { id: "A08", title: "תהילים ומשלי — ספרות החכמה", examUnit: "יח001101 — יחידה 8", topics: ["תהילים", "משלי", "חכמה", "תפילה"], summary: "ספרות החכמה כוללת שירה, תפילה, ואמרות מוסר.", status: "ready" },
+      { id: "A09", title: "רות ואסתר — מגילות", examUnit: "יח001101 — יחידה 9", topics: ["רות", "אסתר", "חסד", "גאולה"], summary: "מגילות רות ואסתר עוסקות בנשים שפעלו למען עמן.", status: "ready" },
+      { id: "A10", title: "עמוס — צדק חברתי ומוסר", examUnit: "יח001101 — יחידה 10", topics: ["עמוס", "צדק חברתי", "תוכחה", "מוסר"], summary: "עמוס מוכיח את העם על עוול חברתי ודורש צדק ומוסר.", status: "ready" },
     ]
   },
 };
@@ -497,6 +564,132 @@ const CONTENT_DATA = {
       pit: ["בלבול בין סמכויות של שלוש ענפי הכוח.", "אי-הבנת המטרה של הפרדה."],
       tips: ["זכור: כנסת = חקיקה, ממשלה = ביצוע, משפט = שפיטה.", "בדוק דוגמאות לאיזון כוחות בישראל."],
       terms: ["כנסת", "ממשלה", "בתי משפט", "הפרדת כוחות"]
+    }
+  },
+  math: {
+    A01: {
+      q: [
+        { id: "MA-A01-Q1", t: "open", p: "פתור את המשוואה: 3x + 7 = 22. הראה את שלבי הפתרון.", a: "3x + 7 = 22 → 3x = 15 → x = 5. בדיקה: 3·5 + 7 = 22 ✓" },
+        { id: "MA-A01-Q2", t: "mc", p: "מהו הפתרון של המשוואה 2x - 4 = 10?", o: ["x = 3", "x = 7", "x = 5", "x = 8"], c: 1, pts: 5 },
+        { id: "MA-A01-Q3", t: "open", p: "פתור את אי-השוויון: 5x - 3 > 12 וסמן את הפתרון על ציר המספרים.", a: "5x > 15 → x > 3. על ציר המספרים: עיגול פתוח ב-3 וחץ ימינה." }
+      ],
+      pit: ["שכחה להפוך את כיוון סימן האי-שוויון בכפל/חילוק במספר שלילי.", "טעויות בהעברת אגפים — שכחת שינוי סימן."],
+      tips: ["תמיד בדקו את התשובה על ידי הצבה חזרה במשוואה.", "באי-שוויון: כפל או חילוק במספר שלילי הופך את הסימן."],
+      terms: ["משוואה", "אי-שוויון", "משתנה", "פתרון", "הצבה"]
+    },
+    A02: {
+      q: [
+        { id: "MA-A02-Q1", t: "mc", p: "אם f(x) = 2x + 3, מהו f(4)?", o: ["8", "11", "14", "7"], c: 1, pts: 5 },
+        { id: "MA-A02-Q2", t: "open", p: "הסבר מהו תחום הגדרה של פונקציה ותן דוגמה.", a: "תחום ההגדרה הוא קבוצת כל ערכי x שעבורם הפונקציה מוגדרת. דוגמה: f(x) = 1/x — התחום הוא כל המספרים חוץ מ-0." },
+        { id: "MA-A02-Q3", t: "mc", p: "איזה מהגרפים הבאים אינו מייצג פונקציה?", o: ["קו ישר", "פרבולה", "מעגל", "היפרבולה"], c: 2, pts: 5 }
+      ],
+      pit: ["בלבול בין תחום לטווח.", "שכחה שמעגל לא עובר מבחן הקו האנכי."],
+      tips: ["מבחן הקו האנכי: אם קו אנכי חותך את הגרף ביותר מנקודה אחת — זו לא פונקציה.", "תחום = ערכי x, טווח = ערכי y."],
+      terms: ["פונקציה", "תחום", "טווח", "גרף", "מבחן הקו האנכי"]
+    },
+    A03: {
+      q: [
+        { id: "MA-A03-Q1", t: "open", p: "מצא את שורשי המשוואה x² - 5x + 6 = 0 בעזרת נוסחת השורשים.", a: "a=1, b=-5, c=6. Δ = 25-24 = 1. x₁ = (5+1)/2 = 3, x₂ = (5-1)/2 = 2." },
+        { id: "MA-A03-Q2", t: "mc", p: "כמה פתרונות יש למשוואה ריבועית כאשר הדיסקרימיננטה שווה לאפס?", o: ["אין פתרון", "פתרון אחד (כפול)", "שני פתרונות", "אינסוף פתרונות"], c: 1, pts: 5 },
+        { id: "MA-A03-Q3", t: "open", p: "מצא את קודקוד הפרבולה f(x) = x² - 4x + 3.", a: "x_v = -b/2a = 4/2 = 2. y_v = f(2) = 4 - 8 + 3 = -1. הקודקוד: (2, -1)." }
+      ],
+      pit: ["טעות בסימן של b בנוסחת השורשים.", "שכחה ש-Δ<0 אומר שאין פתרונות ממשיים."],
+      tips: ["נוסחת השורשים: x = (-b ± √Δ) / 2a כאשר Δ = b²-4ac.", "קודקוד הפרבולה: x = -b/2a."],
+      terms: ["משוואה ריבועית", "דיסקרימיננטה", "שורשים", "פרבולה", "קודקוד"]
+    },
+    A04: {
+      q: [
+        { id: "MA-A04-Q1", t: "open", p: "מצא את האיבר ה-10 בסדרה חשבונית שבה a₁=3 ו-d=4.", a: "aₙ = a₁ + (n-1)·d = 3 + 9·4 = 3 + 36 = 39." },
+        { id: "MA-A04-Q2", t: "mc", p: "מהו סכום 20 האיברים הראשונים של סדרה חשבונית שבה a₁=1 ו-d=2?", o: ["400", "380", "420", "200"], c: 0, pts: 5 },
+        { id: "MA-A04-Q3", t: "open", p: "בסדרה הנדסית a₁=2 ו-q=3. מצא את האיבר החמישי.", a: "aₙ = a₁ · q^(n-1) = 2 · 3⁴ = 2 · 81 = 162." }
+      ],
+      pit: ["בלבול בין סדרה חשבונית (הפרש) להנדסית (מנה).", "טעות ב-n-1 בנוסחה — שימוש ב-n במקום n-1."],
+      tips: ["סדרה חשבונית: aₙ = a₁ + (n-1)d. סדרה הנדסית: aₙ = a₁ · q^(n-1).", "סכום סדרה חשבונית: Sₙ = n(a₁+aₙ)/2."],
+      terms: ["סדרה חשבונית", "סדרה הנדסית", "הפרש", "מנה", "סכום"]
+    }
+  },
+  english: {
+    A01: {
+      q: [
+        { id: "EN-A01-Q1", t: "open", p: "Read the sentence: 'The research suggests that climate change affects biodiversity.' What is the main idea?", a: "The main idea is that climate change has an impact on biodiversity (the variety of life forms)." },
+        { id: "EN-A01-Q2", t: "mc", p: "What does 'infer' mean in reading comprehension?", o: ["To copy text directly", "To draw a conclusion from evidence", "To summarize the text", "To translate the text"], c: 1, pts: 5 },
+        { id: "EN-A01-Q3", t: "open", p: "Explain the difference between 'main idea' and 'supporting details' in a text.", a: "Main idea: the central point the author wants to convey. Supporting details: facts, examples, and explanations that back up the main idea." }
+      ],
+      pit: ["Confusing the main idea with a supporting detail.", "Choosing answers based on familiar words rather than meaning."],
+      tips: ["Look for the topic sentence — it's usually the first or last sentence of a paragraph.", "Ask yourself: 'What is the author trying to tell me?' to find the main idea."],
+      terms: ["Main idea", "Supporting details", "Inference", "Context clues"]
+    },
+    A02: {
+      q: [
+        { id: "EN-A02-Q1", t: "mc", p: "In literary analysis, what is the 'theme' of a story?", o: ["The setting", "The main character", "The underlying message", "The plot summary"], c: 2, pts: 5 },
+        { id: "EN-A02-Q2", t: "open", p: "Explain the difference between a 'flat character' and a 'round character'.", a: "A flat character is simple and one-dimensional, with few traits. A round character is complex, with many personality traits and undergoes development." },
+        { id: "EN-A02-Q3", t: "open", p: "What is the difference between 'first person' and 'third person' narration?", a: "First person: the narrator is a character in the story, uses 'I'. Third person: the narrator is outside the story, uses 'he/she/they'." }
+      ],
+      pit: ["Confusing theme with plot — theme is the message, plot is what happens.", "Mixing up types of narration."],
+      tips: ["Theme = the lesson or message. Ask: 'What does the author want us to learn?'", "Look for repeated ideas or symbols to identify the theme."],
+      terms: ["Theme", "Character", "Narration", "Setting", "Plot"]
+    },
+    A03: {
+      q: [
+        { id: "EN-A03-Q1", t: "open", p: "Write a thesis statement for an essay about the advantages of technology in education.", a: "Example: 'Technology in education enhances learning by providing interactive tools, personalized content, and access to global resources.'" },
+        { id: "EN-A03-Q2", t: "mc", p: "What is the correct order of an essay?", o: ["Body → Introduction → Conclusion", "Conclusion → Body → Introduction", "Introduction → Body → Conclusion", "Introduction → Conclusion → Body"], c: 2, pts: 5 },
+        { id: "EN-A03-Q3", t: "open", p: "What are 'transition words'? Give 3 examples.", a: "Transition words connect ideas between sentences or paragraphs. Examples: However, Furthermore, In addition, Therefore, On the other hand." }
+      ],
+      pit: ["Writing a thesis that is too vague or too broad.", "Forgetting to use transition words between paragraphs."],
+      tips: ["A good thesis statement includes your topic + your position + 2-3 reasons.", "Use the 'hamburger' model: introduction (top bun), body paragraphs (fillings), conclusion (bottom bun)."],
+      terms: ["Thesis statement", "Introduction", "Body paragraph", "Conclusion", "Transition words"]
+    },
+    A04: {
+      q: [
+        { id: "EN-A04-Q1", t: "mc", p: "Choose the correct tense: 'She ___ to school every day.'", o: ["go", "goes", "going", "gone"], c: 1, pts: 5 },
+        { id: "EN-A04-Q2", t: "open", p: "Explain the difference between Present Simple and Present Continuous. Give an example of each.", a: "Present Simple: habitual actions — 'I study every day.' Present Continuous: actions happening now — 'I am studying right now.'" },
+        { id: "EN-A04-Q3", t: "mc", p: "Which sentence is in the Past Perfect tense?", o: ["I ate lunch.", "I was eating lunch.", "I had eaten lunch before he arrived.", "I will eat lunch."], c: 2, pts: 5 }
+      ],
+      pit: ["Confusing Present Simple with Present Continuous.", "Forgetting the auxiliary 'had' in Past Perfect."],
+      tips: ["Present Simple = routine/facts. Present Continuous = right now/temporary.", "Past Perfect = the earlier of two past events. Signal: 'had' + past participle."],
+      terms: ["Present Simple", "Present Continuous", "Past Perfect", "Auxiliary verb", "Tense"]
+    }
+  },
+  tanach: {
+    A01: {
+      q: [
+        { id: "TN-A01-Q1", t: "open", p: "הסבר את משמעות הברית בין אברהם לאלוהים. מה הובטח ומה נדרש?", a: "הבטחת הארץ, זרע רב ('ככוכבי השמים'), וברכה. מאברהם נדרשו אמונה, ציות, וברית מילה." },
+        { id: "TN-A01-Q2", t: "mc", p: "מי מבין האבות עבד 14 שנה עבור אשתו?", o: ["אברהם", "יצחק", "יעקב", "יוסף"], c: 2, pts: 5 },
+        { id: "TN-A01-Q3", t: "open", p: "מהו ניסיון העקידה ומה המסר המרכזי שלו?", a: "אלוהים ציווה על אברהם להעלות את יצחק לעולה. המסר: מבחן האמונה המוחלטת — אברהם הוכיח נאמנות מלאה ונעצר בידי מלאך." }
+      ],
+      pit: ["בלבול בין הבטחות לאברהם לבין הבטחות ליעקב.", "טעות בסדר הכרונולוגי של אירועי חיי האבות."],
+      tips: ["זכרו את שלוש ההבטחות: ארץ, זרע, ברכה.", "כל אב מייצג תכונה: אברהם = חסד, יצחק = גבורה, יעקב = אמת."],
+      terms: ["ברית", "הבטחה", "עקידה", "אמונה", "מילה"]
+    },
+    A02: {
+      q: [
+        { id: "TN-A02-Q1", t: "open", p: "תאר את עשר המכות ומטרתן.", a: "עשר מכות שהביא אלוהים על מצרים כדי לשכנע את פרעה לשחרר את בני ישראל. המטרה: להראות את כוח אלוהים ולשחרר את העם מעבדות." },
+        { id: "TN-A02-Q2", t: "mc", p: "מה קיבלו בני ישראל במעמד הר סיני?", o: ["את ארץ כנען", "את עשרת הדיברות", "את המלוכה", "את בית המקדש"], c: 1, pts: 5 },
+        { id: "TN-A02-Q3", t: "open", p: "מהו חטא העגל ומה המשמעות שלו?", a: "בני ישראל יצרו עגל זהב כאשר משה שהה בהר סיני. המשמעות: חוסר אמונה ונסיגה לעבודה זרה למרות הניסים שחוו." }
+      ],
+      pit: ["בלבול בסדר המכות.", "אי-הבנת ההבדל בין ברית סיני לברית האבות."],
+      tips: ["עשר המכות: דם, צפרדע, כינים, ערוב, דבר, שחין, ברד, ארבה, חושך, בכורות.", "מעמד הר סיני = ברית בין אלוהים לעם כולו (לא רק לפרט)."],
+      terms: ["עשר המכות", "יציאת מצרים", "עשרת הדיברות", "מעמד הר סיני", "חטא העגל"]
+    },
+    A03: {
+      q: [
+        { id: "TN-A03-Q1", t: "open", p: "הסבר את הדפוס המחזורי בספר שופטים.", a: "הדפוס: חטא (העם עובד אלילים) → עונש (שעבוד לאויב) → זעקה (העם פונה לאלוהים) → הצלה (שופט קם ומושיע). המחזור חוזר על עצמו." },
+        { id: "TN-A03-Q2", t: "mc", p: "מי הייתה השופטת היחידה בספר שופטים?", o: ["רות", "אסתר", "דבורה", "מרים"], c: 2, pts: 5 },
+        { id: "TN-A03-Q3", t: "open", p: "מה ההבדל בין שופט למלך בתפיסה המקראית?", a: "שופט: מנהיג זמני שנבחר על ידי אלוהים בעת צרה. מלך: מנהיג קבוע שעובר בירושה. השופט אינו מקים שושלת." }
+      ],
+      pit: ["בלבול בין דמויות השופטים השונים.", "אי-זיהוי הדפוס המחזורי בסיפורים שונים."],
+      tips: ["דפוס מחזורי: חטא → עונש → זעקה → הצלה. זהו אותו מבנה בכל סיפור.", "שופטים מרכזיים לבגרות: דבורה, גדעון, יפתח, שמשון."],
+      terms: ["שופט", "דפוס מחזורי", "עבודת אלילים", "הצלה", "שעבוד"]
+    },
+    A04: {
+      q: [
+        { id: "TN-A04-Q1", t: "open", p: "מדוע ביקש העם מלך ומה הייתה תגובת שמואל?", a: "העם ביקש מלך כדי להידמות לעמים אחרים ולהילחם במלחמותיהם. שמואל התנגד כי ראה בכך דחיית מלכות אלוהים, אך אלוהים הורה לו להיענות." },
+        { id: "TN-A04-Q2", t: "mc", p: "מי היה המלך הראשון של ישראל?", o: ["דוד", "שלמה", "שאול", "שמואל"], c: 2, pts: 5 },
+        { id: "TN-A04-Q3", t: "open", p: "מהם חטאי שאול שהובילו לאיבוד המלוכה?", a: "שני חטאים עיקריים: 1) הקרבת קורבן במקום שמואל (חוסר סבלנות). 2) אי-השמדת עמלק כפי שנצטווה (אי-ציות לצו אלוהי)." }
+      ],
+      pit: ["בלבול בין סיבות דחיית שאול לסיבות בחירת דוד.", "אי-הבנת תפקיד הנביא מול המלך."],
+      tips: ["שאול נדחה בגלל אי-ציות, דוד נבחר בגלל ליבו ('איש כלבבי').", "הקונפליקט בספר שמואל: מלוכה אנושית מול מלכות אלוהים."],
+      terms: ["מלוכה", "נביא", "משיחה", "ציות", "שמואל"]
     }
   },
 };
@@ -3210,3 +3403,4 @@ root.render(<BagrutAI />);
 </script>
 </body>
 </html>
+
