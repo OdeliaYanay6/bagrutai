@@ -2708,6 +2708,28 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
               }));
               const questions = openFromContent.length > 0 ? openFromContent : generatedQs;
               const q = questions[currentQuestion % questions.length];
+
+              // Smart keyword matching for open answers
+              const checkOpenAnswer = (userAns, modelAns) => {
+                if (!userAns || !modelAns) return { match: false, score: 0 };
+                const normalize = (text) => text.replace(/["""״׳'`.,;:!?\-–—()\[\]{}\/\\]/g, " ").replace(/\s+/g, " ").trim();
+                const userNorm = normalize(userAns);
+                const modelNorm = normalize(modelAns);
+                // Extract meaningful keywords (3+ chars) from model answer
+                const stopWords = new Set(["של", "את", "על", "עם", "הוא", "היא", "הם", "הן", "זה", "זו", "אלה", "אלו", "או", "אם", "כי", "גם", "רק", "לא", "כל", "יותר", "מאוד", "עוד", "אין", "יש", "היה", "הייתה", "היו", "להיות", "שהוא", "שהיא", "אשר", "כאשר", "כמו", "בין", "לבין", "אך", "אבל", "אלא", "כדי", "מתוך", "בתוך", "לפי", "ביותר"]);
+                const modelWords = modelNorm.split(" ").filter(w => w.length >= 3 && !stopWords.has(w));
+                const uniqueKeywords = [...new Set(modelWords)];
+                if (uniqueKeywords.length === 0) return { match: true, score: 100 };
+                // Check how many keywords appear in user answer
+                let matchCount = 0;
+                for (const keyword of uniqueKeywords) {
+                  if (userNorm.includes(keyword)) matchCount++;
+                }
+                const score = Math.round((matchCount / uniqueKeywords.length) * 100);
+                // Lenient: 30%+ keyword match = correct
+                return { match: score >= 30, score, matched: matchCount, total: uniqueKeywords.length };
+              };
+
               return (
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
@@ -2751,64 +2773,46 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
                   {!showAnswer && (
                     <button onClick={() => {
                       setShowAnswer(true);
-                      const isCorrect = userAnswer.trim().length >= 30;
-                      const result = { question: q.text, userAnswer, correct: isCorrect, type: "open", topic: q.topic, unit: unit.title };
+                      const result_check = checkOpenAnswer(userAnswer, q.model_answer);
+                      const isCorrect = result_check.match;
+                      const result = { question: q.text, userAnswer, correct: isCorrect, type: "open", topic: q.topic, unit: unit.title, score: result_check.score };
                       setQuestionResults(prev => [...prev, result]);
                       if (onAddMistake) onAddMistake(result);
                     }}
                       style={{
                         marginTop: "12px", padding: "12px 28px", borderRadius: "10px",
                         background: subject.color, color: "white", border: "none",
-                        cursor: userAnswer.trim().length < 5 ? "not-allowed" : "pointer",
+                        cursor: userAnswer.trim().length < 3 ? "not-allowed" : "pointer",
                         fontSize: "15px", fontWeight: "600",
-                        opacity: userAnswer.trim().length < 5 ? 0.5 : 1,
+                        opacity: userAnswer.trim().length < 3 ? 0.5 : 1,
                       }}
-                      disabled={userAnswer.trim().length < 5}>
+                      disabled={userAnswer.trim().length < 3}>
                       בדוק/י תשובה
                     </button>
                   )}
 
-                  {showAnswer && (
+                  {showAnswer && (() => {
+                    const lastResult = questionResults[questionResults.length - 1];
+                    const isCorrect = lastResult?.correct;
+                    return (
                     <div style={{
                       marginTop: "16px", padding: "20px", borderRadius: "12px",
-                      background: isFocus ? "#1a202c" : "#f0fdf4",
-                      border: "1px solid #16a34a40",
+                      background: isCorrect ? (isFocus ? "#16a34a15" : "#f0fdf4") : (isFocus ? "#ef444415" : "#fef2f2"),
+                      border: `1px solid ${isCorrect ? "#16a34a" : "#ef4444"}40`,
                     }}>
-                      <div style={{ fontSize: "14px", fontWeight: "700", marginBottom: "8px" }}>
-                        ✅ תשובה לדוגמה:
+                      <div style={{ fontSize: "18px", fontWeight: "700", marginBottom: "12px", color: isCorrect ? "#16a34a" : "#ef4444" }}>
+                        {isCorrect ? "✅ כל הכבוד! תשובה נכונה!" : "❌ לא מדויק — בוא/י נלמד מזה!"}
                       </div>
-                      <div style={{ fontSize: "14px", color: isFocus ? "#a0aec0" : "#475569", lineHeight: "1.7" }}>
+                      {lastResult?.score !== undefined && (
+                        <div style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8", marginBottom: "10px" }}>
+                          דיוק: {lastResult.score}% מהמושגים המרכזיים
+                        </div>
+                      )}
+                      <div style={{ fontSize: "14px", fontWeight: "700", marginBottom: "8px", color: isFocus ? "#e2e8f0" : "#1e293b" }}>
+                        📋 תשובה נכונה:
+                      </div>
+                      <div style={{ fontSize: "14px", color: isFocus ? "#a0aec0" : "#475569", lineHeight: "1.7", background: isFocus ? "#2d3748" : "#ffffff80", padding: "12px", borderRadius: "8px" }}>
                         {q.model_answer}
-                      </div>
-                      <div style={{ marginTop: "12px", fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8" }}>
-                        💡 השווה/י את תשובתך לתשובה לדוגמה. האם כללת הגדרה, הסבר, ודוגמה?
-                      </div>
-
-                      <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
-                        <button onClick={() => {
-                          setQuestionResults(prev => { const updated = [...prev]; updated[updated.length - 1].correct = true; return updated; });
-                          if (onAddMistake) onAddMistake({ question: q.text, userAnswer, correct: true, type: "open", topic: q.topic, unit: unit.title });
-                        }}
-                          style={{
-                            padding: "8px 20px", borderRadius: "8px", border: "1px solid #16a34a",
-                            background: questionResults[questionResults.length - 1]?.correct ? "#16a34a" : "transparent",
-                            color: questionResults[questionResults.length - 1]?.correct ? "white" : "#16a34a",
-                            cursor: "pointer", fontSize: "13px", fontWeight: "600",
-                          }}>
-                          ✅ הצלחתי
-                        </button>
-                        <button onClick={() => {
-                          setQuestionResults(prev => { const updated = [...prev]; updated[updated.length - 1].correct = false; return updated; });
-                          if (onAddMistake) onAddMistake({ question: q.text, userAnswer, correct: false, type: "open", topic: q.topic, unit: unit.title });
-                        }}
-                          style={{
-                            padding: "8px 20px", borderRadius: "8px", border: "1px solid #ef4444",
-                            background: questionResults.length > 0 && !questionResults[questionResults.length - 1]?.correct ? "#ef4444" : "transparent",
-                            color: questionResults.length > 0 && !questionResults[questionResults.length - 1]?.correct ? "white" : "#ef4444",
-                            cursor: "pointer", fontSize: "13px", fontWeight: "600",
-                          }}>
-                          ❌ לא הצלחתי
-                        </button>
                       </div>
 
                       <button onClick={() => {
@@ -2817,14 +2821,15 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
                         setUserAnswer("");
                       }}
                         style={{
-                          marginTop: "12px", padding: "10px 24px", borderRadius: "8px",
+                          marginTop: "16px", padding: "10px 24px", borderRadius: "8px",
                           background: subject.color, color: "white", border: "none",
                           cursor: "pointer", fontSize: "14px", fontWeight: "600",
                         }}>
                         שאלה הבאה →
                       </button>
                     </div>
-                  )}
+                    );
+                  })()}
                 </div>
               );
             })()}
@@ -2882,7 +2887,17 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
                       else if (showResult && isSelected && !isCorrect) { borderColor = "#ef4444"; bgColor = isFocus ? "#ef444415" : "#fef2f2"; }
                       else if (isSelected) { borderColor = subject.color; bgColor = `${subject.color}10`; }
                       return (
-                        <button key={oi} onClick={() => { if (!showAnswer) setSelectedOption(oi); }}
+                        <button key={oi} onClick={() => {
+                          if (!showAnswer) {
+                            setSelectedOption(oi);
+                            // Auto-check immediately on click
+                            setShowAnswer(true);
+                            const wasCorrect = oi === q.correctIndex;
+                            const result = { question: q.text, userAnswer: q.options[oi], correct: wasCorrect, type: "mc", topic: q.topic, unit: unit.title };
+                            setQuestionResults(prev => [...prev, result]);
+                            if (onAddMistake) onAddMistake(result);
+                          }
+                        }}
                           disabled={showAnswer}
                           style={{
                             padding: "14px 18px", borderRadius: "12px", textAlign: "right",
@@ -2902,23 +2917,6 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
                       );
                     })}
                   </div>
-
-                  {selectedOption !== null && !showAnswer && (
-                    <button onClick={() => {
-                      setShowAnswer(true);
-                      const isCorrect = selectedOption === q.correctIndex;
-                      const result = { question: q.text, userAnswer: q.options[selectedOption], correct: isCorrect, type: "mc", topic: q.topic, unit: unit.title };
-                      setQuestionResults(prev => [...prev, result]);
-                      if (onAddMistake) onAddMistake(result);
-                    }}
-                      style={{
-                        marginTop: "16px", padding: "12px 28px", borderRadius: "10px",
-                        background: subject.color, color: "white", border: "none",
-                        cursor: "pointer", fontSize: "15px", fontWeight: "600",
-                      }}>
-                      בדוק/י תשובה
-                    </button>
-                  )}
 
                   {showAnswer && (
                     <div style={{ marginTop: "16px" }}>
@@ -3188,6 +3186,36 @@ function ExamSimulation({ subject, mode }) {
           <div style={{ fontSize: "56px", marginBottom: "16px" }}>🎯</div>
           <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "24px", marginBottom: "8px" }}>סימולציית בחינה — {subject.name}</h3>
           <p style={{ color: isFocus ? "#718096" : "#94a3b8", fontSize: "15px" }}>שאלון {subject.examNumber} — בחר/י נושאים לבחינה</p>
+        </div>
+
+        {/* Link to real Ministry of Education exams */}
+        <a href={`https://meyda.education.gov.il/bagmgr/default.html`} target="_blank" rel="noopener noreferrer"
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
+            background: isFocus ? "#2d374850" : "#eff6ff",
+            border: isFocus ? "2px solid #3b82f680" : "2px solid #3b82f640",
+            borderRadius: "14px", padding: "14px 20px", marginBottom: "20px",
+            textDecoration: "none", cursor: "pointer", transition: "all 0.2s",
+          }}>
+          <span style={{ fontSize: "20px" }}>📋</span>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: "14px", fontWeight: "700", color: "#3b82f6" }}>
+              בחינות בגרות קודמות — משרד החינוך
+            </div>
+            <div style={{ fontSize: "12px", color: isFocus ? "#718096" : "#94a3b8" }}>
+              לחצ/י כאן לצפייה בבחינות בגרות אמיתיות ממועדים קודמים (שאלון {subject.examNumber})
+            </div>
+          </div>
+          <span style={{ fontSize: "16px", color: "#3b82f6" }}>←</span>
+        </a>
+
+        <div style={{
+          background: isFocus ? "#1a202c50" : "#fefce8",
+          border: isFocus ? "1px solid #eab30850" : "1px solid #eab30840",
+          borderRadius: "10px", padding: "10px 14px", marginBottom: "20px",
+          fontSize: "13px", color: isFocus ? "#eab308" : "#a16207", textAlign: "right",
+        }}>
+          💡 <strong>טיפ:</strong> השאלות למטה הן שאלות תרגול בסגנון בגרות. לבחינות האמיתיות ממועדים קודמים, השתמש/י בקישור למאגר משרד החינוך למעלה.
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
