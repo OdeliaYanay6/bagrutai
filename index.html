@@ -2583,11 +2583,66 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
   const [showAnswer, setShowAnswer] = useState(false);
   const [questionResults, setQuestionResults] = useState([]);
   const [expandedLearnSection, setExpandedLearnSection] = useState(0);
+  // New UX state: linear topic-by-topic flow + terms drawer
+  const [currentTopicPage, setCurrentTopicPage] = useState(0);
+  const [termsDrawerOpen, setTermsDrawerOpen] = useState(false);
+  const [expandedTermName, setExpandedTermName] = useState(null);
 
   // Get content data for this unit
   const contentData = CONTENT_DATA[subject.id]?.[unit.id] || {};
   const isRichContent = !!contentData.learn; // new expanded format has learn array
   const isFocus = mode === "focus";
+
+  // Helper: render text with **inline bolded terms** that pop their definition inline when tapped
+  const renderTextWithTerms = (text, keyPrefix = "t") => {
+    const terms = contentData.terms || [];
+    if (!terms.length || !text) return text;
+    const sorted = [...terms].sort((a, b) => b.term.length - a.term.length);
+    const termMap = {};
+    sorted.forEach(t => { termMap[t.term] = t.def; });
+    const escape = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp("(" + sorted.map(t => escape(t.term)).join("|") + ")", "g");
+    const parts = text.split(pattern);
+    return parts.map((part, i) => {
+      if (termMap[part]) {
+        const isOpen = expandedTermName === keyPrefix + "-" + i + "-" + part;
+        return (
+          <React.Fragment key={keyPrefix + i}>
+            <span
+              onClick={() => setExpandedTermName(isOpen ? null : keyPrefix + "-" + i + "-" + part)}
+              style={{
+                fontWeight: "700",
+                color: subject.color,
+                cursor: "pointer",
+                borderBottom: `1px dashed ${subject.color}`,
+                padding: "0 2px",
+              }}
+              title="לחצ/י להגדרה"
+            >
+              {part}
+            </span>
+            {isOpen && (
+              <span style={{
+                display: "block",
+                margin: "8px 0",
+                padding: "10px 14px",
+                background: isFocus ? "#2d3748" : `${subject.color}10`,
+                borderRight: `3px solid ${subject.color}`,
+                borderRadius: "8px",
+                fontSize: "13px",
+                fontWeight: "400",
+                color: isFocus ? "#cbd5e0" : "#475569",
+                lineHeight: "1.6",
+              }}>
+                <b style={{ color: subject.color }}>{part}:</b> {termMap[part]}
+              </span>
+            )}
+          </React.Fragment>
+        );
+      }
+      return <React.Fragment key={keyPrefix + i}>{part}</React.Fragment>;
+    });
+  };
 
   return (
     <div style={{ direction: "rtl" }}>
@@ -2685,11 +2740,8 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
       }}>
         {(isRichContent ? [
           { id: "learn", label: "📖 למידה" },
-          { id: "terms", label: "📌 מונחים" },
-          { id: "mnemonics", label: "🧠 עזרי זיכרון" },
-          { id: "thinking", label: "💭 חשיבה" },
           { id: "practice", label: "✏️ תרגול" },
-          { id: "mistakes", label: "⚠️ טעויות" },
+          { id: "mistakes", label: "⚠️ טעויות ביחידה" },
           { id: "tips", label: "💡 טיפים" },
           { id: "summary", label: "📋 סיכום" },
         ] : [
@@ -2735,92 +2787,246 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
         border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
         minHeight: "300px",
       }}>
-        {/* ====== NEW RICH CONTENT: Learn Tab ====== */}
-        {activeTab === "learn" && isRichContent && (
-          <div>
-            <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "22px", marginTop: 0, marginBottom: "8px" }}>
-              📖 למידה מורחבת — {unit.title}
-            </h3>
-            <p style={{ color: isFocus ? "#718096" : "#94a3b8", fontSize: "13px", marginBottom: "24px" }}>
-              לחצ/י על כל חלק כדי לפתוח ולקרוא את ההסבר המלא
-            </p>
-            {contentData.learn.map((section, i) => (
-              <div key={i} style={{
-                marginBottom: "16px",
-                borderRadius: "14px",
-                border: expandedLearnSection === i
-                  ? `2px solid ${subject.color}`
-                  : isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
-                overflow: "hidden",
-                transition: "all 0.3s ease",
-              }}>
-                <button onClick={() => setExpandedLearnSection(expandedLearnSection === i ? -1 : i)} style={{
-                  width: "100%", padding: "18px 22px", border: "none", cursor: "pointer",
-                  background: expandedLearnSection === i
-                    ? (isFocus ? `${subject.color}15` : `${subject.color}08`)
-                    : (isFocus ? "#2d3748" : "#f8fafc"),
-                  display: "flex", justifyContent: "space-between", alignItems: "center",
-                  textAlign: "right",
-                }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                    <div style={{
-                      width: "32px", height: "32px", borderRadius: "8px",
-                      background: `${subject.color}20`, color: subject.color,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: "14px", fontWeight: "800",
-                    }}>{i + 1}</div>
-                    <span style={{ fontSize: "16px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b" }}>
-                      {section.title}
-                    </span>
+        {/* ====== NEW RICH CONTENT: Learn Tab — Linear topic-by-topic flow ====== */}
+        {activeTab === "learn" && isRichContent && (() => {
+          const sections = contentData.learn || [];
+          const total = sections.length;
+          const safePage = Math.min(currentTopicPage, total - 1);
+          const section = sections[safePage];
+          const thinkingSteps = contentData.thinking || [];
+          const memoryAids = contentData.memory || [];
+          // Pair each topic page with one thinking step + one memory aid (cycled by index)
+          const pairedThinking = thinkingSteps.length ? thinkingSteps[safePage % thinkingSteps.length] : null;
+          const pairedMemory = memoryAids.length ? memoryAids[safePage % memoryAids.length] : null;
+          const progressPct = Math.round(((safePage + 1) / total) * 100);
+          return (
+            <div>
+              {/* Header: page counter + terms button + progress bar */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "12px" }}>
+                <div>
+                  <div style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8", marginBottom: "4px" }}>
+                    נושא {safePage + 1} מתוך {total}
                   </div>
-                  <span style={{ fontSize: "20px", color: subject.color, transform: expandedLearnSection === i ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.3s" }}>
-                    ▼
-                  </span>
-                </button>
-                {expandedLearnSection === i && (
-                  <div style={{
-                    padding: "24px",
-                    background: isFocus ? "#1a202c" : "white",
+                  <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "22px", margin: 0 }}>
+                    {section?.title || ""}
+                  </h3>
+                </div>
+                {(contentData.terms || []).length > 0 && (
+                  <button onClick={() => setTermsDrawerOpen(true)} style={{
+                    padding: "8px 16px", borderRadius: "10px",
+                    background: isFocus ? "#2d3748" : `${subject.color}10`,
+                    color: subject.color, border: `1px solid ${subject.color}40`,
+                    cursor: "pointer", fontSize: "13px", fontWeight: "600",
                   }}>
-                    {section.content.split("\\n\\n").map((para, pi) => (
-                      <p key={pi} style={{
-                        color: isFocus ? "#cbd5e0" : "#475569",
-                        fontSize: "15px", lineHeight: "2", margin: pi === 0 ? "0 0 16px 0" : "16px 0",
-                      }}>
-                        {para}
-                      </p>
-                    ))}
-                  </div>
+                    📌 מונחים ({contentData.terms.length})
+                  </button>
                 )}
               </div>
-            ))}
-          </div>
-        )}
 
-        {/* ====== NEW RICH CONTENT: Terms Tab ====== */}
-        {activeTab === "terms" && isRichContent && (
-          <div>
-            <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "22px", marginTop: 0, marginBottom: "24px" }}>
-              📌 מונחים ומושגי מפתח
-            </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {contentData.terms.map((item, i) => (
-                <div key={i} style={{
-                  background: isFocus ? "#2d3748" : "#f8fafc",
-                  borderRadius: "12px", padding: "18px 22px",
-                  borderRight: `4px solid ${subject.color}`,
+              {/* Progress bar */}
+              <div style={{
+                height: "6px", borderRadius: "3px",
+                background: isFocus ? "#2d3748" : "#e2e8f0",
+                marginBottom: "24px", overflow: "hidden",
+              }}>
+                <div style={{
+                  height: "100%", width: `${progressPct}%`,
+                  background: `linear-gradient(90deg, ${subject.color}, ${subject.color}cc)`,
+                  transition: "width 0.4s ease",
+                }} />
+              </div>
+
+              {/* 📝 Explanation */}
+              <div style={{
+                background: isFocus ? "#2d3748" : `${subject.color}05`,
+                borderRadius: "16px", padding: "24px", marginBottom: "16px",
+                borderRight: `4px solid ${subject.color}`,
+              }}>
+                <div style={{ fontSize: "13px", fontWeight: "700", color: subject.color, marginBottom: "12px", letterSpacing: "0.5px" }}>
+                  📝 הסבר
+                </div>
+                {(section?.content || "").split("\\n\\n").map((para, pi) => (
+                  <p key={pi} style={{
+                    color: isFocus ? "#cbd5e0" : "#475569",
+                    fontSize: "15px", lineHeight: "2", margin: pi === 0 ? "0 0 12px 0" : "12px 0",
+                  }}>
+                    {renderTextWithTerms(para, `p${safePage}-${pi}`)}
+                  </p>
+                ))}
+                <div style={{ fontSize: "11px", color: isFocus ? "#718096" : "#94a3b8", marginTop: "8px", fontStyle: "italic" }}>
+                  💡 מילים מודגשות הן מונחים — לחצ/י עליהן להגדרה
+                </div>
+              </div>
+
+              {/* 🧠 How to think about it */}
+              {pairedThinking && (
+                <div style={{
+                  background: isFocus ? "#1a202c" : "white",
+                  borderRadius: "14px", padding: "20px", marginBottom: "16px",
+                  border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
                 }}>
-                  <div style={{ fontSize: "16px", fontWeight: "700", color: subject.color, marginBottom: "6px" }}>
-                    {item.term}
+                  <div style={{ fontSize: "13px", fontWeight: "700", color: subject.color, marginBottom: "10px" }}>
+                    🧠 איך לחשוב על זה?
                   </div>
-                  <div style={{ fontSize: "14px", color: isFocus ? "#cbd5e0" : "#475569", lineHeight: "1.7" }}>
-                    {item.def}
+                  <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                    <div style={{
+                      width: "36px", height: "36px", borderRadius: "50%",
+                      background: `${subject.color}15`, color: subject.color,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "18px", flexShrink: 0,
+                    }}>{pairedThinking.icon || "💭"}</div>
+                    <div>
+                      <div style={{ fontSize: "14px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "4px" }}>
+                        {pairedThinking.step}
+                      </div>
+                      <div style={{ fontSize: "14px", color: isFocus ? "#cbd5e0" : "#475569", lineHeight: "1.7" }}>
+                        {pairedThinking.text}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              ))}
+              )}
+
+              {/* 💡 Memory aid */}
+              {pairedMemory && (() => {
+                const tc = {
+                  acronym: { bg: "#fef3c7", border: "#f59e0b", focusColor: "#fbbf24", color: "#92400e", icon: "🔤", label: "ראשי תיבות" },
+                  visual:  { bg: "#f0fdf4", border: "#16a34a", focusColor: "#86efac", color: "#166534", icon: "🎨", label: "דימוי חזותי" },
+                  rhyme:   { bg: "#eff6ff", border: "#3b82f6", focusColor: "#93c5fd", color: "#1e40af", icon: "🎵", label: "משפט לזכירה" },
+                }[pairedMemory.type] || { bg: "#eff6ff", border: "#3b82f6", focusColor: "#93c5fd", color: "#1e40af", icon: "💡", label: "טיפ זיכרון" };
+                return (
+                  <div style={{
+                    background: isFocus ? "#1a202c" : tc.bg,
+                    borderRadius: "12px", padding: "16px 20px", marginBottom: "16px",
+                    border: `1px solid ${tc.border}40`,
+                  }}>
+                    <div style={{ fontSize: "12px", fontWeight: "700", marginBottom: "6px", color: isFocus ? "#a0aec0" : "#64748b" }}>
+                      {tc.icon} {tc.label}: <span style={{ color: isFocus ? "#e2e8f0" : "#1e293b" }}>{pairedMemory.title}</span>
+                    </div>
+                    <div style={{ fontSize: "15px", color: isFocus ? tc.focusColor : tc.color, lineHeight: "1.7" }}>
+                      {pairedMemory.content}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Bottom nav: הקודם / dots / המשך */}
+              <div style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                marginTop: "24px", paddingTop: "20px",
+                borderTop: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+                gap: "12px", flexWrap: "wrap",
+              }}>
+                <button
+                  onClick={() => setCurrentTopicPage(p => Math.max(0, p - 1))}
+                  disabled={safePage === 0}
+                  style={{
+                    padding: "10px 20px", borderRadius: "10px", border: "none",
+                    background: isFocus ? "#2d3748" : "#f1f5f9",
+                    color: isFocus ? "#a0aec0" : "#64748b",
+                    cursor: safePage === 0 ? "default" : "pointer",
+                    fontSize: "14px", fontWeight: "600",
+                    opacity: safePage === 0 ? 0.4 : 1,
+                  }}>
+                  → הקודם
+                </button>
+
+                {/* Progress dots — click to jump */}
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+                  {sections.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentTopicPage(i)}
+                      title={`עבור/י לנושא ${i + 1}`}
+                      style={{
+                        width: i === safePage ? "28px" : "12px",
+                        height: "12px", borderRadius: "6px", border: "none",
+                        background: i === safePage
+                          ? subject.color
+                          : i < safePage
+                            ? `${subject.color}80`
+                            : (isFocus ? "#4a5568" : "#cbd5e1"),
+                        cursor: "pointer", transition: "all 0.3s",
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {safePage < total - 1 ? (
+                  <button
+                    onClick={() => { setCurrentTopicPage(p => Math.min(total - 1, p + 1)); setExpandedTermName(null); }}
+                    style={{
+                      padding: "10px 28px", borderRadius: "10px", border: "none",
+                      background: `linear-gradient(135deg, ${subject.color}, ${subject.color}cc)`,
+                      color: "white", cursor: "pointer",
+                      fontSize: "14px", fontWeight: "700",
+                      boxShadow: `0 4px 14px ${subject.color}30`,
+                    }}>
+                    המשך ←
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setActiveTab("practice")}
+                    style={{
+                      padding: "10px 28px", borderRadius: "10px", border: "none",
+                      background: "linear-gradient(135deg, #16a34a, #15803d)",
+                      color: "white", cursor: "pointer",
+                      fontSize: "14px", fontWeight: "700",
+                      boxShadow: "0 4px 14px #16a34a30",
+                    }}>
+                    סיימת! לתרגול ←
+                  </button>
+                )}
+              </div>
+
+              {/* Terms Drawer */}
+              {termsDrawerOpen && (
+                <div
+                  onClick={() => setTermsDrawerOpen(false)}
+                  style={{
+                    position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)",
+                    zIndex: 100, display: "flex", justifyContent: "flex-start",
+                  }}>
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    style={{
+                      width: "min(420px, 92vw)", height: "100%",
+                      background: isFocus ? "#1a202c" : "white",
+                      padding: "24px", overflowY: "auto",
+                      boxShadow: "4px 0 24px rgba(0,0,0,0.2)",
+                      direction: "rtl",
+                    }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                      <h3 style={{ margin: 0, fontSize: "20px", color: isFocus ? "#e2e8f0" : "#1e293b" }}>
+                        📌 מונחים ומושגי מפתח
+                      </h3>
+                      <button onClick={() => setTermsDrawerOpen(false)} style={{
+                        background: "none", border: "none", fontSize: "24px",
+                        color: isFocus ? "#a0aec0" : "#64748b", cursor: "pointer",
+                      }}>×</button>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                      {(contentData.terms || []).map((item, i) => (
+                        <div key={i} style={{
+                          background: isFocus ? "#2d3748" : "#f8fafc",
+                          borderRadius: "12px", padding: "14px 16px",
+                          borderRight: `4px solid ${subject.color}`,
+                        }}>
+                          <div style={{ fontSize: "15px", fontWeight: "700", color: subject.color, marginBottom: "4px" }}>
+                            {item.term}
+                          </div>
+                          <div style={{ fontSize: "13px", color: isFocus ? "#cbd5e0" : "#475569", lineHeight: "1.6" }}>
+                            {item.def}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ====== NEW RICH CONTENT: Mistakes Tab ====== */}
         {activeTab === "mistakes" && isRichContent && (
