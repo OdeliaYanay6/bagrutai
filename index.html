@@ -5488,17 +5488,41 @@ function BagrutAI() {
                   gap: "16px",
                   marginBottom: "40px",
                 }}>
+                  {/* ====== HERO CARD — לימוד יחידות (full width) ====== */}
+                  <button
+                    onClick={() => setActiveView("units")}
+                    style={{
+                      gridColumn: "1 / -1",
+                      background: isFocus
+                        ? `linear-gradient(135deg, #1a202c, ${selectedSubject.color}15)`
+                        : `linear-gradient(135deg, ${selectedSubject.color}08, ${selectedSubject.color}18)`,
+                      border: isFocus ? `2px solid ${selectedSubject.color}40` : `2px solid ${selectedSubject.color}30`,
+                      borderRadius: "20px",
+                      padding: "28px 32px",
+                      cursor: "pointer",
+                      textAlign: "right",
+                      direction: "rtl",
+                      transition: "all 0.3s ease",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "20px",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 12px 40px ${selectedSubject.color}20`; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                  >
+                    <div style={{ fontSize: "48px" }}>📖</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: "20px", fontWeight: "800", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "6px" }}>לימוד יחידות</div>
+                      <div style={{ fontSize: "14px", color: isFocus ? "#a0aec0" : "#64748b", lineHeight: "1.5" }}>בחר/י יחידות ולמד/י נושא אחרי נושא — בזרימה רציפה</div>
+                    </div>
+                    <div style={{ fontSize: "28px", color: selectedSubject.color }}>←</div>
+                  </button>
+
                   {[
-                    { id: "study-planner", icon: "📅", title: "תכנון למידה חכם", desc: "הכנס/י תאריך מבחן וקבל/י לוח זמנים יומי", color: "#8b5cf6" },
-                    { id: "units", icon: "📚", title: "לימוד רציף לפי יחידות", desc: "בחר/י יחידות ולמד/י ברצף — בלי לחזור לתפריט!", color: selectedSubject.color },
-                    { id: "top20", icon: "🔥", title: "20 השאלות הכי נשאלות", desc: "השאלות שחוזרות הכי הרבה בבגרויות", color: "#ef4444" },
-                    { id: "bagrut-practice", icon: "📝", title: "תרגול מבחני בגרות", desc: "שאלות אמיתיות ממבחני בגרות קודמים", color: "#0891b2" },
-                    { id: "quick-review", icon: "⚡", title: "חזרה מהירה", desc: "סיכומים קצרים לכל נושא — לפני המבחן", color: "#f59e0b" },
-                    { id: "mistakes", icon: "⚠️", title: "טעויות נפוצות", desc: "הטעויות שכולם עושים — ואיך להימנע", color: "#ef4444" },
-                    { id: "ai-tutor", icon: "🤖", title: "מורה פרטי AI", desc: "שאל/י כל שאלה ותקבל/י תשובה מיידית", color: "#6366f1" },
-                    { id: "exam-sim", icon: "🎯", title: "סימולציית בחינה", desc: "בחר/י נושאים ותתרגל/י בתנאי בחינה אמיתיים", color: "#16a34a" },
-                    { id: "flashcards", icon: "🃏", title: "כרטיסיות זיכרון", desc: "כרטיסיות להתגבר על מושגי מפתח", color: "#ec4899" },
-                    { id: "my-quiz", icon: "🏆", title: "המבחן שלי", desc: "מבחן אישי מהטעויות שלך — תרגול ממוקד!", color: "#b45309" },
+                    { id: "bagrut-hub", icon: "📝", title: "בחינות בגרות", desc: "מבחן לפי בחירה או מבחן מותאם אישית מהטעויות שלך", color: "#16a34a" },
+                    { id: "practice-hub", icon: "✏️", title: "תרגול", desc: "שאלות נפוצות, חזרה מהירה וכרטיסיות זיכרון", color: "#0891b2" },
+                    { id: "mistakes-hub", icon: "⚠️", title: "הטעויות שלי", desc: "כל הטעויות שאספת + מבחן ממוקד לשיפור", color: "#ef4444" },
+                    { id: "study-planner", icon: "📅", title: "תכנון למידה", desc: "הכנס/י תאריך מבחן וקבל/י לוח זמנים יומי", color: "#8b5cf6" },
                   ].map((action) => (
                     <button
                       key={action.id}
@@ -5577,6 +5601,171 @@ function BagrutAI() {
             )}
 
             {/* ====== VIEW: Units Selection for Continuous Learning ====== */}
+            {/* ====== HUB: בחינות בגרות — 2 מסלולים ====== */}
+            {activeView === "bagrut-hub" && (
+              <div style={{ direction: "rtl" }}>
+                <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "22px", marginTop: 0, marginBottom: "8px" }}>
+                  📝 בחינות בגרות — {selectedSubject.name}
+                </h3>
+                <p style={{ color: isFocus ? "#718096" : "#94a3b8", fontSize: "14px", marginBottom: "24px" }}>
+                  בחר/י מסלול מבחן:
+                </p>
+                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                  {/* Track A: Choose units */}
+                  <button onClick={() => setActiveView("exam-sim")} style={{
+                    flex: 1, minWidth: "240px", padding: "28px 24px", borderRadius: "20px", cursor: "pointer",
+                    background: isFocus ? "#1a202c" : "#f0fdf4", textAlign: "right", direction: "rtl",
+                    border: isFocus ? "2px solid #16a34a40" : "2px solid #16a34a30",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 30px #16a34a20"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                  >
+                    <div style={{ fontSize: "36px", marginBottom: "12px" }}>🎯</div>
+                    <div style={{ fontSize: "18px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "8px" }}>מבחן לפי בחירה</div>
+                    <div style={{ fontSize: "14px", color: isFocus ? "#a0aec0" : "#64748b", lineHeight: "1.6" }}>
+                      בחר/י יחידות ונושאים → המערכת בונה מבחן בגרות מותאם. כולל שאלות מבחני בגרות אמיתיים + שאלות מהמאגר.
+                    </div>
+                  </button>
+                  {/* Track B: Personalized from mistakes */}
+                  <button onClick={() => setActiveView("my-quiz")} style={{
+                    flex: 1, minWidth: "240px", padding: "28px 24px", borderRadius: "20px", cursor: "pointer",
+                    background: isFocus ? "#1a202c" : "#fef2f2", textAlign: "right", direction: "rtl",
+                    border: isFocus ? "2px solid #ef444440" : "2px solid #ef444430",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 30px #ef444420"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                  >
+                    <div style={{ fontSize: "36px", marginBottom: "12px" }}>🏆</div>
+                    <div style={{ fontSize: "18px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "8px" }}>מבחן מותאם אישית</div>
+                    <div style={{ fontSize: "14px", color: isFocus ? "#a0aec0" : "#64748b", lineHeight: "1.6" }}>
+                      המערכת בונה מבחן מהטעויות שלך + שאלות חדשות מאותם נושאים. המטרה: לחזק את הנקודות החלשות שלך!
+                    </div>
+                    {mistakes.filter(m => !m.correct).length > 0 && (
+                      <div style={{ marginTop: "12px", padding: "6px 12px", borderRadius: "8px", background: "#ef444415", fontSize: "13px", color: "#ef4444", fontWeight: "600" }}>
+                        {mistakes.filter(m => !m.correct).length} טעויות ממתינות לתרגול
+                      </div>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ====== HUB: תרגול — 3 אפשרויות ====== */}
+            {activeView === "practice-hub" && (
+              <div style={{ direction: "rtl" }}>
+                <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "22px", marginTop: 0, marginBottom: "8px" }}>
+                  ✏️ תרגול — {selectedSubject.name}
+                </h3>
+                <p style={{ color: isFocus ? "#718096" : "#94a3b8", fontSize: "14px", marginBottom: "24px" }}>
+                  בחר/י סוג תרגול:
+                </p>
+                <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
+                  {[
+                    { id: "top20", icon: "🔥", title: "20 השאלות הכי נשאלות", desc: "השאלות שחוזרות הכי הרבה בבגרויות", color: "#ef4444" },
+                    { id: "quick-review", icon: "⚡", title: "חזרה מהירה", desc: "סיכומים קצרים לכל נושא — לפני המבחן", color: "#f59e0b" },
+                    { id: "flashcards", icon: "🃏", title: "כרטיסיות זיכרון", desc: "כרטיסיות להתגבר על מושגי מפתח", color: "#ec4899" },
+                  ].map((item) => (
+                    <button key={item.id} onClick={() => setActiveView(item.id)} style={{
+                      flex: 1, minWidth: "180px", padding: "24px 20px", borderRadius: "16px", cursor: "pointer",
+                      background: isFocus ? "#1a202c" : "white", textAlign: "right", direction: "rtl",
+                      border: isFocus ? `1px solid ${item.color}40` : `2px solid ${item.color}25`,
+                      transition: "all 0.2s",
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 8px 25px ${item.color}20`; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                    >
+                      <div style={{ fontSize: "32px", marginBottom: "10px" }}>{item.icon}</div>
+                      <div style={{ fontSize: "16px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "4px" }}>{item.title}</div>
+                      <div style={{ fontSize: "13px", color: isFocus ? "#718096" : "#94a3b8", lineHeight: "1.4" }}>{item.desc}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ====== HUB: הטעויות שלי ====== */}
+            {activeView === "mistakes-hub" && (
+              <div style={{ direction: "rtl" }}>
+                <h3 style={{ color: isFocus ? "#e2e8f0" : "#1e293b", fontSize: "22px", marginTop: 0, marginBottom: "8px" }}>
+                  ⚠️ הטעויות שלי — {selectedSubject.name}
+                </h3>
+                {mistakes.filter(m => !m.correct).length === 0 ? (
+                  <div style={{
+                    textAlign: "center", padding: "48px 24px", marginTop: "16px",
+                    background: isFocus ? "#1a202c" : "white",
+                    borderRadius: "16px", border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+                  }}>
+                    <div style={{ fontSize: "48px", marginBottom: "16px" }}>✅</div>
+                    <div style={{ fontSize: "18px", fontWeight: "700", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "8px" }}>
+                      אין טעויות — כל הכבוד!
+                    </div>
+                    <div style={{ fontSize: "14px", color: isFocus ? "#718096" : "#94a3b8", lineHeight: "1.6" }}>
+                      לכ/י לתרגל ביחידות או במבחני בגרות.<br/>כל טעות תיאסף כאן אוטומטית.
+                    </div>
+                    <button onClick={() => setActiveView("units")} style={{
+                      marginTop: "20px", padding: "10px 24px", borderRadius: "10px",
+                      background: selectedSubject.color, color: "white", border: "none",
+                      cursor: "pointer", fontSize: "14px", fontWeight: "600",
+                    }}>
+                      ללמידה →
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{ display: "flex", gap: "12px", marginBottom: "20px", flexWrap: "wrap" }}>
+                      <div style={{
+                        flex: 1, minWidth: "160px", padding: "16px", borderRadius: "14px",
+                        background: isFocus ? "#1a202c" : "#fef2f2",
+                        border: "1px solid #ef444430", textAlign: "center",
+                      }}>
+                        <div style={{ fontSize: "28px", fontWeight: "800", color: "#ef4444" }}>{mistakes.filter(m => !m.correct).length}</div>
+                        <div style={{ fontSize: "13px", color: isFocus ? "#a0aec0" : "#64748b" }}>טעויות שנאספו</div>
+                      </div>
+                      <div style={{
+                        flex: 1, minWidth: "160px", padding: "16px", borderRadius: "14px",
+                        background: isFocus ? "#1a202c" : "#f0fdf4",
+                        border: "1px solid #16a34a30", textAlign: "center",
+                      }}>
+                        <div style={{ fontSize: "28px", fontWeight: "800", color: "#16a34a" }}>
+                          {[...new Set(mistakes.filter(m => !m.correct).map(m => m.topic || m.unit))].length}
+                        </div>
+                        <div style={{ fontSize: "13px", color: isFocus ? "#a0aec0" : "#64748b" }}>נושאים לחיזוק</div>
+                      </div>
+                    </div>
+                    <button onClick={() => setActiveView("my-quiz")} style={{
+                      width: "100%", padding: "16px", borderRadius: "14px",
+                      background: "linear-gradient(135deg, #ef4444, #dc2626)",
+                      color: "white", border: "none", cursor: "pointer",
+                      fontSize: "16px", fontWeight: "700", marginBottom: "20px",
+                      boxShadow: "0 6px 24px #ef444430",
+                    }}>
+                      בנה לי מבחן מהטעויות שלי →
+                    </button>
+                    <div style={{ fontSize: "14px", fontWeight: "600", color: isFocus ? "#e2e8f0" : "#1e293b", marginBottom: "12px" }}>
+                      הטעויות האחרונות:
+                    </div>
+                    {mistakes.filter(m => !m.correct).slice(0, 8).map((mistake, i) => (
+                      <div key={i} style={{
+                        background: isFocus ? "#1a202c" : "white",
+                        border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+                        borderRadius: "12px", padding: "14px", marginBottom: "10px",
+                        borderRight: "4px solid #ef4444",
+                      }}>
+                        <div style={{ fontSize: "12px", fontWeight: "600", color: "#ef4444", marginBottom: "4px" }}>
+                          {mistake.unit} — {mistake.topic || ""}
+                        </div>
+                        <div style={{ fontSize: "14px", color: isFocus ? "#e2e8f0" : "#1e293b", lineHeight: "1.5" }}>
+                          {(mistake.question || "").substring(0, 120)}{(mistake.question || "").length > 120 ? "..." : ""}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             {activeView === "units" && (() => {
               const allIds = selectedSubject.units.map(u => u.id);
               const allSelected = learningQueue.length === allIds.length;
@@ -5900,6 +6089,27 @@ function BagrutAI() {
             {/* ====== VIEW: Smart Study Planner ====== */}
             {activeView === "study-planner" && (
               <StudyPlanner subject={selectedSubject} mode={mode} />
+            )}
+
+            {/* ====== Floating AI Tutor Button ====== */}
+            {activeView !== "ai-tutor" && (
+              <button
+                onClick={() => setActiveView("ai-tutor")}
+                title="מורה פרטי AI"
+                style={{
+                  position: "fixed", bottom: "24px", left: "24px",
+                  width: "60px", height: "60px", borderRadius: "50%",
+                  background: `linear-gradient(135deg, ${selectedSubject.color}, ${selectedSubject.color}cc)`,
+                  color: "white", border: "none", cursor: "pointer",
+                  fontSize: "28px", boxShadow: `0 6px 24px ${selectedSubject.color}40`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  zIndex: 50, transition: "transform 0.2s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+              >
+                🤖
+              </button>
             )}
           </div>
         )}
