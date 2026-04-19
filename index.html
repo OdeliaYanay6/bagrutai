@@ -10926,49 +10926,107 @@ function TTSPanel({ subject, unit, contentData, isFocus }) {
 
 const SUBJECT_INFOGRAPHICS = {
   hebrew: {
-    icon: "📝",
     diagrams: {
       "1": { type: "flow", title: "מבנה המשפט הפשוט", nodes: ["נושא", "נשוא", "משלים", "מיודה"], color: "#6366f1" },
-      "2": { type: "tree", title: "סוגי משפטים", nodes: ["משפט פשוט", "משפט מורכב", "משפט מורחב"], color: "#6366f1" },
+      "2": { type: "flow", title: "סוגי משפטים", nodes: ["משפט פשוט", "משפט מורכב", "משפט מחובר"], color: "#6366f1" },
+      "3": { type: "flow", title: "סוגי נשואים", nodes: ["נשוא פועלי", "נשוא תואר", "נשוא שמי"], color: "#6366f1" },
+      "5": { type: "flow", title: "סוגי הטיעון", nodes: ["טיעון לוגי", "טיעון רגשי", "טיעון סמכות"], color: "#6366f1" },
     }
   },
   civics: {
-    icon: "🏛️",
     diagrams: {
+      "1": { type: "flow", title: "עקרונות הכרזת העצמאות", nodes: ["זכות טבעית", "זכויות אדם", "שוויון", "חירות"], color: "#64748b" },
+      "2": { type: "flow", title: "עקרונות הדמוקרטיה", nodes: ["ריבונות עם", "הפרדת רשויות", "שלטון חוק", "זכויות מיעוט"], color: "#64748b" },
       "4": { type: "flow", title: "מוסדות השלטון", nodes: ["כנסת (מחוקקת)", "ממשלה (מבצעת)", "בתי משפט (שופטת)"], color: "#64748b" },
       "5": { type: "cycle", title: "תהליך הבחירות", nodes: ["הצבעה", "ספירת קולות", "הרכבת קואליציה", "הקמת ממשלה"], color: "#64748b" },
+      "6": { type: "compare", title: "יהודית vs דמוקרטית", left: ["חוקי התורה", "מסורת", "זהות יהודית"], right: ["שוויון", "חירות", "זכויות פרט"], color: "#64748b" },
     }
   },
   history: {
-    icon: "📜",
     diagrams: {
       "1": { type: "timeline", title: "ציר זמן — ציונות", nodes: ["1882 עלייה ראשונה", "1897 קונגרס בזל", "1917 הצהרת בלפור", "1948 הקמת המדינה"], color: "#f59e0b" },
+      "2": { type: "timeline", title: "מנדט ומדינה", nodes: ["1920 מנדט", "1929 מאורעות", "1936 מרד ערבי", "1947 החלטה 181"], color: "#f59e0b" },
+      "5": { type: "timeline", title: "מלחמות ישראל", nodes: ["1948 עצמאות", "1956 סיני", "1967 ששת הימים", "1973 יום כיפור"], color: "#f59e0b" },
+      "6": { type: "timeline", title: "השואה", nodes: ["1933 עליית היטלר", "1935 חוקי נירנברג", "1938 ליל הבדולח", "1942 הפתרון הסופי"], color: "#f59e0b" },
     }
   },
   biology: {
-    icon: "🧬",
     diagrams: {
       "1": { type: "flow", title: "מבנה התא", nodes: ["קרום תא", "ציטופלזמה", "גרעין", "מיטוכונדריה", "ריבוזומים"], color: "#10b981" },
+      "2": { type: "flow", title: "חילוף חומרים", nodes: ["פוטוסינתזה (אור→סוכר)", "נשימה תאית (סוכר→ATP)", "אנזימים (זרזים)"], color: "#10b981" },
       "3": { type: "compare", title: "מיטוזה vs מיוזה", left: ["חלוקה אחת", "2 תאי בת", "זהים גנטית"], right: ["2 חלוקות", "4 תאי בת", "שונים גנטית"], color: "#10b981" },
+      "4": { type: "flow", title: "תורשה — חוקי מנדל", nodes: ["אלל דומיננטי (AA/Aa)", "אלל רצסיבי (aa)", "הפרדת אללים", "שילוב עצמאי"], color: "#10b981" },
+      "5": { type: "flow", title: "הדוגמה המרכזית", nodes: ["DNA → שכפול", "DNA → RNA (תעתוק)", "RNA → חלבון (תרגום)"], color: "#10b981" },
     }
   },
   math: {
-    icon: "📐",
     diagrams: {
       "1": { type: "formula", title: "נוסחאות אלגברה", items: ["ax² + bx + c = 0", "x = (-b ± √(b²-4ac)) / 2a", "Δ = b² - 4ac"], color: "#8b5cf6" },
+      "3": { type: "formula", title: "נוסחאות גיאומטריה", items: ["שטח משולש = (a×h)/2", "שטח עיגול = πr²", "היקף עיגול = 2πr"], color: "#8b5cf6" },
+      "5": { type: "formula", title: "נוסחאות טריגונומטריה", items: ["sin α = נגד / יתר", "cos α = סמוך / יתר", "tan α = נגד / סמוך"], color: "#8b5cf6" },
+      "7": { type: "formula", title: "חוקי חזקות ולוגריתמים", items: ["aⁿ × aᵐ = aⁿ⁺ᵐ", "log(a×b) = log a + log b", "(aⁿ)ᵐ = aⁿᵐ"], color: "#8b5cf6" },
+    }
+  },
+  english: {
+    diagrams: {
+      "1": { type: "flow", title: "Reading Comprehension Steps", nodes: ["Skim the text", "Read questions", "Find evidence", "Answer in context"], color: "#0891b2" },
+      "3": { type: "flow", title: "Essay Structure", nodes: ["Introduction + Thesis", "Body Paragraph 1", "Body Paragraph 2", "Conclusion"], color: "#0891b2" },
     }
   },
   chemistry: {
-    icon: "⚗️",
     diagrams: {
       "1": { type: "flow", title: "מבנה האטום", nodes: ["גרעין (פרוטונים + ניוטרונים)", "קליפות אלקטרונים", "אלקטרונים"], color: "#f97316" },
+      "3": { type: "compare", title: "קשר יוני vs קוולנטי", left: ["העברת אלקטרונים", "מתכת + אל-מתכת", "מוליך בתמיסה"], right: ["שיתוף אלקטרונים", "אל-מתכת + אל-מתכת", "לא מוליך"], color: "#f97316" },
+      "5": { type: "flow", title: "סוגי תגובות כימיות", nodes: ["סינתזה (A+B→AB)", "פירוק (AB→A+B)", "החלפה (AB+C→AC+B)", "חמצון-הפחתה"], color: "#f97316" },
       "8": { type: "scale", title: "סולם pH", left: "חומצי (0)", right: "בסיסי (14)", mid: "ניטרלי (7)", color: "#f97316" },
     }
   },
   physics: {
-    icon: "⚛️",
     diagrams: {
+      "1": { type: "flow", title: "מושגי תנועה", nodes: ["תזוזה (Δx)", "מהירות (v=Δx/t)", "תאוצה (a=Δv/t)"], color: "#3b82f6" },
       "2": { type: "flow", title: "חוקי ניוטון", nodes: ["חוק 1: אינרציה", "חוק 2: F=ma", "חוק 3: פעולה-תגובה"], color: "#3b82f6" },
+      "3": { type: "flow", title: "שימור אנרגיה", nodes: ["אנרגיה קינטית (½mv²)", "אנרגיה פוטנציאלית (mgh)", "שימור: Ek+Ep=קבוע"], color: "#3b82f6" },
+    }
+  },
+  bible: {
+    diagrams: {
+      "1": { type: "timeline", title: "תקופת האבות", nodes: ["אברהם", "יצחק", "יעקב", "יוסף"], color: "#a855f7" },
+      "3": { type: "timeline", title: "שופטים ומלכים", nodes: ["דבורה", "גדעון", "שמשון", "שמואל", "שאול", "דוד"], color: "#a855f7" },
+    }
+  },
+  literature: {
+    diagrams: {
+      "1": { type: "flow", title: "אמצעים שיריים", nodes: ["מטאפורה", "דימוי", "סמל", "אליטרציה", "אסונאנס"], color: "#ec4899" },
+      "5": { type: "flow", title: "מבנה עלילתי", nodes: ["אקספוזיציה", "עלייה", "שיא", "נפילה", "סיום"], color: "#ec4899" },
+    }
+  },
+  geography: {
+    diagrams: {
+      "1": { type: "flow", title: "אזורי אקלים בישראל", nodes: ["ים-תיכוני (צפון)", "חצי-יבש (מרכז)", "יבש (נגב)", "מדברי (ערבה)"], color: "#059669" },
+    }
+  },
+  computer_science: {
+    diagrams: {
+      "1": { type: "flow", title: "מהו אלגוריתם?", nodes: ["קלט", "עיבוד (צעדים מוגדרים)", "פלט"], color: "#6366f1" },
+      "6": { type: "compare", title: "חיפוש ליניארי vs בינארי", left: ["בודק אחד אחד", "O(n)", "לא דורש מיון"], right: ["מחצית כל פעם", "O(log n)", "דורש מיון"], color: "#6366f1" },
+    }
+  },
+  psychology: {
+    diagrams: {
+      "1": { type: "flow", title: "גישות בפסיכולוגיה", nodes: ["ביהביוריזם", "קוגניטיבית", "פסיכודינמית", "הומניסטית"], color: "#ec4899" },
+      "5": { type: "timeline", title: "שלבי התפתחות (פיאז'ה)", nodes: ["סנסו-מוטורי (0-2)", "קדם-ניתוחי (2-7)", "ניתוחים קונקרטיים (7-11)", "ניתוחים פורמליים (11+)"], color: "#ec4899" },
+    }
+  },
+  sociology: {
+    diagrams: {
+      "1": { type: "flow", title: "הוגי דעות בסוציולוגיה", nodes: ["דורקהיים (סולידריות)", "מרקס (מעמדות)", "ובר (ביורוקרטיה)"], color: "#8b5cf6" },
+      "2": { type: "flow", title: "ריבוד חברתי", nodes: ["מעמד עליון", "מעמד ביניים", "מעמד נמוך"], color: "#8b5cf6" },
+    }
+  },
+  toshbap: {
+    diagrams: {
+      "1": { type: "flow", title: "שכבות הפרשנות", nodes: ["פשט", "רמז", "דרש", "סוד (פרד\"ס)"], color: "#a855f7" },
+      "2": { type: "flow", title: "מבנה המשנה", nodes: ["6 סדרים", "63 מסכתות", "פרקים", "משניות"], color: "#a855f7" },
     }
   },
 };
