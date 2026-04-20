@@ -300,11 +300,30 @@ const PAYWALL = {
   freeUnitsPerSubject: 2, // first 2 units are free
   prices: {
     perSubject: 100, // ₪ per month
+    threeSubjects: 180, // ₪ per month
     allSubjects: 250, // ₪ per month
     introSubject: 49, // first month
+    introThree: 99, // first month
     introAll: 149 // first month
   }
 };
+
+// Activate subscription (called from PaywallModal)
+function activateSubscription(type, subjectId) {
+  // type: 'subject', 'three', 'all'
+  const subs = JSON.parse(localStorage.getItem('bagrutai_subs') || '{}');
+  const now = Date.now();
+  if (type === 'all') {
+    subs['all'] = { active: true, since: now, plan: 'all' };
+  } else if (type === 'three') {
+    subs[subjectId] = { active: true, since: now, plan: 'three' };
+    subs['_plan_three'] = true;
+  } else {
+    subs[subjectId] = { active: true, since: now, plan: 'subject' };
+  }
+  localStorage.setItem('bagrutai_subs', JSON.stringify(subs));
+  return true;
+}
 
 function isUnitFree(subjectId, unitId) {
   const numericId = parseInt(unitId);
@@ -32641,9 +32660,9 @@ function TTSButton({ text, label, color, isFocus }) {
 }
 
 // Paywall Modal - shows when accessing premium content
-function PaywallModal({ subject, unit, onClose, isFocus }) {
+function PaywallModal({ subject, unit, onClose, onSubscribe, isFocus }) {
   const whatsappUrl = `https://wa.me/972XXXXXXXXX?text=שלום,%20אני%20רוצה%20להירשם%20ל${encodeURIComponent(subject.name)}`;
-  const emailLink = `mailto:support@bagrutai.co.il?subject=ההרשמה%20ל${encodeURIComponent(subject.name)}`;
+  const emailLink = `mailto:odelia@yanay-law.co.il?subject=הרשמה%20ל-BagrutAI%20-%20${encodeURIComponent(subject.name)}`;
 
   return (
     <div style={{
@@ -32712,54 +32731,77 @@ function PaywallModal({ subject, unit, onClose, isFocus }) {
           </div>
         </div>
 
-        {/* Pricing options */}
-        <div style={{ marginBottom: "24px" }}>
+        {/* Tutor comparison */}
+        <div style={{
+          background: isFocus ? "#222636" : "#fef3c7",
+          borderRadius: "12px", padding: "12px 14px",
+          marginBottom: "16px", textAlign: "center",
+          border: isFocus ? "1px solid #4a5568" : "1px solid #fbbf24",
+        }}>
+          <div style={{ fontSize: "13px", fontWeight: "700", color: isFocus ? "#fbbf24" : "#92400e", marginBottom: "4px" }}>
+            💡 מורה פרטי = ₪150-250 לשיעור אחד
+          </div>
+          <div style={{ fontSize: "12px", color: isFocus ? "#8b8fa3" : "#a16207" }}>
+            ב-BagrutAI תקבלו הכל מ-₪49 בחודש!
+          </div>
+        </div>
+
+        {/* Pricing options - 3 tiers */}
+        <div style={{ marginBottom: "16px" }}>
           <div style={{
-            fontSize: "12px", fontWeight: "700",
+            fontSize: "11px", fontWeight: "700",
             color: isFocus ? "#5c5f73" : "#94a3b8",
-            marginBottom: "12px", textTransform: "uppercase",
-            letterSpacing: "0.5px",
+            marginBottom: "10px", letterSpacing: "0.5px",
           }}>
-            אפשרויות הרשמה:
+            בחרו מסלול:
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             {/* Per-subject option */}
-            <div style={{
+            <div onClick={() => onSubscribe && onSubscribe('subject', subject.id)} style={{
               background: isFocus ? "#1a1d28" : "white",
-              border: `2px solid ${subject.color}40`,
-              borderRadius: "12px", padding: "14px 16px",
+              border: `2px solid ${subject.color}30`,
+              borderRadius: "12px", padding: "12px 14px",
               cursor: "pointer", transition: "all 0.2s",
             }}>
-              <div style={{
-                display: "flex", justifyContent: "space-between",
-                alignItems: "center", marginBottom: "6px",
-              }}>
-                <span style={{
-                  fontSize: "15px", fontWeight: "700",
-                  color: isFocus ? "#f0f0f5" : "#161822",
-                }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                <span style={{ fontSize: "14px", fontWeight: "700", color: isFocus ? "#f0f0f5" : "#161822" }}>
                   {subject.name} בודד
                 </span>
-                <span style={{
-                  fontSize: "16px", fontWeight: "800",
-                  color: subject.color,
-                }}>
+                <span style={{ fontSize: "15px", fontWeight: "800", color: subject.color }}>
                   ₪{PAYWALL.prices.introSubject}/חודש
                 </span>
               </div>
-              <div style={{
-                fontSize: "11px", color: isFocus ? "#5c5f73" : "#94a3b8",
-              }}>
-                (₪{PAYWALL.prices.perSubject} לאחר החודש הראשון)
+              <div style={{ fontSize: "11px", color: isFocus ? "#5c5f73" : "#94a3b8" }}>
+                מקצוע אחד מלא | ₪{PAYWALL.prices.perSubject} מהחודש השני
+              </div>
+            </div>
+
+            {/* 3-subject option */}
+            <div onClick={() => onSubscribe && onSubscribe('three', subject.id)} style={{
+              background: isFocus ? "#1e2235" : `${subject.color}08`,
+              border: `2px solid ${subject.color}60`,
+              borderRadius: "12px", padding: "12px 14px",
+              cursor: "pointer", transition: "all 0.2s",
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                <span style={{ fontSize: "14px", fontWeight: "700", color: isFocus ? "#f0f0f5" : "#161822" }}>
+                  3 מקצועות
+                </span>
+                <span style={{ fontSize: "15px", fontWeight: "800", color: subject.color }}>
+                  ₪{PAYWALL.prices.introThree}/חודש
+                </span>
+              </div>
+              <div style={{ fontSize: "11px", color: isFocus ? "#5c5f73" : "#94a3b8" }}>
+                בחרו 3 מקצועות | ₪{PAYWALL.prices.threeSubjects} מהחודש השני | חיסכון ₪120
               </div>
             </div>
 
             {/* All subjects option */}
-            <div style={{
-              background: `${subject.color}10`,
+            <div onClick={() => onSubscribe && onSubscribe('all', subject.id)} style={{
+              background: `${subject.color}15`,
               border: `2px solid ${subject.color}`,
-              borderRadius: "12px", padding: "14px 16px",
+              borderRadius: "12px", padding: "12px 14px",
               cursor: "pointer", transition: "all 0.2s",
               position: "relative",
             }}>
@@ -32768,76 +32810,58 @@ function PaywallModal({ subject, unit, onClose, isFocus }) {
                 background: subject.color, color: "white",
                 padding: "2px 10px", borderRadius: "12px",
                 fontSize: "10px", fontWeight: "700",
-                letterSpacing: "0.5px", textTransform: "uppercase",
               }}>
-                חסכון של 40%
+                🔥 הכי משתלם
               </div>
-              <div style={{
-                display: "flex", justifyContent: "space-between",
-                alignItems: "center", marginBottom: "6px", marginTop: "8px",
-              }}>
-                <span style={{
-                  fontSize: "15px", fontWeight: "700",
-                  color: isFocus ? "#f0f0f5" : "#161822",
-                }}>
-                  כל המקצועות
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px", marginTop: "6px" }}>
+                <span style={{ fontSize: "14px", fontWeight: "700", color: isFocus ? "#f0f0f5" : "#161822" }}>
+                  כל 17 המקצועות
                 </span>
-                <span style={{
-                  fontSize: "16px", fontWeight: "800",
-                  color: subject.color,
-                }}>
+                <span style={{ fontSize: "15px", fontWeight: "800", color: subject.color }}>
                   ₪{PAYWALL.prices.introAll}/חודש
                 </span>
               </div>
-              <div style={{
-                fontSize: "11px", color: isFocus ? "#5c5f73" : "#94a3b8",
-              }}>
-                (₪{PAYWALL.prices.allSubjects} לאחר החודש הראשון)
+              <div style={{ fontSize: "11px", color: isFocus ? "#5c5f73" : "#94a3b8" }}>
+                גישה מלאה לכל הפלטפורמה | ₪{PAYWALL.prices.allSubjects} מהחודש השני | חיסכון 85% מול מורים
               </div>
             </div>
           </div>
         </div>
 
-        {/* Action buttons */}
-        <div style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
+        {/* Contact buttons */}
+        <div style={{ display: "flex", gap: "8px", marginBottom: "10px" }}>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
             style={{
-              flex: 1, padding: "12px 16px",
+              flex: 1, padding: "10px 14px",
               background: "#25D366", color: "white",
               border: "none", borderRadius: "10px",
-              fontSize: "14px", fontWeight: "700",
+              fontSize: "13px", fontWeight: "700",
               cursor: "pointer", textDecoration: "none",
-              textAlign: "center", transition: "all 0.2s",
-            }}
-            onMouseOver={(e) => e.target.style.background = "#20BA58"}
-            onMouseOut={(e) => e.target.style.background = "#25D366"}
-          >
+              textAlign: "center",
+            }}>
             💬 WhatsApp
           </a>
           <a href={emailLink}
             style={{
-              flex: 1, padding: "12px 16px",
+              flex: 1, padding: "10px 14px",
               background: subject.color, color: "white",
               border: "none", borderRadius: "10px",
-              fontSize: "14px", fontWeight: "700",
+              fontSize: "13px", fontWeight: "700",
               cursor: "pointer", textDecoration: "none",
-              textAlign: "center", transition: "all 0.2s",
-            }}
-            onMouseOver={(e) => e.target.style.opacity = "0.8"}
-            onMouseOut={(e) => e.target.style.opacity = "1"}
-          >
+              textAlign: "center",
+            }}>
             📧 דוא״ל
           </a>
         </div>
 
-        {/* Close button */}
+        {/* Close */}
         <button onClick={onClose} style={{
-          width: "100%", padding: "12px 16px",
+          width: "100%", padding: "10px",
           background: isFocus ? "#222636" : "#f1f5f9",
           color: isFocus ? "#8b8fa3" : "#64748b",
           border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
-          borderRadius: "10px", fontSize: "14px", fontWeight: "700",
-          cursor: "pointer", transition: "all 0.2s",
+          borderRadius: "10px", fontSize: "13px", fontWeight: "700",
+          cursor: "pointer",
         }}>
           ← חזרה
         </button>
@@ -35873,8 +35897,16 @@ function StudentLogin({ onLogin }) {
   };
 
   const handleSocialLogin = (provider) => {
-    // In production this would redirect to OAuth
-    // For now, show a message and fall back to registration
+    // Check if user already has a bagrutai_user from landing page
+    const landingUser = localStorage.getItem('bagrutai_user');
+    if (landingUser) {
+      try {
+        const u = JSON.parse(landingUser);
+        const name = u.name || u.email || 'תלמיד';
+        handleLogin(name);
+        return;
+      } catch(e) {}
+    }
     alert(`כניסה עם ${provider} תהיה זמינה בקרוב! בינתיים, הירשמ/י עם שם.`);
   };
 
@@ -36233,6 +36265,23 @@ function StudentLogin({ onLogin }) {
 // ============================================
 function BagrutAI() {
   const [studentName, setStudentName] = useState(() => {
+    // Check if user came from landing page registration
+    const landingUser = localStorage.getItem('bagrutai_user');
+    if (landingUser) {
+      try {
+        const u = JSON.parse(landingUser);
+        const name = u.name || u.email || 'תלמיד';
+        // Auto-create student profile if doesn't exist
+        const all = loadAllData();
+        if (!all.students[name]) {
+          all.students[name] = createEmptyStudent(name);
+          if (u.email) all.students[name].email = u.email;
+        }
+        all.lastStudent = name;
+        saveAllData(all);
+        return name;
+      } catch(e) {}
+    }
     const all = loadAllData();
     return all.lastStudent || null;
   });
@@ -37597,6 +37646,12 @@ function BagrutAI() {
           subject={selectedSubject}
           unit={paywallModalUnit}
           onClose={() => setPaywallModalUnit(null)}
+          onSubscribe={(plan, subId) => {
+            activateSubscription(plan, subId);
+            setPaywallModalUnit(null);
+            // Re-select the unit now that it's unlocked
+            setSelectedUnit(paywallModalUnit);
+          }}
           isFocus={isFocus}
         />
       )}
