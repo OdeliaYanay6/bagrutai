@@ -1,1157 +1,544 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בגרות AI - הדרך החכמה לציון 100 בבגרות</title>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Heebo', sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
-            background: #fff;
-            overflow-x: hidden;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #7c3aed 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0) 70%);
-            border-radius: 50%;
-            top: -100px;
-            left: 5%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 70%);
-            border-radius: 50%;
-            bottom: -50px;
-            right: 10%;
-            animation: float 8s ease-in-out infinite 1s;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            animation: slideUp 1s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-30px);
-            }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                text-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
-            }
-            50% {
-                text-shadow: 0 4px 30px rgba(251, 191, 36, 0.6);
-            }
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #0f172a;
-            text-decoration: none;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
-            font-family: 'Heebo', sans-serif;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(251, 191, 36, 0.5);
-        }
-
-        .cta-button:active {
-            transform: translateY(-1px);
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
-            color: white;
-            padding: 2rem;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2rem;
-            border-top: 3px solid #fbbf24;
-        }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #fbbf24;
-            counter-increment: stat-counter;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-top: 0.5rem;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 5rem 2rem;
-            background: #f9fafb;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #0f172a;
-            font-weight: 900;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        .feature-card:nth-child(4) { animation-delay: 0.4s; }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #0f172a;
-        }
-
-        .feature-card p {
-            color: #6b7280;
-            font-size: 0.95rem;
-        }
-
-        /* Subjects Grid */
-        .subjects {
-            padding: 5rem 2rem;
-            background: white;
-        }
-
-        .subjects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .subject-card {
-            background: linear-gradient(135deg, #f0f4ff 0%, #f3e8ff 100%);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 2px solid #e0e7ff;
-            transition: all 0.3s ease;
-            position: relative;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .subject-card:nth-child(n) { animation-delay: calc(0.05s * var(--card-index, 1)); }
-
-        .subject-card:hover {
-            border-color: #7c3aed;
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .subject-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .subject-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-
-        .subject-units {
-            font-size: 0.85rem;
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-        }
-
-        .free-badge {
-            display: inline-block;
-            background: #10b981;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            color: white;
-        }
-
-        .pricing-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .pricing-card {
-            background: rgba(255, 255, 255, 0.95);
-            color: #0f172a;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .pricing-card:nth-child(1) { animation-delay: 0.2s; }
-        .pricing-card:nth-child(2) { animation-delay: 0.4s; }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(251, 191, 36, 0.2);
-        }
-
-        .pricing-card.featured {
-            border: 3px solid #fbbf24;
-        }
-
-        .pricing-ribbon {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #0f172a;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
-        }
-
-        .pricing-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .pricing-price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #7c3aed;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-subtext {
-            font-size: 0.9rem;
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-old-price {
-            font-size: 1.1rem;
-            color: #d1d5db;
-            text-decoration: line-through;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-offer {
-            background: #f0fdf4;
-            color: #10b981;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .pricing-features {
-            list-style: none;
-            text-align: right;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 0.95rem;
-        }
-
-        .pricing-features li:before {
-            content: "✓ ";
-            color: #10b981;
-            font-weight: 700;
-            margin-left: 0.5rem;
-        }
-
-        .pricing-card .cta-button {
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 5rem 2rem;
-            background: #f9fafb;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
-        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
-        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
-
-        .testimonial-stars {
-            color: #fbbf24;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .testimonial-text {
-            margin-bottom: 1.5rem;
-            color: #4b5563;
-            font-size: 0.95rem;
-        }
-
-        .testimonial-author {
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 0.25rem;
-        }
-
-        .testimonial-role {
-            font-size: 0.85rem;
-            color: #6b7280;
-        }
-
-        /* Comparison Section */
-        .comparison {
-            padding: 5rem 2rem;
-            background: white;
-        }
-
-        .comparison-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .comparison-table tr:first-child {
-            background: linear-gradient(135deg, #0f172a 0%, #7c3aed 100%);
-            color: white;
-        }
-
-        .comparison-table th, .comparison-table td {
-            padding: 1.5rem;
-            text-align: right;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .comparison-table th {
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .comparison-table tr:nth-child(even) {
-            background: #f9fafb;
-        }
-
-        .check {
-            color: #10b981;
-            font-weight: 900;
-            font-size: 1.3rem;
-        }
-
-        .cross {
-            color: #ef4444;
-            font-weight: 700;
-        }
-
-        /* FAQ Section */
-        .faq {
-            padding: 5rem 2rem;
-            background: #f9fafb;
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .faq-item:nth-child(1) { animation-delay: 0.1s; }
-        .faq-item:nth-child(2) { animation-delay: 0.2s; }
-        .faq-item:nth-child(3) { animation-delay: 0.3s; }
-        .faq-item:nth-child(4) { animation-delay: 0.4s; }
-        .faq-item:nth-child(5) { animation-delay: 0.5s; }
-        .faq-item:nth-child(6) { animation-delay: 0.6s; }
-
-        .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #f9fafb 0%, #f3e8ff 100%);
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .faq-question:hover {
-            background: linear-gradient(135deg, #f3f4f6 0%, #f0e7ff 100%);
-        }
-
-        .faq-question h3 {
-            font-size: 1.1rem;
-            color: #0f172a;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .faq-toggle {
-            font-size: 1.5rem;
-            color: #7c3aed;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.active .faq-toggle {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: white;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-        }
-
-        .faq-answer p {
-            padding: 1.5rem;
-            color: #4b5563;
-            line-height: 1.8;
-        }
-
-        /* Footer */
-        footer {
-            background: #0f172a;
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            color: #fbbf24;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: #d1d5db;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #fbbf24;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #374151;
-            padding-top: 2rem;
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .stats-bar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .subjects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .pricing-container {
-                grid-template-columns: 1fr;
-            }
-
-            .comparison-table th, .comparison-table td {
-                padding: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .faq-question h3 {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .cta-button {
-                padding: 0.75rem 2rem;
-                font-size: 1rem;
-            }
-
-            .stat-number {
-                font-size: 1.8rem;
-            }
-
-            .stat-label {
-                font-size: 0.85rem;
-            }
-
-            .subjects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Scroll animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BagrutAI - הפלטפורמה החכמה להצלחה בבגרות</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',sans-serif;color:#1a1a2e;background:#fff;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+.nav{position:fixed;top:0;right:0;left:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.06);padding:12px 0;transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:800;color:#6C3CE1}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6C3CE1,#00D4AA);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:900}
+.nav-cta{background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;padding:10px 28px;border-radius:50px;font-weight:700;font-size:15px;transition:all .3s;border:none;cursor:pointer}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,60,225,0.35)}
+
+/* HERO — compact */
+.hero{padding:100px 24px 50px;background:linear-gradient(135deg,#f8f6ff 0%,#eef9f6 50%,#f0f4ff 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:-100px;width:350px;height:350px;background:radial-gradient(circle,rgba(108,60,225,0.08),transparent 70%);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.08),transparent 70%);border-radius:50%}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
+.hero-text h1{font-size:42px;font-weight:900;line-height:1.2;margin-bottom:14px}
+.hero-text h1 span{background:linear-gradient(135deg,#6C3CE1,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-text p{font-size:18px;color:#555;line-height:1.7;margin-bottom:24px;max-width:500px}
+.hero-badges{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.hero-badge{background:#fff;border:1px solid #e8e0ff;border-radius:50px;padding:6px 16px;font-size:13px;font-weight:600;color:#6C3CE1;display:flex;align-items:center;gap:6px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;padding:14px 36px;border-radius:50px;font-weight:700;font-size:17px;transition:all .3s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(108,60,225,0.35)}
+.btn-secondary{background:#fff;color:#6C3CE1;padding:14px 36px;border-radius:50px;font-weight:700;font-size:17px;border:2px solid #6C3CE1;transition:all .3s;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.btn-secondary:hover{background:#6C3CE1;color:#fff}
+
+/* Hero Visual */
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+.hero-card{background:#fff;border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(108,60,225,0.12);max-width:380px;width:100%}
+.hero-card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.hero-card-icon{width:48px;height:48px;background:linear-gradient(135deg,#6C3CE1,#00D4AA);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.hero-card-header div h3{font-size:16px;font-weight:700;color:#1a1a2e}
+.hero-card-header div p{font-size:13px;color:#888}
+.hero-progress{margin-bottom:16px}
+.hero-progress-label{display:flex;justify-content:space-between;font-size:13px;color:#666;margin-bottom:6px}
+.hero-progress-bar{height:8px;background:#f0ecff;border-radius:10px;overflow:hidden}
+.hero-progress-fill{height:100%;background:linear-gradient(90deg,#6C3CE1,#00D4AA);border-radius:10px;transition:width 2s ease}
+.hero-topics{display:flex;flex-direction:column;gap:10px}
+.hero-topic{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8f6ff;border-radius:12px;font-size:14px;font-weight:500}
+.hero-topic .check{color:#00D4AA;font-size:18px;font-weight:700}
+.hero-topic .pending{color:#ccc;font-size:18px}
+.float-badge{position:absolute;background:#fff;border-radius:14px;padding:10px 16px;box-shadow:0 8px 30px rgba(0,0,0,0.1);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;animation:floaty 3s ease-in-out infinite}
+.float-badge.top-left{top:-10px;right:-20px;color:#00D4AA}
+.float-badge.bottom-right{bottom:10px;left:-20px;color:#6C3CE1;animation-delay:1.5s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* STATS */
+.stats{padding:40px 24px;background:#fff}
+.stats-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat-card{text-align:center;padding:24px 16px;border-radius:16px;background:linear-gradient(135deg,#f8f6ff,#eef9f6);border:1px solid rgba(108,60,225,0.08)}
+.stat-num{font-size:36px;font-weight:900;background:linear-gradient(135deg,#6C3CE1,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:14px;color:#666;margin-top:4px;font-weight:500}
+
+/* SOCIAL PROOF */
+.social-proof{padding:30px 24px;background:#f8f6ff}
+.social-inner{max-width:900px;margin:0 auto;text-align:center}
+.social-inner>p{font-size:15px;color:#888;margin-bottom:16px;font-weight:500}
+.testimonial-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.testi-card{background:#fff;border-radius:16px;padding:20px;max-width:280px;text-align:right;box-shadow:0 4px 20px rgba(0,0,0,0.04);border:1px solid #f0ecff}
+.testi-stars{color:#FFB800;font-size:14px;margin-bottom:8px}
+.testi-text{font-size:14px;line-height:1.6;color:#444;margin-bottom:10px}
+.testi-name{font-size:13px;font-weight:700;color:#6C3CE1}
+
+/* SECTION TITLES */
+.section-title{text-align:center;margin-bottom:40px}
+.section-title h2{font-size:32px;font-weight:800;margin-bottom:10px}
+.section-title h2 span{color:#6C3CE1}
+.section-title p{font-size:16px;color:#777;max-width:600px;margin:0 auto}
+
+/* FEATURES */
+.features{padding:60px 24px;background:#fff}
+.features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card{background:#fff;border:1px solid #f0ecff;border-radius:20px;padding:30px;transition:all .3s;position:relative;overflow:hidden}
+.feature-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(108,60,225,0.1);border-color:#d4c5ff}
+.feature-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:16px}
+.feature-card:nth-child(1) .feature-icon{background:linear-gradient(135deg,#e8e0ff,#f0ecff)}
+.feature-card:nth-child(2) .feature-icon{background:linear-gradient(135deg,#d4f5ec,#e8faf4)}
+.feature-card:nth-child(3) .feature-icon{background:linear-gradient(135deg,#fff3d4,#fff8e8)}
+.feature-card:nth-child(4) .feature-icon{background:linear-gradient(135deg,#ffe0e6,#fff0f3)}
+.feature-card:nth-child(5) .feature-icon{background:linear-gradient(135deg,#d4e8ff,#e8f2ff)}
+.feature-card:nth-child(6) .feature-icon{background:linear-gradient(135deg,#e0ffe8,#f0fff4)}
+.feature-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.feature-card p{font-size:14px;color:#666;line-height:1.6}
+
+/* SUBJECTS */
+.subjects{padding:60px 24px;background:linear-gradient(135deg,#f8f6ff,#fff)}
+.subjects-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.subject-chip{background:#fff;border:1px solid #e8e0ff;border-radius:14px;padding:16px 12px;text-align:center;transition:all .3s;cursor:pointer}
+.subject-chip:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(108,60,225,0.12);border-color:#c4b0ff}
+.subject-chip .s-icon{font-size:30px;margin-bottom:8px}
+.subject-chip .s-name{font-size:14px;font-weight:700;color:#1a1a2e}
+.subject-chip .s-units{font-size:12px;color:#888;margin-top:2px}
+
+/* HOW IT WORKS */
+.how{padding:60px 24px;background:#fff}
+.how-steps{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.how-step{text-align:center;position:relative}
+.how-step::after{content:'\2190';position:absolute;left:-16px;top:32px;font-size:24px;color:#d4c5ff;font-weight:700}
+.how-step:last-child::after{display:none}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6C3CE1,#00D4AA);color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.how-step h4{font-size:16px;font-weight:700;margin-bottom:6px}
+.how-step p{font-size:13px;color:#666;line-height:1.5}
+
+/* PRICING */
+.pricing{padding:60px 24px;background:linear-gradient(135deg,#1a1a2e,#2d1b69);color:#fff;position:relative;overflow:hidden}
+.pricing::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(108,60,225,0.3),transparent 70%);border-radius:50%}
+.pricing .section-title h2{color:#fff}
+.pricing .section-title h2 span{color:#00D4AA}
+.pricing .section-title p{color:rgba(255,255,255,0.6)}
+.pricing-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:1}
+.price-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:36px 28px;text-align:center;transition:all .3s}
+.price-card.popular{background:rgba(255,255,255,0.12);border-color:rgba(0,212,170,0.4);transform:scale(1.03)}
+.price-card.popular .popular-tag{background:#00D4AA;color:#1a1a2e;font-size:12px;font-weight:700;padding:4px 16px;border-radius:50px;display:inline-block;margin-bottom:12px}
+.price-card h3{font-size:20px;font-weight:700;margin-bottom:6px}
+.price-card .price-desc{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px}
+.price-amount{margin-bottom:20px}
+.price-amount .current-price{font-size:48px;font-weight:900}
+.price-amount .currency{font-size:20px;font-weight:600;color:#00D4AA}
+.price-amount .period{font-size:14px;color:rgba(255,255,255,0.5)}
+.price-features{list-style:none;text-align:right;margin-bottom:24px}
+.price-features li{padding:8px 0;font-size:14px;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:8px}
+.price-features li::before{content:'\2713';color:#00D4AA;font-weight:700;font-size:16px}
+.price-btn{width:100%;padding:14px;border-radius:50px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .3s;display:block;text-align:center}
+.price-card:not(.popular) .price-btn{background:#fff;color:#6C3CE1}
+.price-card.popular .price-btn{background:linear-gradient(135deg,#00D4AA,#00B894);color:#1a1a2e}
+.price-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.3)}
+.intro-banner{max-width:900px;margin:24px auto 0;background:linear-gradient(135deg,rgba(0,212,170,0.15),rgba(108,60,225,0.15));border:1px solid rgba(0,212,170,0.3);border-radius:16px;padding:18px 24px;text-align:center;position:relative;z-index:1}
+.intro-banner span{font-size:15px;color:#fff;font-weight:600}
+.intro-banner strong{color:#00D4AA}
+
+/* GUARANTEE */
+.guarantee{padding:40px 24px;background:#fff;text-align:center}
+.guarantee-box{max-width:700px;margin:0 auto;background:linear-gradient(135deg,#f8f6ff,#eef9f6);border-radius:20px;padding:30px;border:1px solid #e8e0ff}
+.guarantee-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.guarantee-box p{font-size:15px;color:#666;line-height:1.6}
+
+/* FAQ */
+.faq{padding:60px 24px;background:#f8f6ff}
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{background:#fff;border-radius:14px;margin-bottom:12px;border:1px solid #f0ecff;overflow:hidden}
+.faq-q{padding:18px 22px;font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:22px;color:#6C3CE1;transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all .3s;font-size:14px;color:#666;line-height:1.7}
+.faq-item.open .faq-a{padding:0 22px 18px;max-height:300px}
+
+/* CTA */
+.final-cta{padding:60px 24px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);text-align:center;color:#fff;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,170,0.15),transparent 70%);border-radius:50%}
+.final-cta h2{font-size:34px;font-weight:900;margin-bottom:12px;position:relative;z-index:1}
+.final-cta p{font-size:17px;color:rgba(255,255,255,0.8);margin-bottom:24px;position:relative;z-index:1}
+.cta-btn{background:#fff;color:#6C3CE1;padding:16px 48px;border-radius:50px;font-size:18px;font-weight:800;border:none;cursor:pointer;transition:all .3s;position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,0,0,0.2)}
+
+/* FOOTER */
+.footer{padding:30px 24px;background:#1a1a2e;color:rgba(255,255,255,0.5);text-align:center;font-size:13px}
+.footer a{color:#00D4AA}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .hero-text p{margin:0 auto 24px}
+  .hero-badges{justify-content:center}
+  .hero-btns{justify-content:center}
+  .hero-visual{margin-top:20px}
+  .float-badge{display:none}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .features-grid{grid-template-columns:1fr}
+  .subjects-grid{grid-template-columns:repeat(3,1fr)}
+  .how-steps{grid-template-columns:repeat(2,1fr)}
+  .how-step::after{display:none}
+  .pricing-grid{grid-template-columns:1fr}
+  .testimonial-row{flex-direction:column;align-items:center}
+}
+@media(max-width:500px){
+  .hero-text h1{font-size:30px}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .subjects-grid{grid-template-columns:repeat(2,1fr)}
+  .how-steps{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>בגרות AI</h1>
-            <p>הדרך החכמה לציון 100 בבגרות</p>
-            <a href="app.html" class="cta-button">התחל ללמוד בחינם →</a>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">AI</div>
+      BagrutAI
+    </a>
+    <a href="app.html" class="nav-cta">התחילו ללמוד בחינם</a>
+  </div>
+</nav>
+
+<!-- HERO — compact -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badges">
+        <div class="hero-badge">🎯 17 מקצועות בגרות</div>
+        <div class="hero-badge">🤖 מונע בינה מלאכותית</div>
+        <div class="hero-badge">📱 לומדים מכל מקום</div>
+      </div>
+      <h1>הדרך הבטוחה<br>ל<span>100 בבגרות</span></h1>
+      <p>פלטפורמת הלימוד החכמה שמכינה אותך לבגרות עם תוכן מקיף, שאלות תרגול, מונחי מפתח וקישורים לבחינות — הכל במקום אחד.</p>
+      <div class="hero-btns">
+        <a href="app.html" class="btn-primary">🚀 התחל ללמוד בחינם</a>
+        <a href="#pricing" class="btn-secondary">💰 צפו במחירים</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="float-badge top-left">🏆 100 בבגרות</div>
+      <div class="float-badge bottom-right">📈 162 יחידות לימוד</div>
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-icon">📚</div>
+          <div>
+            <h3>מתמטיקה — 5 יח"ל</h3>
+            <p>התקדמות אישית</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Stats Bar -->
-    <section class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">17</div>
-            <div class="stat-label">מקצועות</div>
+        <div class="hero-progress">
+          <div class="hero-progress-label"><span>יחידה 3: גיאומטריה</span><span>75%</span></div>
+          <div class="hero-progress-bar"><div class="hero-progress-fill" style="width:75%"></div></div>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">162</div>
-            <div class="stat-label">יחידות</div>
+        <div class="hero-topics">
+          <div class="hero-topic"><span class="check">✓</span> אלגברה ומשוואות</div>
+          <div class="hero-topic"><span class="check">✓</span> פונקציות וגרפים</div>
+          <div class="hero-topic"><span class="pending">○</span> גיאומטריה אנליטית</div>
+          <div class="hero-topic"><span class="pending">○</span> חשבון דיפרנציאלי</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">783</div>
-            <div class="stat-label">שאלות</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">1,274</div>
-            <div class="stat-label">מונחים</div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <h2 class="section-title">למה בגרות AI?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>תוכן מעמיק</h3>
-                <p>כל מקצוע מכוסה ברמה מלאה, מיסודות עד לרמת 100</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3>למידה חכמה</h3>
-                <p>מונחים מודגשים אוטומטית, טיפים לזכירה, שלבי חשיבה מפורטים</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📝</div>
-                <h3>שאלות בגרות</h3>
-                <p>783 שאלות עם תשובות מלאות והסברים ממומחים</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📋</div>
-                <h3>בחינות אמיתיות</h3>
-                <p>קישורים ישירים לארכיון משרד החינוך</p>
-            </div>
-        </div>
-    </section>
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat-card">
+      <div class="stat-num" data-target="17">0</div>
+      <div class="stat-label">מקצועות בגרות</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="162">0</div>
+      <div class="stat-label">יחידות לימוד</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="783">0</div>
+      <div class="stat-label">שאלות תרגול</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="1274">0</div>
+      <div class="stat-label">מונחי מפתח</div>
+    </div>
+  </div>
+</section>
 
-    <!-- Subjects Grid -->
-    <section class="subjects">
-        <h2 class="section-title">17 מקצועות בבגרות</h2>
-        <div class="subjects-grid">
-            <div class="subject-card">
-                <div class="subject-icon">📐</div>
-                <h4>מתמטיקה</h4>
-                <div class="subject-units">12 יחידות</div>
-                <span class="free-badge">חינם</span>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🔬</div>
-                <h4>פיזיקה</h4>
-                <div class="subject-units">10 יחידות</div>
-                <span class="free-badge">חינם</span>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🧪</div>
-                <h4>כימיה</h4>
-                <div class="subject-units">9 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🌍</div>
-                <h4>גיאוגרפיה</h4>
-                <div class="subject-units">8 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">📚</div>
-                <h4>ספרות עברית</h4>
-                <div class="subject-units">9 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">📖</div>
-                <h4>אנגלית</h4>
-                <div class="subject-units">8 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🏛</div>
-                <h4>הסטוריה</h4>
-                <div class="subject-units">10 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🕌</div>
-                <h4>תיכון של ישראל</h4>
-                <div class="subject-units">7 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">⚛</div>
-                <h4>ביולוגיה</h4>
-                <div class="subject-units">8 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">💻</div>
-                <h4>מדעי המחשב</h4>
-                <div class="subject-units">8 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🎨</div>
-                <h4>אומנות עברית</h4>
-                <div class="subject-units">7 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🌐</div>
-                <h4>שפות זרות</h4>
-                <div class="subject-units">8 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🎭</div>
-                <h4>תיאטרון</h4>
-                <div class="subject-units">6 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🎵</div>
-                <h4>מוסיקה</h4>
-                <div class="subject-units">6 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">⚽</div>
-                <h4>חינוך גופני</h4>
-                <div class="subject-units">5 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🔭</div>
-                <h4>אסטרונומיה</h4>
-                <div class="subject-units">6 יחידות</div>
-            </div>
-            <div class="subject-card">
-                <div class="subject-icon">🧬</div>
-                <h4>גנטיקה</h4>
-                <div class="subject-units">5 יחידות</div>
-            </div>
-        </div>
-    </section>
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="social-inner">
+    <p>⭐ תלמידים שלומדים עם BagrutAI משפרים את הציונים שלהם</p>
+    <div class="testimonial-row">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"עברתי מ-60 ל-92 באזרחות תוך חודש. התוכן מסודר ומובן בטירוף!"</div>
+        <div class="testi-name">— ד., תלמידת י"ב</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"סוף סוף מקום אחד עם הכל. לא צריך לחפש חומרים ברחבי האינטרנט."</div>
+        <div class="testi-name">— מ., תלמיד י"א</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"השאלות בסגנון בגרות עזרו לי להרגיש מוכנה ליום הבחינה."</div>
+        <div class="testi-name">— ש., תלמידת י"ב</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Pricing Section -->
-    <section class="pricing">
-        <h2 class="section-title" style="color: white;">תמחור גמיש</h2>
-        <div class="pricing-container">
-            <div class="pricing-card">
-                <h3 class="pricing-title">מקצוע בודד</h3>
-                <div class="pricing-price">₪100</div>
-                <div class="pricing-subtext">לחודש</div>
-                <div class="pricing-old-price">₪100</div>
-                <div class="pricing-offer">🎉 חודש ראשון: ₪49</div>
-                <ul class="pricing-features">
-                    <li>גישה מלאה למקצוע אחד</li>
-                    <li>162 יחידות למידה</li>
-                    <li>כל השאלות והתשובות</li>
-                    <li>תמיכה 24/7</li>
-                </ul>
-                <a href="app.html" class="cta-button">בחר מקצוע</a>
-            </div>
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-title">
+    <h2>למה <span>BagrutAI</span>?</h2>
+    <p>הפלטפורמה היחידה שמכסה את כל מה שצריך כדי להצליח בבגרות</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📖</div>
+      <h3>תוכן מקיף לכל יחידה</h3>
+      <p>חומר לימוד מעמיק שמכסה את כל הנושאים הנדרשים — מסוכם, ברור ומאורגן.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✍️</div>
+      <h3>שאלות בסגנון בגרות</h3>
+      <p>783 שאלות תרגול עם פתרונות מלאים, בדיוק כמו שיופיעו בבחינה האמיתית.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔑</div>
+      <h3>מונחי מפתח</h3>
+      <p>1,274 מונחים חשובים עם הגדרות — כל מה שצריך לדעת לציון מושלם.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>טכניקות שינון</h3>
+      <p>כלים מיוחדים שעוזרים לזכור את החומר: כרטיסיות, סיכומים חזותיים ושיטות זיכרון.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💡</div>
+      <h3>חשיבה ביקורתית</h3>
+      <p>שלבי חשיבה מודרכים שמלמדים לנתח ולהתמודד עם שאלות מורכבות.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>בחינות עבר ומיקוד</h3>
+      <p>קישורים ישירים לבחינות בגרות של השנים האחרונות ולחוברות מיקוד ממשרד החינוך.</p>
+    </div>
+  </div>
+</section>
 
-            <div class="pricing-card featured">
-                <div class="pricing-ribbon">הכי משתלם</div>
-                <h3 class="pricing-title">כל המקצועות</h3>
-                <div class="pricing-price">₪250</div>
-                <div class="pricing-subtext">לחודש</div>
-                <div class="pricing-old-price">₪250</div>
-                <div class="pricing-offer">🎉 חודש ראשון: ₪149</div>
-                <ul class="pricing-features">
-                    <li>גישה מלאה ל-17 מקצועות</li>
-                    <li>כל 162 היחידות</li>
-                    <li>783 שאלות בגרות</li>
-                    <li>תמיכה ודרוג עדיפות</li>
-                </ul>
-                <a href="app.html" class="cta-button">התחל עכשיו</a>
-            </div>
-        </div>
-    </section>
+<!-- 17 SUBJECTS -->
+<section class="subjects" id="subjects">
+  <div class="section-title">
+    <h2>17 <span>מקצועות</span> בגרות</h2>
+    <p>כל המקצועות שתצטרכו — במקום אחד</p>
+  </div>
+  <div class="subjects-grid">
+    <div class="subject-chip"><div class="s-icon">📝</div><div class="s-name">עברית</div><div class="s-units">12 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">📜</div><div class="s-name">תנ״ך</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">📚</div><div class="s-name">ספרות</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">⚖️</div><div class="s-name">אזרחות</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">🏛️</div><div class="s-name">היסטוריה</div><div class="s-units">12 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">📐</div><div class="s-name">מתמטיקה</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">🌍</div><div class="s-name">אנגלית</div><div class="s-units">8 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">⚗️</div><div class="s-name">כימיה</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">⚛️</div><div class="s-name">פיזיקה</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">💻</div><div class="s-name">מדעי המחשב</div><div class="s-units">8 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">🕌</div><div class="s-name">ערבית</div><div class="s-units">8 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">✏️</div><div class="s-name">עברית לערבים</div><div class="s-units">8 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">📿</div><div class="s-name">תושב״ע</div><div class="s-units">8 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">👥</div><div class="s-name">סוציולוגיה</div><div class="s-units">8 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">🧠</div><div class="s-name">פסיכולוגיה</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">🧬</div><div class="s-name">ביולוגיה</div><div class="s-units">10 יחידות</div></div>
+    <div class="subject-chip"><div class="s-icon">🌎</div><div class="s-name">גיאוגרפיה</div><div class="s-units">10 יחידות</div></div>
+  </div>
+</section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <h2 class="section-title">מה תלמידים אומרים?</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"בגרות AI משנה את כל הדברים. התחלתי עם 65 בחיזוי המורה שלי, עכשיו אני ביוסף על 90!"</p>
-                <div class="testimonial-author">דנה לביא</div>
-                <div class="testimonial-role">תלמידת כיתה י"ב - מתמטיקה</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"המונחים המודגשים והטיפים לזכירה עזרו לי למצא קשרים שלא הבנתי לפני כן. מעולה!"</p>
-                <div class="testimonial-author">עדן כהן</div>
-                <div class="testimonial-role">תלמיד כיתה י"א - ביולוגיה</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"ההסברים מפורטים כל כך שהם כמו שיעור פרטי בחצי השמיניות של המחיר. המלצה חמה!"</p>
-                <div class="testimonial-author">יעקב פרץ</div>
-                <div class="testimonial-role">תלמיד כיתה י"ב - פיזיקה</div>
-            </div>
-        </div>
-    </section>
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-title">
+    <h2>איך זה <span>עובד</span>?</h2>
+    <p>4 צעדים פשוטים להצלחה בבגרות</p>
+  </div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="step-num">1</div>
+      <h4>בחרו מקצוע</h4>
+      <p>בחרו מתוך 17 מקצועות בגרות את מה שאתם צריכים</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">2</div>
+      <h4>למדו את החומר</h4>
+      <p>תוכן מקיף, מונחים והסברים ברורים לכל יחידה</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">3</div>
+      <h4>תרגלו שאלות</h4>
+      <p>שאלות בסגנון בגרות עם פתרונות מפורטים</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">4</div>
+      <h4>הצליחו בבחינה!</h4>
+      <p>הגיעו מוכנים ובטוחים ליום הבחינה</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Comparison Section -->
-    <section class="comparison">
-        <h2 class="section-title">למה BagrutAI ולא מורה פרטי?</h2>
-        <div class="comparison-container">
-            <table class="comparison-table">
-                <tr>
-                    <th>תכונה</th>
-                    <th>בגרות AI</th>
-                    <th>מורה פרטי</th>
-                </tr>
-                <tr>
-                    <td>עלות חודשית</td>
-                    <td><span class="check">₪100-250</span></td>
-                    <td><span class="cross">₪800-1500</span></td>
-                </tr>
-                <tr>
-                    <td>זמינות 24/7</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="cross">✗</span></td>
-                </tr>
-                <tr>
-                    <td>כל 17 המקצועות</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="cross">✗ (בדרך כלל 1)</span></td>
-                </tr>
-                <tr>
-                    <td>שאלות מדורגות</td>
-                    <td><span class="check">✓ (783)</span></td>
-                    <td><span class="cross">תלוי במורה</span></td>
-                </tr>
-                <tr>
-                    <td>למידה בקצב שלך</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="cross">בלוח הזמנים של המורה</span></td>
-                </tr>
-                <tr>
-                    <td>טיפים לזכירה AI</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="cross">לא תמיד</span></td>
-                </tr>
-            </table>
-        </div>
-    </section>
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-title">
+    <h2>מחירים <span>שווים</span></h2>
+    <p>2 יחידות ראשונות בכל מקצוע — בחינם לגמרי!</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>מקצוע בודד</h3>
+      <div class="price-desc">גישה מלאה למקצוע אחד</div>
+      <div class="price-amount">
+        <span class="current-price">100</span>
+        <span class="currency">₪</span>
+        <span class="period">/ חודש</span>
+      </div>
+      <ul class="price-features">
+        <li>כל היחידות במקצוע שבחרת</li>
+        <li>שאלות תרגול עם פתרונות</li>
+        <li>מונחי מפתח והגדרות</li>
+        <li>קישורים לבחינות עבר</li>
+        <li>טכניקות שינון וחשיבה</li>
+      </ul>
+      <a href="app.html" class="price-btn">התחילו עכשיו</a>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-tag">🔥 הכי משתלם</div>
+      <h3>כל המקצועות</h3>
+      <div class="price-desc">גישה מלאה לכל 17 המקצועות</div>
+      <div class="price-amount">
+        <span class="current-price">250</span>
+        <span class="currency">₪</span>
+        <span class="period">/ חודש</span>
+      </div>
+      <ul class="price-features">
+        <li>כל 17 המקצועות ללא הגבלה</li>
+        <li>162 יחידות לימוד מלאות</li>
+        <li>783 שאלות תרגול</li>
+        <li>1,274 מונחי מפתח</li>
+        <li>בחינות עבר וחוברות מיקוד</li>
+        <li>חיסכון של עד 70%!</li>
+      </ul>
+      <a href="app.html" class="price-btn">קבלו גישה מלאה</a>
+    </div>
+  </div>
+  <div class="intro-banner">
+    <span>🎉 <strong>מבצע היכרות!</strong> מקצוע בודד ב-₪49 | כל המקצועות ב-₪149 — בחודש הראשון בלבד!</span>
+  </div>
+</section>
 
-    <!-- FAQ Section -->
-    <section class="faq">
-        <h2 class="section-title">שאלות נפוצות</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>האם באמת זה עובד?</h3>
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>בהחלט! תלמידים שלנו משפרים את הציונים שלהם בממוצע ב-15-20 נקודות בחודש. בגרות AI מיועדת לעזור לך להבין את החומר בעמוק ולהיות מוכן למבחן הבגרות.</p>
-                </div>
-            </div>
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <div class="guarantee-box">
+    <h3>🛡️ 2 יחידות חינם בכל מקצוע</h3>
+    <p>לא צריך להתחייב לפני שמנסים! היכנסו, לימדו 2 יחידות מכל מקצוע שתרצו — בחינם לגמרי. ככה תוכלו לראות את האיכות לפני שמשלמים.</p>
+  </div>
+</section>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>כמה זמן לוקח להתחיל?</h3>
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>אתה יכול להתחיל תוך דקות. פשוט התחברת, בחר מקצוע, וזה הכל! השתי היחידות הראשונות של כל מקצוע זמינות בחינם, כדי שתוכל להנסות את המערכת לפני שאתה משלם.</p>
-                </div>
-            </div>
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-title">
+    <h2>שאלות <span>נפוצות</span></h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">אם אלמד רק מ-BagrutAI, אוכל להגיע ל-100?</div>
+      <div class="faq-a">הפלטפורמה מכסה את כל חומר הלימוד הנדרש לבחינת הבגרות, כולל תוכן מעמיק, מונחי מפתח, שאלות תרגול וקישורים לבחינות עבר. עם למידה עקבית — התשובה היא כן!</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">לאילו מקצועות יש תוכן?</div>
+      <div class="faq-a">יש לנו 17 מקצועות בגרות: עברית, תנ"ך, ספרות, אזרחות, היסטוריה, מתמטיקה, אנגלית, כימיה, פיזיקה, מדעי המחשב, ערבית, עברית לערבים, תושב"ע, סוציולוגיה, פסיכולוגיה, ביולוגיה וגיאוגרפיה.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">מה כלול בגרסה החינמית?</div>
+      <div class="faq-a">2 היחידות הראשונות מכל מקצוע זמינות בחינם, כולל התוכן המלא, השאלות והמונחים. ככה תוכלו לבדוק את הפלטפורמה לפני שמחליטים.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">אני יכול לבטל מתי שארצה?</div>
+      <div class="faq-a">כמובן! אין התחייבות. אפשר לבטל את המנוי בכל רגע ולהמשיך להשתמש בתוכן החינמי.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">האם יש אפליקציה?</div>
+      <div class="faq-a">הפלטפורמה עובדת ישירות מהדפדפן בנייד ובמחשב — לא צריך להוריד שום דבר. פשוט נכנסים ומתחילים ללמוד!</div>
+    </div>
+  </div>
+</section>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>מה אם לא מרוצה?</h3>
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>יש לנו מדיניות החזר מלאה של 30 ימים, אפילו אם לא מרוצה. אין שאלות, אין תשובות. אנחנו בטוחים שתאהב את בגרות AI!</p>
-                </div>
-            </div>
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>מוכנים להתחיל את הדרך ל-100?</h2>
+  <p>הצטרפו לתלמידים שכבר לומדים עם BagrutAI</p>
+  <a href="app.html" class="cta-btn">🚀 התחילו ללמוד עכשיו — בחינם!</a>
+</section>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>אני יכול לצאת מהמנוי בכל עת?</h3>
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>כן! אפשר לבטל את המנוי בכל שלב בלי הוצאה עקיפה או עלויות ביטול. בדוק את הגדרות חשבונך כדי לנהל את המנויים שלך.</p>
-                </div>
-            </div>
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2026 BagrutAI — הפלטפורמה החכמה להצלחה בבגרות | <a href="app.html">כניסה לפלטפורמה</a></p>
+</footer>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>האם המונחים באמת משפיעים?</h3>
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>כן! הנתון מונחים מודגשים אוטומטית כשאתה קורא. זה עוזר לך לזהות מושגים חשובים ולזכור אותם בקלות רבה יותר. בנוסף, טיפים לזכירה מסייעים להבנה לאורך טווח.</p>
-                </div>
-            </div>
+<script>
+// Navbar scroll effect
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
+});
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>האם זה כולל שאלות בגרות ממשיות?</h3>
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>בגרות AI כולל 783 שאלות מוצאות ברמת בגרות, חלקן על בסיס שאלות בפועל. אנחנו גם מקשרים לארכיון רשמי של משרד החינוך כדי שתוכל להתרגל לשאלות אמיתיות.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+// Counter animation
+var counters=document.querySelectorAll('.stat-num[data-target]');
+var counterObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      var el=e.target,target=parseInt(el.dataset.target);
+      var current=0;
+      var step=Math.ceil(target/60);
+      var timer=setInterval(function(){
+        current+=step;
+        if(current>=target){current=target;clearInterval(timer)}
+        el.textContent=current.toLocaleString();
+      },25);
+      counterObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+counters.forEach(function(c){counterObs.observe(c)});
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>בגרות AI</h4>
-                <p>הדרך החכמה לציון 100 בבגרות</p>
-            </div>
-            <div class="footer-section">
-                <h4>קישורים מהירים</h4>
-                <ul>
-                    <li><a href="app.html">ללמוד עכשיו</a></li>
-                    <li><a href="#pricing">תמחור</a></li>
-                    <li><a href="#faq">שאלות נפוצות</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>עזרה</h4>
-                <ul>
-                    <li><a href="mailto:support@bagrutai.co.il">צור קשר</a></li>
-                    <li><a href="#">תנאים וההוגנות</a></li>
-                    <li><a href="#">מדיניות פרטיות</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 בגרות AI. כל הזכויות שמורות.</p>
-        </div>
-    </footer>
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(function(q){
+  q.addEventListener('click',function(){
+    var item=q.parentElement;
+    document.querySelectorAll('.faq-item').forEach(function(i){if(i!==item)i.classList.remove('open')});
+    item.classList.toggle('open');
+  });
+});
 
-    <script>
-        // Smooth scroll for buttons
-        document.querySelectorAll('a[href="app.html"]').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // Links to app.html work normally, this is just for reference
-            });
-        });
+// Subject chips click -> go to platform
+document.querySelectorAll('.subject-chip').forEach(function(c){
+  c.addEventListener('click',function(){window.location.href='app.html'});
+});
 
-        // Intersection Observer for scroll reveal animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all scroll-reveal elements
-        document.querySelectorAll('.feature-card, .subject-card, .testimonial-card, .faq-item, .pricing-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', function() {
-                const item = this.closest('.faq-item');
-                item.classList.toggle('active');
-            });
-        });
-
-        // Animated counters
-        function animateCounters() {
-            const statNumbers = document.querySelectorAll('.stat-number');
-            
-            const countUp = (element) => {
-                const target = parseInt(element.textContent.replace(/,/g, ''));
-                const duration = 2000;
-                const start = Date.now();
-                const step = () => {
-                    const elapsed = Date.now() - start;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const current = Math.floor(progress * target);
-                    element.textContent = current.toLocaleString('he-IL');
-                    if (progress < 1) {
-                        requestAnimationFrame(step);
-                    } else {
-                        element.textContent = target.toLocaleString('he-IL');
-                    }
-                };
-                step();
-            };
-
-            // Start animation when visible
-            const statsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !entry.target.dataset.animated) {
-                        entry.target.dataset.animated = true;
-                        countUp(entry.target);
-                    }
-                });
-            });
-
-            statNumbers.forEach(num => statsObserver.observe(num));
-        }
-
-        animateCounters();
-
-        // Smooth page scroll
-        window.addEventListener('scroll', () => {
-            // Add parallax or other scroll effects here if needed
-        });
-    </script>
+// Progress bar animation
+var progObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.querySelector('.hero-progress-fill').style.width='75%';
+      progObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.hero-progress').forEach(function(p){
+  p.querySelector('.hero-progress-fill').style.width='0%';
+  progObs.observe(p);
+});
+</script>
 </body>
 </html>
