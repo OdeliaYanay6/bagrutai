@@ -3,292 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BagrutAI - הפלטפורמה החכמה להצלחה בבגרות</title>
+<title>BagrutAI - הדרך החכמה ל-100 בבגרות</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Heebo',sans-serif;color:#1a1a2e;background:#fff;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 
-/* NAV */
-.nav{position:fixed;top:0;right:0;left:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.06);padding:12px 0;transition:box-shadow .3s}
-.nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08)}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:800;color:#6C3CE1}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6C3CE1,#00D4AA);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:900}
-.nav-cta{background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;padding:10px 28px;border-radius:50px;font-weight:700;font-size:15px;transition:all .3s;border:none;cursor:pointer}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,60,225,0.35)}
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;right:0;left:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.06);padding:8px 0}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;font-size:22px;font-weight:800;color:#6C3CE1}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#6C3CE1,#00D4AA);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:900}
+.nav-cta{background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;padding:8px 22px;border-radius:50px;font-weight:700;font-size:14px;cursor:pointer;border:none;transition:all .3s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,60,225,0.3)}
 
-/* HERO — compact */
-.hero{padding:100px 24px 50px;background:linear-gradient(135deg,#f8f6ff 0%,#eef9f6 50%,#f0f4ff 100%);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-100px;left:-100px;width:350px;height:350px;background:radial-gradient(circle,rgba(108,60,225,0.08),transparent 70%);border-radius:50%}
-.hero::after{content:'';position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.08),transparent 70%);border-radius:50%}
-.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
-.hero-text h1{font-size:42px;font-weight:900;line-height:1.2;margin-bottom:14px}
+/* ===== HERO — ultra compact ===== */
+.hero{padding:64px 20px 24px;background:linear-gradient(135deg,#f8f6ff 0%,#eef9f6 50%,#f0f4ff 100%);min-height:auto}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.9fr;gap:30px;align-items:center}
+.hero-text h1{font-size:34px;font-weight:900;line-height:1.15;margin-bottom:8px}
 .hero-text h1 span{background:linear-gradient(135deg,#6C3CE1,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-text p{font-size:18px;color:#555;line-height:1.7;margin-bottom:24px;max-width:500px}
-.hero-badges{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.hero-badge{background:#fff;border:1px solid #e8e0ff;border-radius:50px;padding:6px 16px;font-size:13px;font-weight:600;color:#6C3CE1;display:flex;align-items:center;gap:6px}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
-.btn-primary{background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;padding:14px 36px;border-radius:50px;font-weight:700;font-size:17px;transition:all .3s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(108,60,225,0.35)}
-.btn-secondary{background:#fff;color:#6C3CE1;padding:14px 36px;border-radius:50px;font-weight:700;font-size:17px;border:2px solid #6C3CE1;transition:all .3s;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
-.btn-secondary:hover{background:#6C3CE1;color:#fff}
+.hero-text p{font-size:15px;color:#666;line-height:1.6;margin-bottom:16px;max-width:420px}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.hero-badge{background:#fff;border:1px solid #e8e0ff;border-radius:50px;padding:4px 12px;font-size:12px;font-weight:600;color:#6C3CE1}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;padding:12px 28px;border-radius:50px;font-weight:700;font-size:16px;transition:all .3s;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,60,225,0.3)}
 
-/* Hero Visual */
-.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
-.hero-card{background:#fff;border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(108,60,225,0.12);max-width:380px;width:100%}
-.hero-card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.hero-card-icon{width:48px;height:48px;background:linear-gradient(135deg,#6C3CE1,#00D4AA);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
-.hero-card-header div h3{font-size:16px;font-weight:700;color:#1a1a2e}
-.hero-card-header div p{font-size:13px;color:#888}
-.hero-progress{margin-bottom:16px}
-.hero-progress-label{display:flex;justify-content:space-between;font-size:13px;color:#666;margin-bottom:6px}
-.hero-progress-bar{height:8px;background:#f0ecff;border-radius:10px;overflow:hidden}
-.hero-progress-fill{height:100%;background:linear-gradient(90deg,#6C3CE1,#00D4AA);border-radius:10px;transition:width 2s ease}
-.hero-topics{display:flex;flex-direction:column;gap:10px}
-.hero-topic{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8f6ff;border-radius:12px;font-size:14px;font-weight:500}
-.hero-topic .check{color:#00D4AA;font-size:18px;font-weight:700}
-.hero-topic .pending{color:#ccc;font-size:18px}
-.float-badge{position:absolute;background:#fff;border-radius:14px;padding:10px 16px;box-shadow:0 8px 30px rgba(0,0,0,0.1);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;animation:floaty 3s ease-in-out infinite}
-.float-badge.top-left{top:-10px;right:-20px;color:#00D4AA}
-.float-badge.bottom-right{bottom:10px;left:-20px;color:#6C3CE1;animation-delay:1.5s}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* Hero mini-card */
+.hero-visual{display:flex;justify-content:center}
+.hero-card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 12px 40px rgba(108,60,225,0.1);max-width:320px;width:100%}
+.hero-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.hc-icon{width:40px;height:40px;background:linear-gradient(135deg,#6C3CE1,#00D4AA);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.hc-info h3{font-size:14px;font-weight:700}
+.hc-info p{font-size:12px;color:#888}
+.hc-progress{margin-bottom:12px}
+.hc-progress-top{display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:4px}
+.hc-bar{height:6px;background:#f0ecff;border-radius:10px;overflow:hidden}
+.hc-fill{height:100%;width:75%;background:linear-gradient(90deg,#6C3CE1,#00D4AA);border-radius:10px}
+.hc-items{display:flex;flex-direction:column;gap:6px}
+.hc-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f8f6ff;border-radius:8px;font-size:13px;font-weight:500}
+.hc-item .ok{color:#00D4AA;font-weight:700}
+.hc-item .wait{color:#ccc}
 
-/* STATS */
-.stats{padding:40px 24px;background:#fff}
-.stats-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.stat-card{text-align:center;padding:24px 16px;border-radius:16px;background:linear-gradient(135deg,#f8f6ff,#eef9f6);border:1px solid rgba(108,60,225,0.08)}
-.stat-num{font-size:36px;font-weight:900;background:linear-gradient(135deg,#6C3CE1,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat-label{font-size:14px;color:#666;margin-top:4px;font-weight:500}
+/* ===== STATS BAR ===== */
+.stats{padding:18px 20px;background:#fff;border-bottom:1px solid #f0ecff}
+.stats-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{text-align:center;padding:14px 8px;border-radius:12px;background:linear-gradient(135deg,#f8f6ff,#eef9f6)}
+.stat-num{font-size:28px;font-weight:900;background:linear-gradient(135deg,#6C3CE1,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:12px;color:#666;font-weight:500}
 
-/* SOCIAL PROOF */
-.social-proof{padding:30px 24px;background:#f8f6ff}
-.social-inner{max-width:900px;margin:0 auto;text-align:center}
-.social-inner>p{font-size:15px;color:#888;margin-bottom:16px;font-weight:500}
-.testimonial-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.testi-card{background:#fff;border-radius:16px;padding:20px;max-width:280px;text-align:right;box-shadow:0 4px 20px rgba(0,0,0,0.04);border:1px solid #f0ecff}
-.testi-stars{color:#FFB800;font-size:14px;margin-bottom:8px}
-.testi-text{font-size:14px;line-height:1.6;color:#444;margin-bottom:10px}
-.testi-name{font-size:13px;font-weight:700;color:#6C3CE1}
-
-/* SECTION TITLES */
-.section-title{text-align:center;margin-bottom:40px}
-.section-title h2{font-size:32px;font-weight:800;margin-bottom:10px}
+/* ===== SUBJECTS GRID ===== */
+.subjects{padding:40px 20px 30px;background:#fff}
+.section-title{text-align:center;margin-bottom:24px}
+.section-title h2{font-size:26px;font-weight:800;margin-bottom:6px}
 .section-title h2 span{color:#6C3CE1}
-.section-title p{font-size:16px;color:#777;max-width:600px;margin:0 auto}
+.section-title p{font-size:14px;color:#777}
+.subjects-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.subj{background:#fff;border:1px solid #e8e0ff;border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .25s}
+.subj:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,60,225,0.1);border-color:#c4b0ff}
+.subj .si{font-size:26px;margin-bottom:4px}
+.subj .sn{font-size:13px;font-weight:700;color:#1a1a2e}
+.subj .su{font-size:11px;color:#999}
 
-/* FEATURES */
-.features{padding:60px 24px;background:#fff}
-.features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.feature-card{background:#fff;border:1px solid #f0ecff;border-radius:20px;padding:30px;transition:all .3s;position:relative;overflow:hidden}
-.feature-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(108,60,225,0.1);border-color:#d4c5ff}
-.feature-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:16px}
-.feature-card:nth-child(1) .feature-icon{background:linear-gradient(135deg,#e8e0ff,#f0ecff)}
-.feature-card:nth-child(2) .feature-icon{background:linear-gradient(135deg,#d4f5ec,#e8faf4)}
-.feature-card:nth-child(3) .feature-icon{background:linear-gradient(135deg,#fff3d4,#fff8e8)}
-.feature-card:nth-child(4) .feature-icon{background:linear-gradient(135deg,#ffe0e6,#fff0f3)}
-.feature-card:nth-child(5) .feature-icon{background:linear-gradient(135deg,#d4e8ff,#e8f2ff)}
-.feature-card:nth-child(6) .feature-icon{background:linear-gradient(135deg,#e0ffe8,#f0fff4)}
-.feature-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-.feature-card p{font-size:14px;color:#666;line-height:1.6}
+/* ===== FEATURES ROW ===== */
+.features{padding:30px 20px;background:#f8f6ff}
+.feat-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat{background:#fff;border-radius:14px;padding:20px;border:1px solid #f0ecff;transition:all .3s}
+.feat:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(108,60,225,0.08)}
+.feat-icon{font-size:24px;margin-bottom:8px}
+.feat h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.feat p{font-size:13px;color:#666;line-height:1.5}
 
-/* SUBJECTS */
-.subjects{padding:60px 24px;background:linear-gradient(135deg,#f8f6ff,#fff)}
-.subjects-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.subject-chip{background:#fff;border:1px solid #e8e0ff;border-radius:14px;padding:16px 12px;text-align:center;transition:all .3s;cursor:pointer}
-.subject-chip:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(108,60,225,0.12);border-color:#c4b0ff}
-.subject-chip .s-icon{font-size:30px;margin-bottom:8px}
-.subject-chip .s-name{font-size:14px;font-weight:700;color:#1a1a2e}
-.subject-chip .s-units{font-size:12px;color:#888;margin-top:2px}
-
-/* HOW IT WORKS */
-.how{padding:60px 24px;background:#fff}
-.how-steps{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.how-step{text-align:center;position:relative}
-.how-step::after{content:'\2190';position:absolute;left:-16px;top:32px;font-size:24px;color:#d4c5ff;font-weight:700}
-.how-step:last-child::after{display:none}
-.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6C3CE1,#00D4AA);color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
-.how-step h4{font-size:16px;font-weight:700;margin-bottom:6px}
-.how-step p{font-size:13px;color:#666;line-height:1.5}
-
-/* PRICING */
-.pricing{padding:60px 24px;background:linear-gradient(135deg,#1a1a2e,#2d1b69);color:#fff;position:relative;overflow:hidden}
-.pricing::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(108,60,225,0.3),transparent 70%);border-radius:50%}
+/* ===== PRICING ===== */
+.pricing{padding:40px 20px;background:linear-gradient(135deg,#1a1a2e,#2d1b69);color:#fff;position:relative;overflow:hidden}
+.pricing::before{content:'';position:absolute;top:-150px;right:-150px;width:400px;height:400px;background:radial-gradient(circle,rgba(108,60,225,0.25),transparent 70%);border-radius:50%}
 .pricing .section-title h2{color:#fff}
 .pricing .section-title h2 span{color:#00D4AA}
-.pricing .section-title p{color:rgba(255,255,255,0.6)}
-.pricing-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:1}
-.price-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:36px 28px;text-align:center;transition:all .3s}
-.price-card.popular{background:rgba(255,255,255,0.12);border-color:rgba(0,212,170,0.4);transform:scale(1.03)}
-.price-card.popular .popular-tag{background:#00D4AA;color:#1a1a2e;font-size:12px;font-weight:700;padding:4px 16px;border-radius:50px;display:inline-block;margin-bottom:12px}
-.price-card h3{font-size:20px;font-weight:700;margin-bottom:6px}
-.price-card .price-desc{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px}
-.price-amount{margin-bottom:20px}
-.price-amount .current-price{font-size:48px;font-weight:900}
-.price-amount .currency{font-size:20px;font-weight:600;color:#00D4AA}
-.price-amount .period{font-size:14px;color:rgba(255,255,255,0.5)}
-.price-features{list-style:none;text-align:right;margin-bottom:24px}
-.price-features li{padding:8px 0;font-size:14px;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:8px}
-.price-features li::before{content:'\2713';color:#00D4AA;font-weight:700;font-size:16px}
-.price-btn{width:100%;padding:14px;border-radius:50px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .3s;display:block;text-align:center}
-.price-card:not(.popular) .price-btn{background:#fff;color:#6C3CE1}
-.price-card.popular .price-btn{background:linear-gradient(135deg,#00D4AA,#00B894);color:#1a1a2e}
-.price-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.3)}
-.intro-banner{max-width:900px;margin:24px auto 0;background:linear-gradient(135deg,rgba(0,212,170,0.15),rgba(108,60,225,0.15));border:1px solid rgba(0,212,170,0.3);border-radius:16px;padding:18px 24px;text-align:center;position:relative;z-index:1}
-.intro-banner span{font-size:15px;color:#fff;font-weight:600}
-.intro-banner strong{color:#00D4AA}
+.pricing .section-title p{color:rgba(255,255,255,0.5)}
+.price-grid{max-width:750px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1}
+.pcard{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px 22px;text-align:center;transition:all .3s}
+.pcard.pop{background:rgba(255,255,255,0.12);border-color:rgba(0,212,170,0.4);transform:scale(1.02)}
+.pop-tag{background:#00D4AA;color:#1a1a2e;font-size:11px;font-weight:700;padding:3px 14px;border-radius:50px;display:inline-block;margin-bottom:8px}
+.pcard h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.pcard .pd{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:14px}
+.price-big{font-size:42px;font-weight:900;margin-bottom:4px}
+.price-cur{font-size:18px;color:#00D4AA;font-weight:600}
+.price-per{font-size:13px;color:rgba(255,255,255,0.4)}
+.pcard ul{list-style:none;text-align:right;margin:16px 0}
+.pcard li{padding:5px 0;font-size:13px;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:6px}
+.pcard li::before{content:'\2713';color:#00D4AA;font-weight:700}
+.pbtn{display:block;width:100%;padding:12px;border-radius:50px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .3s;text-align:center}
+.pcard:not(.pop) .pbtn{background:#fff;color:#6C3CE1}
+.pcard.pop .pbtn{background:linear-gradient(135deg,#00D4AA,#00B894);color:#1a1a2e}
+.pbtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.3)}
+.intro-ban{max-width:750px;margin:16px auto 0;background:linear-gradient(135deg,rgba(0,212,170,0.15),rgba(108,60,225,0.15));border:1px solid rgba(0,212,170,0.3);border-radius:12px;padding:12px 18px;text-align:center;position:relative;z-index:1;font-size:14px;color:#fff;font-weight:600}
+.intro-ban strong{color:#00D4AA}
 
-/* GUARANTEE */
-.guarantee{padding:40px 24px;background:#fff;text-align:center}
-.guarantee-box{max-width:700px;margin:0 auto;background:linear-gradient(135deg,#f8f6ff,#eef9f6);border-radius:20px;padding:30px;border:1px solid #e8e0ff}
-.guarantee-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
-.guarantee-box p{font-size:15px;color:#666;line-height:1.6}
+/* ===== REGISTRATION MODAL ===== */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:200;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:20px;padding:36px 32px;max-width:420px;width:90%;position:relative;box-shadow:0 25px 60px rgba(0,0,0,0.2);text-align:center}
+.modal-close{position:absolute;top:14px;left:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#999;transition:color .2s}
+.modal-close:hover{color:#333}
+.modal h2{font-size:24px;font-weight:800;margin-bottom:6px}
+.modal .modal-sub{font-size:14px;color:#777;margin-bottom:24px}
+.social-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;border:1px solid #e0e0e0;background:#fff;transition:all .2s;width:100%}
+.social-btn:hover{box-shadow:0 4px 15px rgba(0,0,0,0.08);border-color:#ccc}
+.social-btn.google{color:#333}
+.social-btn.google svg{width:20px;height:20px}
+.social-btn.facebook{background:#1877F2;color:#fff;border-color:#1877F2}
+.social-btn.facebook:hover{background:#1565D8}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:13px;color:#bbb}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#e8e8e8}
+.form-group{margin-bottom:12px;text-align:right}
+.form-group label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:4px}
+.form-group input{width:100%;padding:11px 14px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:'Heebo',sans-serif;transition:border-color .2s;direction:rtl}
+.form-group input:focus{outline:none;border-color:#6C3CE1;box-shadow:0 0 0 3px rgba(108,60,225,0.1)}
+.submit-btn{width:100%;padding:13px;border-radius:50px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .3s;margin-top:8px;font-family:'Heebo',sans-serif}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,60,225,0.3)}
+.modal-footer{margin-top:16px;font-size:12px;color:#aaa}
 
-/* FAQ */
-.faq{padding:60px 24px;background:#f8f6ff}
-.faq-list{max-width:700px;margin:0 auto}
-.faq-item{background:#fff;border-radius:14px;margin-bottom:12px;border:1px solid #f0ecff;overflow:hidden}
-.faq-q{padding:18px 22px;font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-.faq-q::after{content:'+';font-size:22px;color:#6C3CE1;transition:transform .3s}
-.faq-item.open .faq-q::after{transform:rotate(45deg)}
-.faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all .3s;font-size:14px;color:#666;line-height:1.7}
-.faq-item.open .faq-a{padding:0 22px 18px;max-height:300px}
+/* ===== CTA ===== */
+.final-cta{padding:40px 20px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);text-align:center;color:#fff}
+.final-cta h2{font-size:28px;font-weight:900;margin-bottom:8px}
+.final-cta p{font-size:15px;color:rgba(255,255,255,0.75);margin-bottom:18px}
+.cta-btn{background:#fff;color:#6C3CE1;padding:14px 40px;border-radius:50px;font-size:17px;font-weight:800;border:none;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,0.15)}
 
-/* CTA */
-.final-cta{padding:60px 24px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);text-align:center;color:#fff;position:relative;overflow:hidden}
-.final-cta::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,170,0.15),transparent 70%);border-radius:50%}
-.final-cta h2{font-size:34px;font-weight:900;margin-bottom:12px;position:relative;z-index:1}
-.final-cta p{font-size:17px;color:rgba(255,255,255,0.8);margin-bottom:24px;position:relative;z-index:1}
-.cta-btn{background:#fff;color:#6C3CE1;padding:16px 48px;border-radius:50px;font-size:18px;font-weight:800;border:none;cursor:pointer;transition:all .3s;position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px}
-.cta-btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,0,0,0.2)}
-
-/* FOOTER */
-.footer{padding:30px 24px;background:#1a1a2e;color:rgba(255,255,255,0.5);text-align:center;font-size:13px}
+/* ===== FOOTER ===== */
+.footer{padding:20px;background:#1a1a2e;color:rgba(255,255,255,0.4);text-align:center;font-size:12px}
 .footer a{color:#00D4AA}
 
-/* RESPONSIVE */
+/* ===== RESPONSIVE ===== */
 @media(max-width:900px){
   .hero-inner{grid-template-columns:1fr;text-align:center}
-  .hero-text p{margin:0 auto 24px}
+  .hero-text p{margin:0 auto 16px}
   .hero-badges{justify-content:center}
   .hero-btns{justify-content:center}
-  .hero-visual{margin-top:20px}
-  .float-badge{display:none}
+  .hero-visual{margin-top:16px}
   .stats-inner{grid-template-columns:repeat(2,1fr)}
-  .features-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
   .subjects-grid{grid-template-columns:repeat(3,1fr)}
-  .how-steps{grid-template-columns:repeat(2,1fr)}
-  .how-step::after{display:none}
-  .pricing-grid{grid-template-columns:1fr}
-  .testimonial-row{flex-direction:column;align-items:center}
+  .price-grid{grid-template-columns:1fr}
 }
 @media(max-width:500px){
-  .hero-text h1{font-size:30px}
-  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .hero-text h1{font-size:26px}
+  .hero{padding:56px 16px 16px}
   .subjects-grid{grid-template-columns:repeat(2,1fr)}
-  .how-steps{grid-template-columns:1fr}
+  .stat-num{font-size:22px}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo">
-      <div class="logo-icon">AI</div>
-      BagrutAI
-    </a>
-    <a href="app.html" class="nav-cta">התחילו ללמוד בחינם</a>
+    <a href="#" class="logo"><div class="logo-icon">AI</div>BagrutAI</a>
+    <button class="nav-cta" onclick="openAuth()">התחילו בחינם</button>
   </div>
 </nav>
 
-<!-- HERO — compact -->
+<!-- HERO — ultra compact -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-text">
       <div class="hero-badges">
-        <div class="hero-badge">🎯 17 מקצועות בגרות</div>
-        <div class="hero-badge">🤖 מונע בינה מלאכותית</div>
-        <div class="hero-badge">📱 לומדים מכל מקום</div>
+        <div class="hero-badge">🎯 17 מקצועות</div>
+        <div class="hero-badge">🤖 AI</div>
+        <div class="hero-badge">📱 מכל מקום</div>
       </div>
-      <h1>הדרך הבטוחה<br>ל<span>100 בבגרות</span></h1>
-      <p>פלטפורמת הלימוד החכמה שמכינה אותך לבגרות עם תוכן מקיף, שאלות תרגול, מונחי מפתח וקישורים לבחינות — הכל במקום אחד.</p>
+      <h1>הדרך הבטוחה ל<span>100 בבגרות</span></h1>
+      <p>תוכן מקיף, שאלות תרגול, מונחי מפתח ובחינות עבר — הכל במקום אחד. 2 יחידות בחינם מכל מקצוע!</p>
       <div class="hero-btns">
-        <a href="app.html" class="btn-primary">🚀 התחל ללמוד בחינם</a>
-        <a href="#pricing" class="btn-secondary">💰 צפו במחירים</a>
+        <button class="btn-primary" onclick="openAuth()">🚀 התחל ללמוד בחינם</button>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="float-badge top-left">🏆 100 בבגרות</div>
-      <div class="float-badge bottom-right">📈 162 יחידות לימוד</div>
       <div class="hero-card">
         <div class="hero-card-header">
-          <div class="hero-card-icon">📚</div>
-          <div>
-            <h3>מתמטיקה — 5 יח"ל</h3>
-            <p>התקדמות אישית</p>
-          </div>
+          <div class="hc-icon">📐</div>
+          <div class="hc-info"><h3>מתמטיקה — 5 יח"ל</h3><p>התקדמות אישית</p></div>
         </div>
-        <div class="hero-progress">
-          <div class="hero-progress-label"><span>יחידה 3: גיאומטריה</span><span>75%</span></div>
-          <div class="hero-progress-bar"><div class="hero-progress-fill" style="width:75%"></div></div>
+        <div class="hc-progress">
+          <div class="hc-progress-top"><span>גיאומטריה אנליטית</span><span>75%</span></div>
+          <div class="hc-bar"><div class="hc-fill"></div></div>
         </div>
-        <div class="hero-topics">
-          <div class="hero-topic"><span class="check">✓</span> אלגברה ומשוואות</div>
-          <div class="hero-topic"><span class="check">✓</span> פונקציות וגרפים</div>
-          <div class="hero-topic"><span class="pending">○</span> גיאומטריה אנליטית</div>
-          <div class="hero-topic"><span class="pending">○</span> חשבון דיפרנציאלי</div>
+        <div class="hc-items">
+          <div class="hc-item"><span class="ok">✓</span> אלגברה ומשוואות</div>
+          <div class="hc-item"><span class="ok">✓</span> פונקציות וגרפים</div>
+          <div class="hc-item"><span class="wait">○</span> חשבון דיפרנציאלי</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
+<!-- STATS BAR -->
 <section class="stats">
   <div class="stats-inner">
-    <div class="stat-card">
-      <div class="stat-num" data-target="17">0</div>
-      <div class="stat-label">מקצועות בגרות</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-target="162">0</div>
-      <div class="stat-label">יחידות לימוד</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-target="783">0</div>
-      <div class="stat-label">שאלות תרגול</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-target="1274">0</div>
-      <div class="stat-label">מונחי מפתח</div>
-    </div>
+    <div class="stat"><div class="stat-num">17</div><div class="stat-label">מקצועות</div></div>
+    <div class="stat"><div class="stat-num">162</div><div class="stat-label">יחידות לימוד</div></div>
+    <div class="stat"><div class="stat-num">783</div><div class="stat-label">שאלות תרגול</div></div>
+    <div class="stat"><div class="stat-num">1,274</div><div class="stat-label">מונחי מפתח</div></div>
   </div>
 </section>
 
-<!-- SOCIAL PROOF -->
-<section class="social-proof">
-  <div class="social-inner">
-    <p>⭐ תלמידים שלומדים עם BagrutAI משפרים את הציונים שלהם</p>
-    <div class="testimonial-row">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"עברתי מ-60 ל-92 באזרחות תוך חודש. התוכן מסודר ומובן בטירוף!"</div>
-        <div class="testi-name">— ד., תלמידת י"ב</div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"סוף סוף מקום אחד עם הכל. לא צריך לחפש חומרים ברחבי האינטרנט."</div>
-        <div class="testi-name">— מ., תלמיד י"א</div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"השאלות בסגנון בגרות עזרו לי להרגיש מוכנה ליום הבחינה."</div>
-        <div class="testi-name">— ש., תלמידת י"ב</div>
-      </div>
-    </div>
+<!-- 17 SUBJECTS -->
+<section class="subjects">
+  <div class="section-title">
+    <h2>17 <span>מקצועות</span> בגרות</h2>
+    <p>לחצו על מקצוע כדי להתחיל ללמוד</p>
+  </div>
+  <div class="subjects-grid">
+    <div class="subj" onclick="openAuth()"><div class="si">📝</div><div class="sn">עברית</div><div class="su">12 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">📜</div><div class="sn">תנ״ך</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">📚</div><div class="sn">ספרות</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">⚖️</div><div class="sn">אזרחות</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">🏛️</div><div class="sn">היסטוריה</div><div class="su">12 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">📐</div><div class="sn">מתמטיקה</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">🌍</div><div class="sn">אנגלית</div><div class="su">8 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">⚗️</div><div class="sn">כימיה</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">⚛️</div><div class="sn">פיזיקה</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">💻</div><div class="sn">מדעי המחשב</div><div class="su">8 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">🕌</div><div class="sn">ערבית</div><div class="su">8 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">✏️</div><div class="sn">עברית לערבים</div><div class="su">8 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">📿</div><div class="sn">תושב״ע</div><div class="su">8 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">👥</div><div class="sn">סוציולוגיה</div><div class="su">8 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">🧠</div><div class="sn">פסיכולוגיה</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">🧬</div><div class="sn">ביולוגיה</div><div class="su">10 יחידות</div></div>
+    <div class="subj" onclick="openAuth()"><div class="si">🌎</div><div class="sn">גיאוגרפיה</div><div class="su">10 יחידות</div></div>
   </div>
 </section>
 
@@ -296,96 +242,14 @@ a{text-decoration:none;color:inherit}
 <section class="features">
   <div class="section-title">
     <h2>למה <span>BagrutAI</span>?</h2>
-    <p>הפלטפורמה היחידה שמכסה את כל מה שצריך כדי להצליח בבגרות</p>
   </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">📖</div>
-      <h3>תוכן מקיף לכל יחידה</h3>
-      <p>חומר לימוד מעמיק שמכסה את כל הנושאים הנדרשים — מסוכם, ברור ומאורגן.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">✍️</div>
-      <h3>שאלות בסגנון בגרות</h3>
-      <p>783 שאלות תרגול עם פתרונות מלאים, בדיוק כמו שיופיעו בבחינה האמיתית.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔑</div>
-      <h3>מונחי מפתח</h3>
-      <p>1,274 מונחים חשובים עם הגדרות — כל מה שצריך לדעת לציון מושלם.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🧠</div>
-      <h3>טכניקות שינון</h3>
-      <p>כלים מיוחדים שעוזרים לזכור את החומר: כרטיסיות, סיכומים חזותיים ושיטות זיכרון.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💡</div>
-      <h3>חשיבה ביקורתית</h3>
-      <p>שלבי חשיבה מודרכים שמלמדים לנתח ולהתמודד עם שאלות מורכבות.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <h3>בחינות עבר ומיקוד</h3>
-      <p>קישורים ישירים לבחינות בגרות של השנים האחרונות ולחוברות מיקוד ממשרד החינוך.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 17 SUBJECTS -->
-<section class="subjects" id="subjects">
-  <div class="section-title">
-    <h2>17 <span>מקצועות</span> בגרות</h2>
-    <p>כל המקצועות שתצטרכו — במקום אחד</p>
-  </div>
-  <div class="subjects-grid">
-    <div class="subject-chip"><div class="s-icon">📝</div><div class="s-name">עברית</div><div class="s-units">12 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">📜</div><div class="s-name">תנ״ך</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">📚</div><div class="s-name">ספרות</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">⚖️</div><div class="s-name">אזרחות</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">🏛️</div><div class="s-name">היסטוריה</div><div class="s-units">12 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">📐</div><div class="s-name">מתמטיקה</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">🌍</div><div class="s-name">אנגלית</div><div class="s-units">8 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">⚗️</div><div class="s-name">כימיה</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">⚛️</div><div class="s-name">פיזיקה</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">💻</div><div class="s-name">מדעי המחשב</div><div class="s-units">8 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">🕌</div><div class="s-name">ערבית</div><div class="s-units">8 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">✏️</div><div class="s-name">עברית לערבים</div><div class="s-units">8 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">📿</div><div class="s-name">תושב״ע</div><div class="s-units">8 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">👥</div><div class="s-name">סוציולוגיה</div><div class="s-units">8 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">🧠</div><div class="s-name">פסיכולוגיה</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">🧬</div><div class="s-name">ביולוגיה</div><div class="s-units">10 יחידות</div></div>
-    <div class="subject-chip"><div class="s-icon">🌎</div><div class="s-name">גיאוגרפיה</div><div class="s-units">10 יחידות</div></div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how">
-  <div class="section-title">
-    <h2>איך זה <span>עובד</span>?</h2>
-    <p>4 צעדים פשוטים להצלחה בבגרות</p>
-  </div>
-  <div class="how-steps">
-    <div class="how-step">
-      <div class="step-num">1</div>
-      <h4>בחרו מקצוע</h4>
-      <p>בחרו מתוך 17 מקצועות בגרות את מה שאתם צריכים</p>
-    </div>
-    <div class="how-step">
-      <div class="step-num">2</div>
-      <h4>למדו את החומר</h4>
-      <p>תוכן מקיף, מונחים והסברים ברורים לכל יחידה</p>
-    </div>
-    <div class="how-step">
-      <div class="step-num">3</div>
-      <h4>תרגלו שאלות</h4>
-      <p>שאלות בסגנון בגרות עם פתרונות מפורטים</p>
-    </div>
-    <div class="how-step">
-      <div class="step-num">4</div>
-      <h4>הצליחו בבחינה!</h4>
-      <p>הגיעו מוכנים ובטוחים ליום הבחינה</p>
-    </div>
+  <div class="feat-grid">
+    <div class="feat"><div class="feat-icon">📖</div><h3>תוכן מקיף</h3><p>חומר לימוד מעמיק לכל יחידה — מסוכם, ברור ומאורגן.</p></div>
+    <div class="feat"><div class="feat-icon">✍️</div><h3>שאלות בסגנון בגרות</h3><p>783 שאלות עם פתרונות מלאים, בדיוק כמו בבחינה.</p></div>
+    <div class="feat"><div class="feat-icon">🔑</div><h3>מונחי מפתח</h3><p>1,274 מונחים עם הגדרות — הכל לציון מושלם.</p></div>
+    <div class="feat"><div class="feat-icon">🧠</div><h3>טכניקות שינון</h3><p>כרטיסיות, סיכומים ושיטות זיכרון לשמירת החומר.</p></div>
+    <div class="feat"><div class="feat-icon">💡</div><h3>חשיבה ביקורתית</h3><p>שלבי חשיבה מודרכים לשאלות מורכבות.</p></div>
+    <div class="feat"><div class="feat-icon">📋</div><h3>בחינות עבר</h3><p>קישורים לבחינות בגרות ולחוברות מיקוד ממשרד החינוך.</p></div>
   </div>
 </section>
 
@@ -393,152 +257,136 @@ a{text-decoration:none;color:inherit}
 <section class="pricing" id="pricing">
   <div class="section-title">
     <h2>מחירים <span>שווים</span></h2>
-    <p>2 יחידות ראשונות בכל מקצוע — בחינם לגמרי!</p>
+    <p>2 יחידות ראשונות בכל מקצוע — בחינם!</p>
   </div>
-  <div class="pricing-grid">
-    <div class="price-card">
+  <div class="price-grid">
+    <div class="pcard">
       <h3>מקצוע בודד</h3>
-      <div class="price-desc">גישה מלאה למקצוע אחד</div>
-      <div class="price-amount">
-        <span class="current-price">100</span>
-        <span class="currency">₪</span>
-        <span class="period">/ חודש</span>
-      </div>
-      <ul class="price-features">
-        <li>כל היחידות במקצוע שבחרת</li>
-        <li>שאלות תרגול עם פתרונות</li>
-        <li>מונחי מפתח והגדרות</li>
-        <li>קישורים לבחינות עבר</li>
-        <li>טכניקות שינון וחשיבה</li>
+      <div class="pd">גישה מלאה למקצוע אחד</div>
+      <div class="price-big">100<span class="price-cur"> ₪</span></div>
+      <div class="price-per">לחודש</div>
+      <ul>
+        <li>כל היחידות במקצוע</li>
+        <li>שאלות + פתרונות</li>
+        <li>מונחי מפתח</li>
+        <li>בחינות עבר</li>
       </ul>
-      <a href="app.html" class="price-btn">התחילו עכשיו</a>
+      <button class="pbtn" onclick="openAuth()">התחילו עכשיו</button>
     </div>
-    <div class="price-card popular">
-      <div class="popular-tag">🔥 הכי משתלם</div>
+    <div class="pcard pop">
+      <div class="pop-tag">🔥 הכי משתלם</div>
       <h3>כל המקצועות</h3>
-      <div class="price-desc">גישה מלאה לכל 17 המקצועות</div>
-      <div class="price-amount">
-        <span class="current-price">250</span>
-        <span class="currency">₪</span>
-        <span class="period">/ חודש</span>
-      </div>
-      <ul class="price-features">
-        <li>כל 17 המקצועות ללא הגבלה</li>
-        <li>162 יחידות לימוד מלאות</li>
+      <div class="pd">כל 17 המקצועות ללא הגבלה</div>
+      <div class="price-big">250<span class="price-cur"> ₪</span></div>
+      <div class="price-per">לחודש</div>
+      <ul>
+        <li>17 מקצועות מלאים</li>
+        <li>162 יחידות לימוד</li>
         <li>783 שאלות תרגול</li>
-        <li>1,274 מונחי מפתח</li>
-        <li>בחינות עבר וחוברות מיקוד</li>
-        <li>חיסכון של עד 70%!</li>
+        <li>1,274 מונחים</li>
+        <li>חיסכון של עד 70%</li>
       </ul>
-      <a href="app.html" class="price-btn">קבלו גישה מלאה</a>
+      <button class="pbtn" onclick="openAuth()">קבלו גישה מלאה</button>
     </div>
   </div>
-  <div class="intro-banner">
-    <span>🎉 <strong>מבצע היכרות!</strong> מקצוע בודד ב-₪49 | כל המקצועות ב-₪149 — בחודש הראשון בלבד!</span>
-  </div>
+  <div class="intro-ban">🎉 <strong>מבצע היכרות!</strong> מקצוע ב-₪49 | הכל ב-₪149 — חודש ראשון בלבד!</div>
 </section>
 
-<!-- GUARANTEE -->
-<section class="guarantee">
-  <div class="guarantee-box">
-    <h3>🛡️ 2 יחידות חינם בכל מקצוע</h3>
-    <p>לא צריך להתחייב לפני שמנסים! היכנסו, לימדו 2 יחידות מכל מקצוע שתרצו — בחינם לגמרי. ככה תוכלו לראות את האיכות לפני שמשלמים.</p>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <div class="section-title">
-    <h2>שאלות <span>נפוצות</span></h2>
-  </div>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-q">אם אלמד רק מ-BagrutAI, אוכל להגיע ל-100?</div>
-      <div class="faq-a">הפלטפורמה מכסה את כל חומר הלימוד הנדרש לבחינת הבגרות, כולל תוכן מעמיק, מונחי מפתח, שאלות תרגול וקישורים לבחינות עבר. עם למידה עקבית — התשובה היא כן!</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">לאילו מקצועות יש תוכן?</div>
-      <div class="faq-a">יש לנו 17 מקצועות בגרות: עברית, תנ"ך, ספרות, אזרחות, היסטוריה, מתמטיקה, אנגלית, כימיה, פיזיקה, מדעי המחשב, ערבית, עברית לערבים, תושב"ע, סוציולוגיה, פסיכולוגיה, ביולוגיה וגיאוגרפיה.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">מה כלול בגרסה החינמית?</div>
-      <div class="faq-a">2 היחידות הראשונות מכל מקצוע זמינות בחינם, כולל התוכן המלא, השאלות והמונחים. ככה תוכלו לבדוק את הפלטפורמה לפני שמחליטים.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">אני יכול לבטל מתי שארצה?</div>
-      <div class="faq-a">כמובן! אין התחייבות. אפשר לבטל את המנוי בכל רגע ולהמשיך להשתמש בתוכן החינמי.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">האם יש אפליקציה?</div>
-      <div class="faq-a">הפלטפורמה עובדת ישירות מהדפדפן בנייד ובמחשב — לא צריך להוריד שום דבר. פשוט נכנסים ומתחילים ללמוד!</div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
+<!-- CTA -->
 <section class="final-cta">
-  <h2>מוכנים להתחיל את הדרך ל-100?</h2>
-  <p>הצטרפו לתלמידים שכבר לומדים עם BagrutAI</p>
-  <a href="app.html" class="cta-btn">🚀 התחילו ללמוד עכשיו — בחינם!</a>
+  <h2>מוכנים ל-100 בבגרות?</h2>
+  <p>הצטרפו עכשיו — 2 יחידות בחינם מכל מקצוע!</p>
+  <button class="cta-btn" onclick="openAuth()">🚀 התחילו ללמוד בחינם</button>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>&copy; 2026 BagrutAI — הפלטפורמה החכמה להצלחה בבגרות | <a href="app.html">כניסה לפלטפורמה</a></p>
+  <p>&copy; 2026 BagrutAI | <a href="app.html">כניסה לפלטפורמה</a></p>
 </footer>
 
+<!-- ===== REGISTRATION MODAL ===== -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()">&times;</button>
+    <h2>הרשמה ל-BagrutAI</h2>
+    <p class="modal-sub">התחילו ללמוד בחינם תוך שניות</p>
+
+    <div class="social-btns">
+      <button class="social-btn google" onclick="signInGoogle()">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        המשך עם Google
+      </button>
+      <button class="social-btn facebook" onclick="signInFacebook()">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        המשך עם Facebook
+      </button>
+    </div>
+
+    <div class="divider">או הרשמה עם אימייל</div>
+
+    <form onsubmit="signInEmail(event)">
+      <div class="form-group">
+        <label>שם מלא</label>
+        <input type="text" id="regName" placeholder="השם שלך" required>
+      </div>
+      <div class="form-group">
+        <label>אימייל</label>
+        <input type="email" id="regEmail" placeholder="your@email.com" dir="ltr" required>
+      </div>
+      <div class="form-group">
+        <label>סיסמה</label>
+        <input type="password" id="regPass" placeholder="לפחות 6 תווים" minlength="6" required>
+      </div>
+      <button type="submit" class="submit-btn">הרשמה והתחלת למידה</button>
+    </form>
+
+    <div class="modal-footer">כבר יש לך חשבון? <a href="#" onclick="openAuth()" style="color:#6C3CE1;font-weight:600">התחברות</a></div>
+  </div>
+</div>
+
 <script>
-// Navbar scroll effect
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
+// Auth Modal
+function openAuth(){
+  document.getElementById('authModal').classList.add('show');
+}
+function closeAuth(){
+  document.getElementById('authModal').classList.remove('show');
+}
+// Close on overlay click
+document.getElementById('authModal').addEventListener('click',function(e){
+  if(e.target===this) closeAuth();
 });
 
-// Counter animation
-var counters=document.querySelectorAll('.stat-num[data-target]');
-var counterObs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      var el=e.target,target=parseInt(el.dataset.target);
-      var current=0;
-      var step=Math.ceil(target/60);
-      var timer=setInterval(function(){
-        current+=step;
-        if(current>=target){current=target;clearInterval(timer)}
-        el.textContent=current.toLocaleString();
-      },25);
-      counterObs.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-counters.forEach(function(c){counterObs.observe(c)});
+// Google Sign In (simulated - redirect to platform)
+function signInGoogle(){
+  // In production: integrate Firebase/Google OAuth
+  var user={name:'Google User',method:'google',ts:Date.now()};
+  localStorage.setItem('bagrutai_user',JSON.stringify(user));
+  window.location.href='app.html';
+}
 
-// FAQ toggle
-document.querySelectorAll('.faq-q').forEach(function(q){
-  q.addEventListener('click',function(){
-    var item=q.parentElement;
-    document.querySelectorAll('.faq-item').forEach(function(i){if(i!==item)i.classList.remove('open')});
-    item.classList.toggle('open');
-  });
-});
+// Facebook Sign In (simulated - redirect to platform)
+function signInFacebook(){
+  // In production: integrate Facebook OAuth
+  var user={name:'Facebook User',method:'facebook',ts:Date.now()};
+  localStorage.setItem('bagrutai_user',JSON.stringify(user));
+  window.location.href='app.html';
+}
 
-// Subject chips click -> go to platform
-document.querySelectorAll('.subject-chip').forEach(function(c){
-  c.addEventListener('click',function(){window.location.href='app.html'});
-});
+// Email Sign In
+function signInEmail(e){
+  e.preventDefault();
+  var name=document.getElementById('regName').value;
+  var email=document.getElementById('regEmail').value;
+  var user={name:name,email:email,method:'email',ts:Date.now()};
+  localStorage.setItem('bagrutai_user',JSON.stringify(user));
+  window.location.href='app.html';
+}
 
-// Progress bar animation
-var progObs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      e.target.querySelector('.hero-progress-fill').style.width='75%';
-      progObs.unobserve(e.target);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll('.hero-progress').forEach(function(p){
-  p.querySelector('.hero-progress-fill').style.width='0%';
-  progObs.observe(p);
-});
+// If already signed in, redirect
+if(localStorage.getItem('bagrutai_user')){
+  // User is logged in - show a welcome back state (optional)
+}
 </script>
 </body>
 </html>
