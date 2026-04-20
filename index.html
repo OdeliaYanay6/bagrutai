@@ -81,7 +81,20 @@ a{text-decoration:none;color:inherit}
 .pricing .section-title h2{color:#fff}
 .pricing .section-title h2 span{color:#00D4AA}
 .pricing .section-title p{color:rgba(255,255,255,0.5)}
-.price-grid{max-width:750px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1}
+.price-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;position:relative;z-index:1}
+.tutor-compare{max-width:1000px;margin:0 auto 24px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 24px;position:relative;z-index:1}
+.tutor-compare h3{font-size:18px;font-weight:700;text-align:center;margin-bottom:14px;color:#00D4AA}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.compare-col{padding:14px;border-radius:12px;text-align:center}
+.compare-col.them{background:rgba(255,100,100,0.1);border:1px solid rgba(255,100,100,0.2)}
+.compare-col.us{background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3)}
+.compare-col h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.compare-col.them h4{color:#ff6b6b}
+.compare-col.us h4{color:#00D4AA}
+.compare-col ul{list-style:none;text-align:right;font-size:13px;color:rgba(255,255,255,0.7)}
+.compare-col li{padding:3px 0;display:flex;align-items:center;gap:6px}
+.compare-col.them li::before{content:'\2717';color:#ff6b6b;font-weight:700}
+.compare-col.us li::before{content:'\2713';color:#00D4AA;font-weight:700}
 .pcard{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px 22px;text-align:center;transition:all .3s}
 .pcard.pop{background:rgba(255,255,255,0.12);border-color:rgba(0,212,170,0.4);transform:scale(1.02)}
 .pop-tag{background:#00D4AA;color:#1a1a2e;font-size:11px;font-weight:700;padding:3px 14px;border-radius:50px;display:inline-block;margin-bottom:8px}
@@ -97,7 +110,7 @@ a{text-decoration:none;color:inherit}
 .pcard:not(.pop) .pbtn{background:#fff;color:#6C3CE1}
 .pcard.pop .pbtn{background:linear-gradient(135deg,#00D4AA,#00B894);color:#1a1a2e}
 .pbtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.3)}
-.intro-ban{max-width:750px;margin:16px auto 0;background:linear-gradient(135deg,rgba(0,212,170,0.15),rgba(108,60,225,0.15));border:1px solid rgba(0,212,170,0.3);border-radius:12px;padding:12px 18px;text-align:center;position:relative;z-index:1;font-size:14px;color:#fff;font-weight:600}
+.intro-ban{max-width:1000px;margin:16px auto 0;background:linear-gradient(135deg,rgba(0,212,170,0.15),rgba(108,60,225,0.15));border:1px solid rgba(0,212,170,0.3);border-radius:12px;padding:12px 18px;text-align:center;position:relative;z-index:1;font-size:14px;color:#fff;font-weight:600}
 .intro-ban strong{color:#00D4AA}
 
 /* ===== REGISTRATION MODAL ===== */
@@ -147,6 +160,7 @@ a{text-decoration:none;color:inherit}
   .feat-grid{grid-template-columns:1fr}
   .subjects-grid{grid-template-columns:repeat(3,1fr)}
   .price-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
 }
 @media(max-width:500px){
   .hero-text h1{font-size:26px}
@@ -259,37 +273,78 @@ a{text-decoration:none;color:inherit}
     <h2>מחירים <span>שווים</span></h2>
     <p>2 יחידות ראשונות בכל מקצוע — בחינם!</p>
   </div>
+
+  <!-- TUTOR COMPARISON -->
+  <div class="tutor-compare">
+    <h3>🎓 למה לשלם אלפים על מורים פרטיים?</h3>
+    <div class="compare-grid">
+      <div class="compare-col them">
+        <h4>מורה פרטי</h4>
+        <ul>
+          <li>₪150-250 לשיעור אחד</li>
+          <li>2-3 שיעורים בשבוע = ₪1,500+ בחודש</li>
+          <li>מקצוע אחד בלבד</li>
+          <li>תלוי בזמינות המורה</li>
+          <li>אין תרגול עצמאי מובנה</li>
+        </ul>
+      </div>
+      <div class="compare-col us">
+        <h4>BagrutAI</h4>
+        <ul>
+          <li>החל מ-₪100 לחודש שלם</li>
+          <li>עד 17 מקצועות ב-₪250</li>
+          <li>זמין 24/7 מכל מקום</li>
+          <li>783 שאלות עם פתרונות</li>
+          <li>תוכן + תרגול + שינון הכל כלול</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <div class="price-grid">
     <div class="pcard">
       <h3>מקצוע בודד</h3>
-      <div class="pd">גישה מלאה למקצוע אחד</div>
+      <div class="pd">מתמקדים במקצוע אחד</div>
       <div class="price-big">100<span class="price-cur"> ₪</span></div>
       <div class="price-per">לחודש</div>
       <ul>
-        <li>כל היחידות במקצוע</li>
-        <li>שאלות + פתרונות</li>
-        <li>מונחי מפתח</li>
-        <li>בחינות עבר</li>
+        <li>כל היחידות במקצוע אחד</li>
+        <li>שאלות תרגול + פתרונות</li>
+        <li>מונחי מפתח והגדרות</li>
+        <li>בחינות עבר וחוברות מיקוד</li>
       </ul>
-      <button class="pbtn" onclick="openAuth()">התחילו עכשיו</button>
+      <button class="pbtn" onclick="openAuth()">בחרו מקצוע</button>
+    </div>
+    <div class="pcard">
+      <h3>3 מקצועות</h3>
+      <div class="pd">הצירוף המושלם לבגרות</div>
+      <div class="price-big">180<span class="price-cur"> ₪</span></div>
+      <div class="price-per">לחודש</div>
+      <ul>
+        <li>בחרו 3 מקצועות לבחירתכם</li>
+        <li>חיסכון של ₪120 לעומת בודדים</li>
+        <li>כל התוכן + שאלות + מונחים</li>
+        <li>מושלם לתקופת הבחינות</li>
+      </ul>
+      <button class="pbtn" onclick="openAuth()">בחרו 3 מקצועות</button>
     </div>
     <div class="pcard pop">
       <div class="pop-tag">🔥 הכי משתלם</div>
       <h3>כל המקצועות</h3>
-      <div class="pd">כל 17 המקצועות ללא הגבלה</div>
+      <div class="pd">שקט נפשי מלא — הכל פתוח</div>
       <div class="price-big">250<span class="price-cur"> ₪</span></div>
       <div class="price-per">לחודש</div>
       <ul>
-        <li>17 מקצועות מלאים</li>
-        <li>162 יחידות לימוד</li>
-        <li>783 שאלות תרגול</li>
-        <li>1,274 מונחים</li>
-        <li>חיסכון של עד 70%</li>
+        <li>כל 17 המקצועות ללא הגבלה</li>
+        <li>162 יחידות + 783 שאלות</li>
+        <li>1,274 מונחי מפתח</li>
+        <li>חיסכון של עד 85% מול מורים!</li>
+        <li>גישה לכל עדכון עתידי</li>
       </ul>
       <button class="pbtn" onclick="openAuth()">קבלו גישה מלאה</button>
     </div>
   </div>
-  <div class="intro-ban">🎉 <strong>מבצע היכרות!</strong> מקצוע ב-₪49 | הכל ב-₪149 — חודש ראשון בלבד!</div>
+  <div class="intro-ban">🎉 <strong>מבצע היכרות לחודש הראשון!</strong> מקצוע בודד ₪49 | 3 מקצועות ₪99 | כל המקצועות ₪149</div>
 </section>
 
 <!-- CTA -->
@@ -344,7 +399,30 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
 <script>
+// ===== Firebase Config =====
+// IMPORTANT: Replace with your own Firebase config from https://console.firebase.google.com
+var firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+var firebaseReady = false;
+try {
+  firebase.initializeApp(firebaseConfig);
+  firebaseReady = (firebaseConfig.apiKey !== "YOUR_API_KEY");
+} catch(e) {
+  firebaseReady = false;
+}
+
 // Auth Modal
 function openAuth(){
   document.getElementById('authModal').classList.add('show');
@@ -352,40 +430,87 @@ function openAuth(){
 function closeAuth(){
   document.getElementById('authModal').classList.remove('show');
 }
-// Close on overlay click
 document.getElementById('authModal').addEventListener('click',function(e){
   if(e.target===this) closeAuth();
 });
 
-// Google Sign In (simulated - redirect to platform)
+// Save user and redirect
+function saveAndGo(user){
+  localStorage.setItem('bagrutai_user',JSON.stringify(user));
+  window.location.href='app.html';
+}
+
+// Google Sign In
 function signInGoogle(){
-  // In production: integrate Firebase/Google OAuth
-  var user={name:'Google User',method:'google',ts:Date.now()};
-  localStorage.setItem('bagrutai_user',JSON.stringify(user));
-  window.location.href='app.html';
+  if(!firebaseReady){
+    // Firebase not configured — show message
+    alert('כניסה עם Google תהיה זמינה בקרוב! בינתיים הירשמו עם אימייל וסיסמה.');
+    return;
+  }
+  var provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({prompt:'select_account'});
+  firebase.auth().signInWithPopup(provider).then(function(result){
+    saveAndGo({name:result.user.displayName,email:result.user.email,photo:result.user.photoURL,method:'google',uid:result.user.uid,ts:Date.now()});
+  }).catch(function(err){
+    if(err.code!=='auth/popup-closed-by-user'){
+      alert('שגיאה בכניסה עם Google: '+err.message);
+    }
+  });
 }
 
-// Facebook Sign In (simulated - redirect to platform)
+// Facebook Sign In
 function signInFacebook(){
-  // In production: integrate Facebook OAuth
-  var user={name:'Facebook User',method:'facebook',ts:Date.now()};
-  localStorage.setItem('bagrutai_user',JSON.stringify(user));
-  window.location.href='app.html';
+  if(!firebaseReady){
+    alert('כניסה עם Facebook תהיה זמינה בקרוב! בינתיים הירשמו עם אימייל וסיסמה.');
+    return;
+  }
+  var provider = new firebase.auth.FacebookAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result){
+    saveAndGo({name:result.user.displayName,email:result.user.email,photo:result.user.photoURL,method:'facebook',uid:result.user.uid,ts:Date.now()});
+  }).catch(function(err){
+    if(err.code!=='auth/popup-closed-by-user'){
+      alert('שגיאה בכניסה עם Facebook: '+err.message);
+    }
+  });
 }
 
-// Email Sign In
+// Email Sign Up / Sign In
 function signInEmail(e){
   e.preventDefault();
   var name=document.getElementById('regName').value;
   var email=document.getElementById('regEmail').value;
-  var user={name:name,email:email,method:'email',ts:Date.now()};
-  localStorage.setItem('bagrutai_user',JSON.stringify(user));
-  window.location.href='app.html';
+  var pass=document.getElementById('regPass').value;
+
+  if(!firebaseReady){
+    // Firebase not configured — save locally and redirect
+    saveAndGo({name:name,email:email,method:'email',ts:Date.now()});
+    return;
+  }
+
+  // Try to create account, if exists try to sign in
+  firebase.auth().createUserWithEmailAndPassword(email,pass).then(function(result){
+    return result.user.updateProfile({displayName:name}).then(function(){
+      saveAndGo({name:name,email:email,uid:result.user.uid,method:'email',ts:Date.now()});
+    });
+  }).catch(function(err){
+    if(err.code==='auth/email-already-in-use'){
+      // User exists — sign in
+      firebase.auth().signInWithEmailAndPassword(email,pass).then(function(result){
+        saveAndGo({name:result.user.displayName||name,email:email,uid:result.user.uid,method:'email',ts:Date.now()});
+      }).catch(function(err2){
+        alert('סיסמה שגויה. נסו שוב.');
+      });
+    } else if(err.code==='auth/weak-password'){
+      alert('הסיסמה חייבת להכיל לפחות 6 תווים.');
+    } else {
+      alert('שגיאה: '+err.message);
+    }
+  });
 }
 
-// If already signed in, redirect
+// Check if already signed in
 if(localStorage.getItem('bagrutai_user')){
-  // User is logged in - show a welcome back state (optional)
+  // Optional: show welcome back
 }
 </script>
 </body>
