@@ -308,7 +308,71 @@ const PAYWALL = {
   }
 };
 
-// Activate subscription (called from PaywallModal)
+// ============================================
+// STRIPE PAYMENT LINKS
+// ============================================
+// הגדרות Stripe - יש להחליף בלינקים האמיתיים מחשבון Stripe שלך
+const STRIPE_CONFIG = {
+  // Payment Links — צרי את הלינקים בדשבורד של Stripe
+  // (stripe.com > Products > Payment Links)
+  paymentLinks: {
+    subject: "STRIPE_LINK_SUBJECT",   // ₪49 לחודש ראשון, ₪100 אח"כ
+    three:   "STRIPE_LINK_THREE",     // ₪99 לחודש ראשון, ₪180 אח"כ
+    all:     "STRIPE_LINK_ALL"        // ₪149 לחודש ראשון, ₪250 אח"כ
+  },
+  // true = מצב בדיקות (לא גובים כסף אמיתי)
+  testMode: true
+};
+
+// Handle Stripe payment redirect
+function initiatePayment(plan, subjectId) {
+  const linkUrl = STRIPE_CONFIG.paymentLinks[plan];
+
+  // If Stripe not configured yet, activate directly (demo mode)
+  if (!linkUrl || linkUrl.startsWith("STRIPE_LINK_")) {
+    activateSubscription(plan, subjectId);
+    return { demo: true };
+  }
+
+  // Build the Stripe Payment Link URL with metadata
+  const user = JSON.parse(localStorage.getItem('bagrutai_user') || '{}');
+  const userId = user.uid || user.email || 'anonymous';
+  const returnUrl = encodeURIComponent(
+    window.location.origin + window.location.pathname +
+    `?payment_success=true&plan=${plan}&subject=${subjectId}`
+  );
+
+  // Open Stripe payment page
+  const separator = linkUrl.includes('?') ? '&' : '?';
+  const fullUrl = `${linkUrl}${separator}client_reference_id=${encodeURIComponent(userId)}&success_url=${returnUrl}`;
+  window.open(fullUrl, '_blank');
+
+  return { redirected: true };
+}
+
+// Check if returning from successful payment
+function checkPaymentReturn() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment_success') === 'true') {
+    const plan = params.get('plan') || 'all';
+    const subjectId = params.get('subject') || '';
+
+    // Activate the subscription
+    activateSubscription(plan, subjectId);
+
+    // Clean URL (remove payment params)
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, '', cleanUrl);
+
+    return { plan, subjectId, activated: true };
+  }
+  return null;
+}
+
+// Run payment check on page load
+const _paymentResult = checkPaymentReturn();
+
+// Activate subscription (called from PaywallModal or after payment)
 function activateSubscription(type, subjectId) {
   // type: 'subject', 'three', 'all'
   const subs = JSON.parse(localStorage.getItem('bagrutai_subs') || '{}');
@@ -32661,8 +32725,22 @@ function TTSButton({ text, label, color, isFocus }) {
 
 // Paywall Modal - shows when accessing premium content
 function PaywallModal({ subject, unit, onClose, onSubscribe, isFocus }) {
+  const [paymentStatus, setPaymentStatus] = useState(null); // null, 'processing', 'demo_success'
   const whatsappUrl = `https://wa.me/972XXXXXXXXX?text=שלום,%20אני%20רוצה%20להירשם%20ל${encodeURIComponent(subject.name)}`;
   const emailLink = `mailto:odelia@yanay-law.co.il?subject=הרשמה%20ל-BagrutAI%20-%20${encodeURIComponent(subject.name)}`;
+
+  const handlePayment = (plan, subjectId) => {
+    const result = initiatePayment(plan, subjectId);
+    if (result.demo) {
+      // Demo mode — show success animation then close
+      setPaymentStatus('demo_success');
+      setTimeout(() => {
+        onSubscribe && onSubscribe(plan, subjectId);
+      }, 1500);
+    } else if (result.redirected) {
+      setPaymentStatus('processing');
+    }
+  };
 
   return (
     <div style={{
@@ -32693,6 +32771,48 @@ function PaywallModal({ subject, unit, onClose, onSubscribe, isFocus }) {
         }}>
           ✕
         </button>
+
+        {/* Payment status overlay */}
+        {paymentStatus === 'demo_success' && (
+          <div style={{
+            position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+            background: isFocus ? "rgba(26,29,40,0.95)" : "rgba(255,255,255,0.95)",
+            borderRadius: "20px", display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center", zIndex: 10,
+          }}>
+            <div style={{ fontSize: "64px", marginBottom: "16px", animation: "fadeInUp 0.5s ease" }}>✅</div>
+            <div style={{ fontSize: "22px", fontWeight: "800", color: isFocus ? "#f0f0f5" : "#161822", marginBottom: "8px" }}>
+              המנוי הופעל בהצלחה!
+            </div>
+            <div style={{ fontSize: "14px", color: isFocus ? "#8b8fa3" : "#64748b" }}>
+              מיד תועברו לתוכן...
+            </div>
+          </div>
+        )}
+        {paymentStatus === 'processing' && (
+          <div style={{
+            position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+            background: isFocus ? "rgba(26,29,40,0.95)" : "rgba(255,255,255,0.95)",
+            borderRadius: "20px", display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center", zIndex: 10,
+          }}>
+            <div className="spinner" style={{ width: "48px", height: "48px", marginBottom: "16px" }}></div>
+            <div style={{ fontSize: "18px", fontWeight: "700", color: isFocus ? "#f0f0f5" : "#161822", marginBottom: "8px" }}>
+              מעבד תשלום...
+            </div>
+            <div style={{ fontSize: "13px", color: isFocus ? "#8b8fa3" : "#64748b", textAlign: "center", maxWidth: "280px" }}>
+              חלון תשלום נפתח בלשונית חדשה. לאחר התשלום תועברו אוטומטית.
+            </div>
+            <button onClick={() => setPaymentStatus(null)} style={{
+              marginTop: "16px", padding: "8px 20px",
+              background: "none", border: `1px solid ${isFocus ? "#4a5568" : "#e2e8f0"}`,
+              borderRadius: "8px", color: isFocus ? "#8b8fa3" : "#64748b",
+              fontSize: "13px", cursor: "pointer",
+            }}>
+              ← חזרה
+            </button>
+          </div>
+        )}
 
         {/* Lock icon and title */}
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
@@ -32758,7 +32878,7 @@ function PaywallModal({ subject, unit, onClose, onSubscribe, isFocus }) {
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             {/* Per-subject option */}
-            <div onClick={() => onSubscribe && onSubscribe('subject', subject.id)} style={{
+            <div onClick={() => handlePayment('subject', subject.id)} style={{
               background: isFocus ? "#1a1d28" : "white",
               border: `2px solid ${subject.color}30`,
               borderRadius: "12px", padding: "12px 14px",
@@ -32778,7 +32898,7 @@ function PaywallModal({ subject, unit, onClose, onSubscribe, isFocus }) {
             </div>
 
             {/* 3-subject option */}
-            <div onClick={() => onSubscribe && onSubscribe('three', subject.id)} style={{
+            <div onClick={() => handlePayment('three', subject.id)} style={{
               background: isFocus ? "#1e2235" : `${subject.color}08`,
               border: `2px solid ${subject.color}60`,
               borderRadius: "12px", padding: "12px 14px",
@@ -32798,7 +32918,7 @@ function PaywallModal({ subject, unit, onClose, onSubscribe, isFocus }) {
             </div>
 
             {/* All subjects option */}
-            <div onClick={() => onSubscribe && onSubscribe('all', subject.id)} style={{
+            <div onClick={() => handlePayment('all', subject.id)} style={{
               background: `${subject.color}15`,
               border: `2px solid ${subject.color}`,
               borderRadius: "12px", padding: "12px 14px",
@@ -36292,9 +36412,21 @@ function BagrutAI() {
   const [activeView, setActiveView] = useState(null);
   const [chatOpen, setChatOpen] = useState(false);
   const [paywallModalUnit, setPaywallModalUnit] = useState(null);
+  const [paymentBanner, setPaymentBanner] = useState(() => {
+    // Show success banner if returning from payment
+    return _paymentResult ? _paymentResult : null;
+  });
   // Continuous learning: selected units queue and current index
   const [learningQueue, setLearningQueue] = useState([]);
   const [learningIndex, setLearningIndex] = useState(0);
+
+  // Auto-dismiss payment banner after 5 seconds
+  useEffect(() => {
+    if (paymentBanner) {
+      const timer = setTimeout(() => setPaymentBanner(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [paymentBanner]);
 
   // Derive mode from student data
   const mode = student.data?.mode || "regular";
@@ -36348,6 +36480,28 @@ function BagrutAI() {
       direction: "rtl",
       transition: "background 0.5s ease",
     }}>
+      {/* Payment success banner */}
+      {paymentBanner && paymentBanner.activated && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0,
+          background: "linear-gradient(135deg, #10b981, #059669)",
+          color: "white", textAlign: "center",
+          padding: "14px 20px", zIndex: 9999,
+          fontSize: "15px", fontWeight: "700",
+          boxShadow: "0 4px 20px rgba(16,185,129,0.4)",
+          animation: "fadeInUp 0.5s ease",
+          direction: "rtl",
+        }}>
+          ✅ התשלום בוצע בהצלחה! המנוי הופעל — גישה מלאה לכל התכנים
+          <button onClick={() => setPaymentBanner(null)} style={{
+            background: "rgba(255,255,255,0.2)", border: "none",
+            color: "white", borderRadius: "50%",
+            width: "24px", height: "24px", marginRight: "12px",
+            cursor: "pointer", fontSize: "14px",
+          }}>✕</button>
+        </div>
+      )}
+
       {/* Header */}
       <header style={{
         padding: "16px 32px",
