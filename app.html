@@ -35348,6 +35348,25 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
           const progressPct = Math.round(((safePage + 1) / total) * 100);
           return (
             <div>
+              {/* Topic navigation bar */}
+              <div style={{
+                display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px",
+                padding: "10px 0", borderBottom: isFocus ? "1px solid #2a2d3a" : "1px solid #e2e8f0",
+              }}>
+                {sections.map((sec, si) => (
+                  <button key={si} onClick={() => setCurrentTopicPage(si)} style={{
+                    padding: "6px 14px", borderRadius: "20px", cursor: "pointer",
+                    fontSize: "13px", fontWeight: si === safePage ? 700 : 500,
+                    border: si === safePage ? `2px solid ${subject.color}` : `1px solid ${isFocus ? "#3a3d4a" : "#d1d5db"}`,
+                    background: si === safePage ? `${subject.color}18` : "transparent",
+                    color: si === safePage ? subject.color : (isFocus ? "#8b8fa3" : "#64748b"),
+                    transition: "all 0.2s ease",
+                    whiteSpace: "nowrap",
+                  }}>
+                    {si + 1}. {sec.title?.length > 25 ? sec.title.substring(0, 25) + "..." : sec.title}
+                  </button>
+                ))}
+              </div>
               {/* Header: page counter + terms button + progress bar */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "12px" }}>
                 <div>
