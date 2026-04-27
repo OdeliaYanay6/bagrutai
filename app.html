@@ -35392,14 +35392,86 @@ function LessonView({ unit, subject, mode, onBack, onAddMistake, onNextUnit, has
                 <div style={{ fontSize: "13px", fontWeight: "700", color: subject.color, marginBottom: "12px", letterSpacing: "0.5px" }}>
                   📝 הסבר
                 </div>
-                {(section?.content || "").split("\\n\\n").map((para, pi) => (
-                  <p key={pi} style={{
-                    color: isFocus ? "#8b8fa3" : "#475569",
-                    fontSize: "15px", lineHeight: "2", margin: pi === 0 ? "0 0 12px 0" : "12px 0",
-                  }}>
-                    {renderTextWithTerms(para, `p${safePage}-${pi}`)}
-                  </p>
-                ))}
+                {(section?.content || "").split("\\n\\n").map((para, pi) => {
+                  const trimmed = para.trim();
+                  if (trimmed.startsWith("\u{1F4D6}") || trimmed.startsWith("\u00AB") || trimmed.startsWith("\u00BB")) {
+                    return (
+                      <div key={pi} style={{
+                        background: isFocus ? "#1e2233" : "#fef9ef",
+                        borderRadius: "12px", padding: "16px 20px", margin: "16px 0",
+                        borderRight: "4px solid #d4a853",
+                        fontFamily: "'David Libre', 'Frank Ruhl Libre', serif",
+                      }}>
+                        <div style={{ fontSize: "12px", fontWeight: 700, color: "#d4a853", marginBottom: "8px" }}>
+                          {"\u{1F4D6}"} מקור מקראי
+                        </div>
+                        <div style={{ color: isFocus ? "#e2d5b0" : "#5c4a1e", fontSize: "16px", lineHeight: "2.2", fontWeight: 500 }}>
+                          {renderTextWithTerms(trimmed.replace(/^[\u{1F4D6}\u00AB\u00BB]\s*/u, ""), `p${safePage}-${pi}`)}
+                        </div>
+                      </div>
+                    );
+                  }
+                  if (trimmed.startsWith("###") || trimmed.startsWith("##")) {
+                    return (
+                      <h4 key={pi} style={{
+                        color: isFocus ? "#e2e8f0" : "#1e293b",
+                        fontSize: "17px", fontWeight: 700, margin: "24px 0 8px 0",
+                        paddingBottom: "6px", borderBottom: `2px solid ${subject.color}30`,
+                      }}>
+                        {trimmed.replace(/^#{2,3}\s*/, "")}
+                      </h4>
+                    );
+                  }
+                  if (trimmed.startsWith("\u{1F50D}") || trimmed.startsWith("\u05E7\u05D5\u05E9\u05D9:")) {
+                    return (
+                      <div key={pi} style={{
+                        background: isFocus ? "#2a1a1a" : "#fef2f2",
+                        borderRadius: "10px", padding: "14px 18px", margin: "12px 0",
+                        borderRight: "3px solid #ef4444",
+                      }}>
+                        <span style={{ fontWeight: 700, color: "#ef4444", fontSize: "13px" }}>{"\u{1F50D}"} </span>
+                        <span style={{ color: isFocus ? "#fca5a5" : "#991b1b", fontSize: "14px", lineHeight: "1.8" }}>
+                          {renderTextWithTerms(trimmed.replace(/^[\u{1F50D}]\s*/u, ""), `p${safePage}-${pi}`)}
+                        </span>
+                      </div>
+                    );
+                  }
+                  if (trimmed.startsWith("\u{1F4A1}") || trimmed.startsWith("\u05E4\u05EA\u05E8\u05D5\u05DF:")) {
+                    return (
+                      <div key={pi} style={{
+                        background: isFocus ? "#1a2a1a" : "#f0fdf4",
+                        borderRadius: "10px", padding: "14px 18px", margin: "12px 0",
+                        borderRight: "3px solid #22c55e",
+                      }}>
+                        <span style={{ fontWeight: 700, color: "#22c55e", fontSize: "13px" }}>{"\u{1F4A1}"} </span>
+                        <span style={{ color: isFocus ? "#86efac" : "#166534", fontSize: "14px", lineHeight: "1.8" }}>
+                          {renderTextWithTerms(trimmed.replace(/^[\u{1F4A1}]\s*|\u05E4\u05EA\u05E8\u05D5\u05DF:\s*/u, ""), `p${safePage}-${pi}`)}
+                        </span>
+                      </div>
+                    );
+                  }
+                  if (/^\u05E4\u05E1[\u05F3']/.test(trimmed) || trimmed.startsWith("\u05E4\u05E1\u05D5\u05E7")) {
+                    return (
+                      <div key={pi} style={{
+                        background: isFocus ? "#1a1e2e" : "#f0f4ff",
+                        borderRadius: "10px", padding: "14px 18px", margin: "12px 0",
+                        borderRight: `3px solid ${subject.color}`,
+                      }}>
+                        <span style={{ color: isFocus ? "#93c5fd" : subject.color, fontSize: "14px", lineHeight: "2", fontWeight: 500 }}>
+                          {renderTextWithTerms(trimmed, `p${safePage}-${pi}`)}
+                        </span>
+                      </div>
+                    );
+                  }
+                  return (
+                    <p key={pi} style={{
+                      color: isFocus ? "#8b8fa3" : "#475569",
+                      fontSize: "15px", lineHeight: "2", margin: pi === 0 ? "0 0 12px 0" : "12px 0",
+                    }}>
+                      {renderTextWithTerms(para, `p${safePage}-${pi}`)}
+                    </p>
+                  );
+                })}
                 <div style={{ fontSize: "11px", color: isFocus ? "#5c5f73" : "#94a3b8", marginTop: "8px", fontStyle: "italic" }}>
                   💡 מילים מודגשות הן מונחים — לחצ/י עליהן להגדרה
                 </div>
