@@ -15,6 +15,7 @@ body{margin:0;font-family:'Heebo',system-ui,-apple-system,sans-serif;background:
 .spinner{width:48px;height:48px;border:4px solid rgba(79,140,255,0.2);border-top-color:#4f8cff;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 /* Global scrollbar */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:#0f1117}
@@ -45992,6 +45993,1143 @@ function StudentLogin({ onLogin }) {
 }
 
 // ============================================
+// EXAM PAPER SELECTOR
+// ============================================
+function ExamPaperSelector({ subject, isFocus, onSelect, onBack }) {
+  const symbols = subject.examSymbols || {};
+  const sectors = Object.keys(symbols);
+  const allSymbols = [];
+
+  // Flatten all exam symbols across sectors and levels
+  sectors.forEach(sector => {
+    Object.entries(symbols[sector] || {}).forEach(([level, symbol]) => {
+      if (!allSymbols.find(s => s.symbol === symbol)) {
+        allSymbols.push({ symbol, level, sector });
+      }
+    });
+  });
+
+  return (
+    <div style={{ direction: "rtl" }}>
+      <button onClick={onBack} style={{
+        background: "none", border: "none", cursor: "pointer",
+        fontSize: "15px", color: isFocus ? "#8b8fa3" : "#64748b",
+        display: "flex", alignItems: "center", gap: "6px",
+        marginBottom: "24px", padding: 0,
+      }}>
+        → חזרה למקצועות
+      </button>
+
+      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+        <span style={{ fontSize: "48px" }}>{subject.icon}</span>
+        <h2 style={{
+          fontSize: "32px", fontWeight: "800",
+          color: isFocus ? "#f0f0f5" : "#161822",
+          margin: "12px 0 8px 0",
+        }}>
+          {subject.name}
+        </h2>
+        <p style={{
+          fontSize: "16px",
+          color: isFocus ? "#5c5f73" : "#94a3b8",
+          margin: 0,
+        }}>
+          בחר/י שאלון בחינה (שאלון)
+        </p>
+      </div>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "16px",
+      }}>
+        {allSymbols.map((exam, i) => (
+          <button key={exam.symbol} onClick={() => onSelect(exam)} style={{
+            background: isFocus ? "#1a1d28" : "white",
+            border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+            borderRadius: "16px", padding: "24px 20px",
+            cursor: "pointer", textAlign: "center",
+            transition: "all 0.2s",
+          }}
+          onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 8px 30px ${subject.color}20`; }}
+          onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+          >
+            <div style={{ fontSize: "36px", marginBottom: "12px" }}>📄</div>
+            <div style={{
+              fontSize: "20px", fontWeight: "800",
+              color: subject.color, marginBottom: "4px",
+            }}>
+              {exam.symbol}
+            </div>
+            <div style={{
+              fontSize: "13px",
+              color: isFocus ? "#8b8fa3" : "#64748b",
+            }}>
+              {exam.level} יחידות לימוד
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================
+// EXAM PAPER INFO PAGE
+// ============================================
+function ExamPaperInfo({ subject, exam, units, isFocus, student, onBack, onStartLearn }) {
+  const completedUnits = student.data ? (getSubjectProgress(student.data, subject.id).unitsVisited || []).length : 0;
+  const totalUnits = units.length;
+  const progress = Math.round((completedUnits / totalUnits) * 100);
+
+  return (
+    <div style={{ direction: "rtl" }}>
+      <button onClick={onBack} style={{
+        background: "none", border: "none", cursor: "pointer",
+        fontSize: "15px", color: isFocus ? "#8b8fa3" : "#64748b",
+        display: "flex", alignItems: "center", gap: "6px",
+        marginBottom: "24px", padding: 0,
+      }}>
+        → חזרה לבחירת שאלון
+      </button>
+
+      <div style={{
+        background: isFocus
+          ? "linear-gradient(135deg, #1a202c, #2d3748)"
+          : `linear-gradient(135deg, ${subject.color}10, ${subject.color}05)`,
+        borderRadius: "20px", padding: "40px", marginBottom: "24px",
+        border: isFocus ? "1px solid #4a5568" : `1px solid ${subject.color}20`,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "24px" }}>
+          <span style={{ fontSize: "56px" }}>{subject.icon}</span>
+          <div>
+            <h2 style={{
+              fontSize: "28px", fontWeight: "800",
+              color: isFocus ? "#f0f0f5" : "#161822", margin: 0,
+            }}>
+              {subject.name}
+            </h2>
+            <div style={{
+              fontSize: "18px", fontWeight: "700",
+              color: subject.color, marginTop: "4px",
+            }}>
+              שאלון {exam.symbol}
+            </div>
+          </div>
+        </div>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+          gap: "16px",
+        }}>
+          <div style={{
+            background: isFocus ? "#222636" : `${subject.color}10`,
+            borderRadius: "12px", padding: "16px",
+            borderRight: `3px solid ${subject.color}`,
+          }}>
+            <div style={{ fontSize: "12px", color: isFocus ? "#5c5f73" : "#94a3b8", marginBottom: "4px" }}>
+              אחוז ממבחן
+            </div>
+            <div style={{
+              fontSize: "24px", fontWeight: "800",
+              color: isFocus ? "#f0f0f5" : "#161822",
+            }}>
+              100%
+            </div>
+          </div>
+          <div style={{
+            background: isFocus ? "#222636" : `${subject.color}10`,
+            borderRadius: "12px", padding: "16px",
+            borderRight: `3px solid ${subject.color}`,
+          }}>
+            <div style={{ fontSize: "12px", color: isFocus ? "#5c5f73" : "#94a3b8", marginBottom: "4px" }}>
+              משך הבחינה
+            </div>
+            <div style={{
+              fontSize: "24px", fontWeight: "800",
+              color: isFocus ? "#f0f0f5" : "#161822",
+            }}>
+              120 דק'
+            </div>
+          </div>
+          <div style={{
+            background: isFocus ? "#222636" : `${subject.color}10`,
+            borderRadius: "12px", padding: "16px",
+            borderRight: `3px solid ${subject.color}`,
+          }}>
+            <div style={{ fontSize: "12px", color: isFocus ? "#5c5f73" : "#94a3b8", marginBottom: "4px" }}>
+              יחידות לימוד
+            </div>
+            <div style={{
+              fontSize: "24px", fontWeight: "800",
+              color: isFocus ? "#f0f0f5" : "#161822",
+            }}>
+              {totalUnits}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{
+        background: isFocus ? "#1a1d28" : "white",
+        borderRadius: "16px", padding: "24px",
+        border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+        marginBottom: "24px",
+      }}>
+        <div style={{
+          fontSize: "14px", fontWeight: "700",
+          color: isFocus ? "#f0f0f5" : "#161822",
+          marginBottom: "12px",
+        }}>
+          📊 התקדמות בנושאי השאלון
+        </div>
+        <div style={{
+          background: isFocus ? "#222636" : "#f1f5f9",
+          height: "12px", borderRadius: "6px", overflow: "hidden",
+          marginBottom: "8px",
+        }}>
+          <div style={{
+            width: `${progress}%`, height: "100%",
+            background: `linear-gradient(90deg, ${subject.color}, ${subject.color}cc)`,
+            transition: "width 0.6s ease",
+          }} />
+        </div>
+        <div style={{
+          fontSize: "13px",
+          color: isFocus ? "#8b8fa3" : "#64748b",
+        }}>
+          {completedUnits} מתוך {totalUnits} יחידות סיימו ({progress}%)
+        </div>
+      </div>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+        gap: "12px",
+        marginBottom: "24px",
+      }}>
+        {units.slice(0, 8).map((unit) => (
+          <div key={unit.id} style={{
+            background: isFocus ? "#1a1d28" : "#f8fafc",
+            border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+            borderRadius: "10px", padding: "12px",
+            textAlign: "center", fontSize: "12px",
+            color: isFocus ? "#8b8fa3" : "#64748b",
+          }}>
+            יח. {unit.id}
+          </div>
+        ))}
+      </div>
+
+      <button onClick={onStartLearn} style={{
+        width: "100%", padding: "16px",
+        background: `linear-gradient(135deg, ${subject.color}, ${subject.color}cc)`,
+        color: "white", border: "none", borderRadius: "12px",
+        fontSize: "16px", fontWeight: "700",
+        cursor: "pointer", boxShadow: `0 8px 30px ${subject.color}30`,
+      }}>
+        🚀 התחל ללמוד שאלון זה
+      </button>
+    </div>
+  );
+}
+
+// ============================================
+// UNIFIED TOPIC PAGE (replaces LessonView tabs)
+// ============================================
+function UnifiedTopicPage({ unit, subject, mode, onBack, student, onAddMistake, allUnits, onGoToUnit, onNextUnit, onPrevUnit }) {
+  const isFocus = mode === "focus";
+  const contentData = CONTENT_DATA[subject.id]?.[unit.id] || {};
+  const [expandedSection, setExpandedSection] = useState(0);
+  const [expandedTermName, setExpandedTermName] = useState(null);
+  const [practiceMode, setPracticeMode] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  const sections = [
+    { id: "overview", title: "סקירה", icon: "📖" },
+    { id: "material", title: "חומר לימוד", icon: "📚" },
+    { id: "practice", title: "תרגול", icon: "✏️" },
+    { id: "bagrut", title: "שאלות בגרות", icon: "📝" },
+    { id: "mistakes", title: "טעויות נפוצות", icon: "⚠️" },
+  ];
+
+  const renderTextWithTerms = (text, keyPrefix = "t") => {
+    const terms = contentData.terms || [];
+    if (!terms.length || !text) return text;
+    const sorted = [...terms].sort((a, b) => b.term.length - a.term.length);
+    const termMap = {};
+    sorted.forEach(t => { termMap[t.term] = t.def; });
+    const escape = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp("(" + sorted.map(t => escape(t.term)).join("|") + ")", "g");
+    const parts = text.split(pattern);
+    return parts.map((part, i) => {
+      if (termMap[part]) {
+        const isOpen = expandedTermName === keyPrefix + "-" + i + "-" + part;
+        return (
+          <React.Fragment key={keyPrefix + i}>
+            <span
+              onClick={() => setExpandedTermName(isOpen ? null : keyPrefix + "-" + i + "-" + part)}
+              style={{
+                fontWeight: "700", color: subject.color, cursor: "pointer",
+                borderBottom: `1px dashed ${subject.color}`, padding: "0 2px",
+              }}
+            >
+              {part}
+            </span>
+            {isOpen && (
+              <span style={{
+                display: "block", margin: "8px 0", padding: "10px 14px",
+                background: isFocus ? "#222636" : `${subject.color}10`,
+                borderRight: `3px solid ${subject.color}`, borderRadius: "8px",
+                fontSize: "13px", fontWeight: "400",
+                color: isFocus ? "#8b8fa3" : "#475569", lineHeight: "1.6",
+              }}>
+                <b style={{ color: subject.color }}>{part}:</b> {termMap[part]}
+              </span>
+            )}
+          </React.Fragment>
+        );
+      }
+      return <React.Fragment key={keyPrefix + i}>{part}</React.Fragment>;
+    });
+  };
+
+  return (
+    <div style={{ direction: "rtl" }}>
+      <button onClick={onBack} style={{
+        background: "none", border: "none", cursor: "pointer",
+        fontSize: "15px", color: isFocus ? "#8b8fa3" : "#64748b",
+        display: "flex", alignItems: "center", gap: "6px",
+        marginBottom: "20px", padding: "8px 0",
+      }}>
+        → חזרה לשאלונים
+      </button>
+
+      {/* Unit Header */}
+      <div style={{
+        background: isFocus
+          ? "linear-gradient(135deg, #1a202c, #2d3748)"
+          : `linear-gradient(135deg, ${subject.color}10, ${subject.color}05)`,
+        borderRadius: "20px", padding: "32px", marginBottom: "24px",
+        border: isFocus ? "1px solid #4a5568" : `1px solid ${subject.color}20`,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+          <span style={{
+            background: `${subject.color}20`, color: subject.color,
+            padding: "6px 14px", borderRadius: "8px",
+            fontSize: "14px", fontWeight: "700",
+          }}>
+            יחידה {unit.id}
+          </span>
+        </div>
+        <h2 style={{
+          fontSize: "28px", fontWeight: "800",
+          color: isFocus ? "#f0f0f5" : "#161822", margin: "0 0 16px 0",
+        }}>
+          {unit.title}
+        </h2>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {unit.topics.map((topic, i) => (
+            <span key={i} style={{
+              background: isFocus ? "#4a556820" : `${subject.color}10`,
+              color: isFocus ? "#8b8fa3" : subject.color,
+              padding: "4px 12px", borderRadius: "20px",
+              fontSize: "12px", fontWeight: "500",
+            }}>
+              {topic}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Navigation Bar */}
+      {allUnits && allUnits.length > 1 && (
+        <div style={{
+          display: "flex", alignItems: "center", gap: "8px",
+          marginBottom: "16px", padding: "10px 14px",
+          background: isFocus ? "#1a1d28" : "#f8fafc",
+          borderRadius: "12px", border: isFocus ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
+          overflowX: "auto",
+        }}>
+          {onPrevUnit && (
+            <button onClick={onPrevUnit} style={{
+              background: "none", border: "1px solid rgba(255,255,255,0.1)",
+              color: "#8b8fa3", cursor: "pointer", borderRadius: "8px",
+              padding: "6px 10px", fontSize: "12px", fontWeight: "600",
+            }}>
+              ← הקודמת
+            </button>
+          )}
+          <div style={{ display: "flex", gap: "4px", flex: 1, justifyContent: "center", flexWrap: "wrap" }}>
+            {allUnits.map((u) => (
+              <button key={u.id} onClick={() => onGoToUnit && onGoToUnit(u)}
+                style={{
+                  width: "30px", height: "30px", borderRadius: "8px",
+                  border: u.id === unit.id ? `2px solid ${subject.color}` : "1px solid rgba(255,255,255,0.06)",
+                  background: u.id === unit.id ? `${subject.color}20` : "transparent",
+                  color: u.id === unit.id ? subject.color : "#5c5f73",
+                  cursor: "pointer", fontSize: "11px", fontWeight: "700",
+                }}>
+                {u.id}
+              </button>
+            ))}
+          </div>
+          {onNextUnit && (
+            <button onClick={onNextUnit} style={{
+              background: `${subject.color}15`, border: `1px solid ${subject.color}40`,
+              color: subject.color, cursor: "pointer", borderRadius: "8px",
+              padding: "6px 10px", fontSize: "12px", fontWeight: "600",
+            }}>
+              הבאה →
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Accordion Sections */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
+        {sections.map((section, idx) => (
+          <div key={section.id} style={{
+            background: isFocus ? "#1a1d28" : "white",
+            border: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+            borderRadius: "16px", overflow: "hidden",
+          }}>
+            <button onClick={() => setExpandedSection(expandedSection === idx ? -1 : idx)} style={{
+              width: "100%", padding: "20px 24px",
+              background: expandedSection === idx
+                ? (isFocus ? "#222636" : `${subject.color}10`)
+                : (isFocus ? "#1a1d28" : "white"),
+              border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", gap: "12px",
+              justifyContent: "flex-end", fontSize: "16px", fontWeight: "700",
+              color: expandedSection === idx ? subject.color : (isFocus ? "#f0f0f5" : "#161822"),
+              transition: "all 0.2s",
+            }}>
+              <span>{section.icon} {section.title}</span>
+              <span style={{ marginLeft: "auto", fontSize: "18px", transition: "transform 0.2s" }}>
+                {expandedSection === idx ? "▼" : "▶"}
+              </span>
+            </button>
+
+            {expandedSection === idx && (
+              <div style={{
+                padding: "24px 24px",
+                borderTop: isFocus ? "1px solid #4a5568" : "1px solid #e2e8f0",
+                color: isFocus ? "#8b8fa3" : "#475569",
+                lineHeight: "1.8",
+              }}>
+                {section.id === "overview" && (
+                  <div>
+                    <p>{unit.summary || "סקירה זמינה"}</p>
+                    {(contentData.learn || []).length > 0 && (
+                      <div style={{ marginTop: "12px", padding: "12px", background: isFocus ? "#222636" : `${subject.color}05`, borderRadius: "8px" }}>
+                        <div style={{ fontWeight: "700", marginBottom: "8px" }}>📚 נושאים בסקירה:</div>
+                        {(contentData.learn || []).map((topic, i) => (
+                          <div key={i} style={{ fontSize: "14px", margin: "4px 0" }}>
+                            • {topic.title || topic}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {section.id === "material" && (
+                  <div>
+                    {(contentData.learn || []).length > 0 ? (
+                      (contentData.learn || []).map((topic, i) => (
+                        <div key={i} style={{ marginBottom: "20px" }}>
+                          <h4 style={{ color: subject.color, fontWeight: "700", marginBottom: "8px" }}>
+                            {topic.title || `נושא ${i + 1}`}
+                          </h4>
+                          <p style={{ margin: 0 }}>
+                            {renderTextWithTerms(topic.content || topic, `learn-${i}`)}
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>חומר לימוד זמין</p>
+                    )}
+                  </div>
+                )}
+
+                {section.id === "practice" && (
+                  <div>
+                    <p>שאלות תרגול לנושא זה</p>
+                    <button onClick={() => setPracticeMode("practice")} style={{
+                      marginTop: "12px", padding: "10px 20px",
+                      background: subject.color, color: "white",
+                      border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "700",
+                    }}>
+                      התחל תרגול
+                    </button>
+                  </div>
+                )}
+
+                {section.id === "bagrut" && (
+                  <div>
+                    <p>שאלות בסגנון בגרות אמיתי</p>
+                  </div>
+                )}
+
+                {section.id === "mistakes" && (
+                  <div>
+                    <p>טעויות נפוצות בנושא זה ואיך להימנע מהן</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom Action Buttons */}
+      <div style={{
+        display: "flex", gap: "12px", marginTop: "24px",
+        position: "sticky", bottom: "24px", zIndex: 50,
+      }}>
+        <button style={{
+          flex: 1, padding: "16px",
+          background: `linear-gradient(135deg, ${subject.color}, ${subject.color}cc)`,
+          color: "white", border: "none", borderRadius: "12px",
+          fontSize: "16px", fontWeight: "700", cursor: "pointer",
+        }}>
+          סיימתי ✓
+        </button>
+        <button style={{
+          flex: 1, padding: "16px",
+          background: isFocus ? "#222636" : "#f1f5f9",
+          color: subject.color, border: `2px solid ${subject.color}40`,
+          borderRadius: "12px", fontSize: "16px", fontWeight: "700",
+          cursor: "pointer",
+        }}>
+          תרגל אותי
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
+// STUDENT DASHBOARD
+// ============================================
+function StudentDashboard({ student, subjects, onSelectSubject, isFocus }) {
+  // Calculate overall completion percentage
+  const calculateOverallCompletion = () => {
+    if (!student?.data) return 0;
+    let totalUnits = 0;
+    let completedUnits = 0;
+
+    subjects.forEach(subject => {
+      const progress = student.data.subjectProgress[subject.id] || {};
+      totalUnits += subject.units.length;
+      completedUnits += (progress.unitsVisited || []).length;
+    });
+
+    return totalUnits === 0 ? 0 : Math.round((completedUnits / totalUnits) * 100);
+  };
+
+  // Get unstarted topics
+  const getUnstartedTopics = () => {
+    if (!student?.data) return [];
+    const unstarted = [];
+
+    subjects.forEach(subject => {
+      const progress = student.data.subjectProgress[subject.id] || {};
+      const visited = progress.unitsVisited || [];
+
+      subject.units.forEach(unit => {
+        if (!visited.includes(unit.id)) {
+          unstarted.push({
+            subjectId: subject.id,
+            subjectName: subject.name,
+            subjectIcon: subject.icon,
+            unitId: unit.id,
+            unitTitle: unit.title || `יחידה ${unit.id}`,
+            subject: subject,
+            unit: unit,
+          });
+        }
+      });
+    });
+
+    return unstarted;
+  };
+
+  // Get weak topics (less than 60% correct)
+  const getWeakTopics = () => {
+    if (!student?.data) return [];
+    const weak = [];
+
+    subjects.forEach(subject => {
+      const progress = student.data.subjectProgress[subject.id] || {};
+      const practiceResults = progress.practiceResults || [];
+
+      // Group results by unit
+      const unitResults = {};
+      subject.units.forEach(unit => {
+        unitResults[unit.id] = [];
+      });
+
+      practiceResults.forEach(result => {
+        if (unitResults[result.unitId]) {
+          unitResults[result.unitId].push(result);
+        }
+      });
+
+      // Calculate accuracy per unit
+      Object.entries(unitResults).forEach(([unitId, results]) => {
+        if (results.length > 0) {
+          const correct = results.filter(r => r.correct).length;
+          const accuracy = (correct / results.length) * 100;
+
+          if (accuracy < 60) {
+            const unit = subject.units.find(u => u.id === unitId);
+            weak.push({
+              subjectId: subject.id,
+              subjectName: subject.name,
+              subjectIcon: subject.icon,
+              unitId: unitId,
+              unitTitle: unit?.title || `יחידה ${unitId}`,
+              accuracy: Math.round(accuracy),
+              subject: subject,
+              unit: unit,
+            });
+          }
+        }
+      });
+    });
+
+    return weak;
+  };
+
+  // Get incorrect questions
+  const getIncorrectQuestions = () => {
+    if (!student?.data) return [];
+    const incorrect = [];
+
+    subjects.forEach(subject => {
+      const progress = student.data.subjectProgress[subject.id] || {};
+      const practiceResults = progress.practiceResults || [];
+
+      practiceResults.forEach(result => {
+        if (!result.correct) {
+          const unit = subject.units.find(u => u.id === result.unitId);
+          incorrect.push({
+            subjectId: subject.id,
+            subjectName: subject.name,
+            subjectIcon: subject.icon,
+            unitId: result.unitId,
+            unitTitle: unit?.title || `יחידה ${result.unitId}`,
+            questionText: result.questionText || `שאלה ${result.questionId || ''}`,
+            correctAnswer: result.correctAnswer || '',
+            userAnswer: result.userAnswer || '',
+            subject: subject,
+            unit: unit,
+          });
+        }
+      });
+    });
+
+    return incorrect;
+  };
+
+  // Get AI recommendation
+  const getRecommendation = () => {
+    const unstarted = getUnstartedTopics();
+    const weak = getWeakTopics();
+    const recommended = [];
+
+    // First, prioritize unstarted topics
+    for (let i = 0; i < Math.min(2, unstarted.length); i++) {
+      recommended.push(unstarted[i]);
+    }
+
+    // Then add weak topics
+    for (let i = 0; i < Math.min(1, weak.length); i++) {
+      if (recommended.length < 3) {
+        recommended.push(weak[i]);
+      }
+    }
+
+    // If still not enough, add more unstarted
+    for (let i = 2; i < Math.min(3, unstarted.length); i++) {
+      if (recommended.length < 3) {
+        recommended.push(unstarted[i]);
+      }
+    }
+
+    return recommended;
+  };
+
+  const overallCompletion = calculateOverallCompletion();
+  const unstarted = getUnstartedTopics();
+  const weak = getWeakTopics();
+  const incorrect = getIncorrectQuestions();
+  const recommendations = getRecommendation();
+
+  const svgCircleRadius = 90;
+  const svgCircleCircumference = 2 * Math.PI * svgCircleRadius;
+  const strokeDashoffset = svgCircleCircumference - (overallCompletion / 100) * svgCircleCircumference;
+
+  return (
+    <div style={{
+      animation: "fadeIn 0.3s ease",
+    }}>
+      <button
+        onClick={() => onSelectSubject(null)}
+        style={{
+          background: "none",
+          border: "none",
+          color: isFocus ? "#8b8fa3" : "#64748b",
+          cursor: "pointer",
+          fontSize: "15px",
+          marginBottom: "24px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+          padding: "8px 0",
+        }}
+      >
+        → חזרה למקצועות
+      </button>
+
+      <div style={{
+        textAlign: "center",
+        marginBottom: "48px",
+      }}>
+        <h1 style={{
+          fontSize: "36px",
+          fontWeight: "800",
+          color: isFocus ? "#f0f0f5" : "#161822",
+          margin: "0 0 8px 0",
+          letterSpacing: "-0.5px",
+        }}>
+          📊 לוח הבקרה שלך
+        </h1>
+        <p style={{
+          fontSize: "16px",
+          color: isFocus ? "#5c5f73" : "#64748b",
+          margin: 0,
+        }}>
+          עקוב אחר ההתקדמות שלך וקבל המלצות הדרכה אישיות
+        </p>
+      </div>
+
+      {/* Overall Completion Circle */}
+      <div style={{
+        background: isFocus ? "#1a1d28" : "white",
+        borderRadius: "16px",
+        padding: "32px",
+        marginBottom: "32px",
+        border: isFocus ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
+        textAlign: "center",
+      }}>
+        <h2 style={{
+          fontSize: "18px",
+          fontWeight: "700",
+          color: isFocus ? "#f0f0f5" : "#161822",
+          margin: "0 0 24px 0",
+        }}>
+          📈 השלמה כוללת
+        </h2>
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "16px",
+        }}>
+          <svg width="280" height="280" viewBox="0 0 280 280" style={{ marginRight: "-80px" }}>
+            <circle
+              cx="140"
+              cy="140"
+              r={svgCircleRadius}
+              fill="none"
+              stroke={isFocus ? "rgba(255,255,255,0.1)" : "#e2e8f0"}
+              strokeWidth="12"
+            />
+            <circle
+              cx="140"
+              cy="140"
+              r={svgCircleRadius}
+              fill="none"
+              stroke="url(#gradient1)"
+              strokeWidth="12"
+              strokeDasharray={svgCircleCircumference}
+              strokeDashoffset={strokeDashoffset}
+              strokeLinecap="round"
+              style={{ transition: "stroke-dashoffset 0.8s ease" }}
+            />
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#0891b2" />
+              </linearGradient>
+            </defs>
+            <text
+              x="140"
+              y="140"
+              textAnchor="middle"
+              dy="0.3em"
+              fontSize="48"
+              fontWeight="800"
+              fill={isFocus ? "#f0f0f5" : "#161822"}
+            >
+              {overallCompletion}%
+            </text>
+          </svg>
+          <div style={{
+            textAlign: "right",
+            paddingRight: "20px",
+          }}>
+            <div style={{
+              fontSize: "14px",
+              color: isFocus ? "#5c5f73" : "#64748b",
+              marginBottom: "8px",
+            }}>
+              יחידות שהושלמו
+            </div>
+            <div style={{
+              fontSize: "24px",
+              fontWeight: "800",
+              color: isFocus ? "#f0f0f5" : "#161822",
+            }}>
+              {(() => {
+                let completed = 0;
+                let total = 0;
+                subjects.forEach(subject => {
+                  const progress = student.data?.subjectProgress[subject.id] || {};
+                  const visited = progress.unitsVisited || [];
+                  completed += visited.length;
+                  total += subject.units.length;
+                });
+                return `${completed}/${total}`;
+              })()}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recommendations */}
+      {recommendations.length > 0 && (
+        <div style={{
+          background: isFocus ? "#1a1d28" : "white",
+          borderRadius: "16px",
+          padding: "24px",
+          marginBottom: "32px",
+          border: isFocus ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
+        }}>
+          <h2 style={{
+            fontSize: "18px",
+            fontWeight: "700",
+            color: isFocus ? "#f0f0f5" : "#161822",
+            margin: "0 0 16px 0",
+          }}>
+            💡 המלצה: מה ללמוד היום
+          </h2>
+          <div style={{
+            display: "grid",
+            gap: "12px",
+          }}>
+            {recommendations.map((rec, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  onSelectSubject(rec.subject);
+                  // Note: caller should handle selecting the unit
+                }}
+                style={{
+                  background: isFocus ? "#222636" : `${rec.subject.color}08`,
+                  border: `1px solid ${rec.subject.color}40`,
+                  borderRadius: "12px",
+                  padding: "16px",
+                  textAlign: "right",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  color: isFocus ? "#f0f0f5" : "#161822",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = isFocus ? "#222636" : `${rec.subject.color}12`;
+                  e.target.style.borderColor = rec.subject.color;
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = isFocus ? "#222636" : `${rec.subject.color}08`;
+                  e.target.style.borderColor = `${rec.subject.color}40`;
+                }}
+              >
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  justifyContent: "flex-end",
+                }}>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{
+                      fontSize: "14px",
+                      fontWeight: "700",
+                      color: rec.subject.color,
+                    }}>
+                      {rec.subjectIcon} {rec.subjectName}
+                    </div>
+                    <div style={{
+                      fontSize: "13px",
+                      color: isFocus ? "#5c5f73" : "#64748b",
+                    }}>
+                      {rec.unitTitle}
+                    </div>
+                  </div>
+                  <div style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    color: rec.subject.color,
+                  }}>
+                    →
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Unstarted Topics */}
+      {unstarted.length > 0 && (
+        <div style={{
+          background: isFocus ? "#1a1d28" : "white",
+          borderRadius: "16px",
+          padding: "24px",
+          marginBottom: "32px",
+          border: isFocus ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
+        }}>
+          <h2 style={{
+            fontSize: "18px",
+            fontWeight: "700",
+            color: isFocus ? "#f0f0f5" : "#161822",
+            margin: "0 0 16px 0",
+          }}>
+            📚 נושאים שלא נלמדו
+          </h2>
+          <p style={{
+            fontSize: "13px",
+            color: isFocus ? "#5c5f73" : "#64748b",
+            margin: "0 0 12px 0",
+          }}>
+            {unstarted.length} יחידות מחכות לך
+          </p>
+          <div style={{
+            display: "grid",
+            gap: "8px",
+          }}>
+            {unstarted.slice(0, 8).map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: isFocus ? "#222636" : `${item.subject.color}05`,
+                  borderLeft: `4px solid ${item.subject.color}`,
+                  padding: "12px",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  color: isFocus ? "#c5c8d4" : "#475569",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span>{item.unitTitle}</span>
+                <span style={{ fontSize: "13px", color: item.subject.color }}>
+                  {item.subjectIcon} {item.subjectName}
+                </span>
+              </div>
+            ))}
+            {unstarted.length > 8 && (
+              <div style={{
+                textAlign: "center",
+                fontSize: "13px",
+                color: isFocus ? "#5c5f73" : "#64748b",
+                padding: "8px",
+              }}>
+                ... ועוד {unstarted.length - 8} יחידות נוספות
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Weak Topics */}
+      {weak.length > 0 && (
+        <div style={{
+          background: isFocus ? "#1a1d28" : "white",
+          borderRadius: "16px",
+          padding: "24px",
+          marginBottom: "32px",
+          border: isFocus ? "1px solid rgba(255,255,255,0.06)" : "1px solid #fbbf24",
+        }}>
+          <h2 style={{
+            fontSize: "18px",
+            fontWeight: "700",
+            color: isFocus ? "#fbbf24" : "#f59e0b",
+            margin: "0 0 16px 0",
+          }}>
+            ⚠️ נושאים חלשים
+          </h2>
+          <p style={{
+            fontSize: "13px",
+            color: isFocus ? "#5c5f73" : "#64748b",
+            margin: "0 0 12px 0",
+          }}>
+            בנושאים אלה קיבלת פחות מ-60%
+          </p>
+          <div style={{
+            display: "grid",
+            gap: "8px",
+          }}>
+            {weak.slice(0, 8).map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: isFocus ? "#222636" : "#fff7ed",
+                  borderLeft: "4px solid #f59e0b",
+                  padding: "12px",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  color: isFocus ? "#c5c8d4" : "#475569",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span>{item.unitTitle}</span>
+                <span style={{ fontSize: "13px", color: "#f59e0b", fontWeight: "600" }}>
+                  {item.accuracy}%
+                </span>
+              </div>
+            ))}
+            {weak.length > 8 && (
+              <div style={{
+                textAlign: "center",
+                fontSize: "13px",
+                color: isFocus ? "#5c5f73" : "#64748b",
+                padding: "8px",
+              }}>
+                ... ועוד {weak.length - 8} נושאים נוספים
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Incorrect Questions */}
+      {incorrect.length > 0 && (
+        <div style={{
+          background: isFocus ? "#1a1d28" : "white",
+          borderRadius: "16px",
+          padding: "24px",
+          marginBottom: "32px",
+          border: isFocus ? "1px solid rgba(255,255,255,0.06)" : "1px solid #ef4444",
+        }}>
+          <h2 style={{
+            fontSize: "18px",
+            fontWeight: "700",
+            color: isFocus ? "#ef4444" : "#dc2626",
+            margin: "0 0 16px 0",
+          }}>
+            ❌ שאלות שטעיתי בהן
+          </h2>
+          <p style={{
+            fontSize: "13px",
+            color: isFocus ? "#5c5f73" : "#64748b",
+            margin: "0 0 12px 0",
+          }}>
+            {incorrect.length} שאלות לתרגול נוסף
+          </p>
+          <div style={{
+            display: "grid",
+            gap: "12px",
+            maxHeight: "400px",
+            overflowY: "auto",
+          }}>
+            {incorrect.slice(0, 10).map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: isFocus ? "#222636" : "#fef2f2",
+                  borderLeft: "4px solid #ef4444",
+                  padding: "12px",
+                  borderRadius: "8px",
+                  fontSize: "13px",
+                  color: isFocus ? "#c5c8d4" : "#475569",
+                }}
+              >
+                <div style={{ marginBottom: "8px" }}>
+                  <span style={{ fontWeight: "600", color: isFocus ? "#f0f0f5" : "#161822" }}>
+                    {item.unitTitle}
+                  </span>
+                  {" — "}
+                  <span style={{ fontSize: "12px", color: isFocus ? "#5c5f73" : "#6b7280" }}>
+                    {item.subjectIcon} {item.subjectName}
+                  </span>
+                </div>
+                <div style={{ color: isFocus ? "#8b8fa3" : "#6b7280", lineHeight: "1.5" }}>
+                  <strong>שאלה:</strong> {item.questionText}
+                </div>
+                <div style={{
+                  marginTop: "6px",
+                  color: "#10b981",
+                  fontSize: "12px",
+                }}>
+                  ✓ תשובה נכונה: {item.correctAnswer}
+                </div>
+                <div style={{
+                  marginTop: "4px",
+                  color: "#ef4444",
+                  fontSize: "12px",
+                }}>
+                  ✗ התשובה שלך: {item.userAnswer}
+                </div>
+              </div>
+            ))}
+            {incorrect.length > 10 && (
+              <div style={{
+                textAlign: "center",
+                fontSize: "13px",
+                color: isFocus ? "#5c5f73" : "#64748b",
+                padding: "8px",
+              }}>
+                ... עוד {incorrect.length - 10} שאלות
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Empty State */}
+      {unstarted.length === 0 && weak.length === 0 && incorrect.length === 0 && (
+        <div style={{
+          textAlign: "center",
+          padding: "48px 24px",
+          color: isFocus ? "#5c5f73" : "#64748b",
+        }}>
+          <div style={{ fontSize: "48px", marginBottom: "12px" }}>🎉</div>
+          <h3 style={{
+            fontSize: "20px",
+            fontWeight: "700",
+            color: isFocus ? "#f0f0f5" : "#161822",
+            margin: "0 0 8px 0",
+          }}>
+            כל הכבוד!
+          </h3>
+          <p style={{ fontSize: "15px", margin: 0 }}>
+            שלמת את כל היחידות וקיבלת ציונים גבוהים בכל מקום. המשך כך! 💪
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================
 // MAIN APP
 // ============================================
 function BagrutAI() {
@@ -46019,6 +47157,7 @@ function BagrutAI() {
   const student = useStudentState(studentName);
 
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedExamPaper, setSelectedExamPaper] = useState(null);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [activeView, setActiveView] = useState(null);
   const [chatOpen, setChatOpen] = useState(false);
@@ -46030,6 +47169,7 @@ function BagrutAI() {
   // Continuous learning: selected units queue and current index
   const [learningQueue, setLearningQueue] = useState([]);
   const [learningIndex, setLearningIndex] = useState(0);
+  const [showDashboard, setShowDashboard] = useState(false);
 
   // Auto-dismiss payment banner after 5 seconds
   useEffect(() => {
@@ -46130,7 +47270,7 @@ function BagrutAI() {
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <button
-            onClick={() => { setSelectedSubject(null); setSelectedUnit(null); setLearningQueue([]); setLearningIndex(0); }}
+            onClick={() => { setShowDashboard(false); setSelectedSubject(null); setSelectedExamPaper(null); setSelectedUnit(null); setLearningQueue([]); setLearningIndex(0); }}
             style={{
               background: "none",
               border: "none",
@@ -46179,6 +47319,24 @@ function BagrutAI() {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <button
+            onClick={() => { setShowDashboard(true); setSelectedSubject(null); }}
+            style={{
+              background: isFocus ? "rgba(255,255,255,0.05)" : "#f1f5f9",
+              border: isFocus ? "1px solid rgba(255,255,255,0.1)" : "1px solid #e2e8f0",
+              borderRadius: "8px",
+              padding: "8px 12px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "16px",
+              transition: "all 0.2s",
+            }}
+            title="לוח בקרה"
+          >
+            📊
+          </button>
           <ModeToggle mode={mode} onToggle={setMode} />
           {/* Student Badge */}
           <div style={{
@@ -46201,7 +47359,7 @@ function BagrutAI() {
             {student.data && student.data.streakDays > 1 && (
               <span style={{ fontSize: "12px" }}>🔥{student.data.streakDays}</span>
             )}
-            <button onClick={() => { setStudentName(null); setSelectedSubject(null); setSelectedUnit(null); setActiveView(null); }}
+            <button onClick={() => { setStudentName(null); setShowDashboard(false); setSelectedSubject(null); setSelectedExamPaper(null); setSelectedUnit(null); setActiveView(null); }}
               style={{
                 background: "none", border: "none", cursor: "pointer",
                 fontSize: "12px", color: isFocus ? "#5c5f73" : "#94a3b8",
@@ -46220,8 +47378,21 @@ function BagrutAI() {
         margin: "0 auto",
         padding: "40px 24px",
       }}>
+        {/* Dashboard View */}
+        {showDashboard && !selectedSubject && (
+          <StudentDashboard
+            student={student}
+            subjects={subjects}
+            onSelectSubject={(subject) => {
+              setShowDashboard(false);
+              setSelectedSubject(subject);
+            }}
+            isFocus={isFocus}
+          />
+        )}
+
         {/* Subject Selection */}
-        {!selectedSubject && (
+        {!selectedSubject && !showDashboard && (
           <div>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
               <h1 style={{
@@ -46311,15 +47482,42 @@ function BagrutAI() {
                   subject={subject}
                   mode={mode}
                   studentData={student.data}
-                  onClick={() => setSelectedSubject(subject)}
+                  onClick={() => { setShowDashboard(false); setSelectedSubject(subject); }}
                 />
               ))}
             </div>
           </div>
         )}
 
+        {/* Exam Paper Selector */}
+        {selectedSubject && !selectedExamPaper && !selectedUnit && (
+          <ExamPaperSelector
+            subject={selectedSubject}
+            isFocus={isFocus}
+            onSelect={(exam) => setSelectedExamPaper(exam)}
+            onBack={() => setSelectedSubject(null)}
+          />
+        )}
+
+        {/* Exam Paper Info Page */}
+        {selectedSubject && selectedExamPaper && !selectedUnit && (
+          <ExamPaperInfo
+            subject={selectedSubject}
+            exam={selectedExamPaper}
+            units={selectedSubject.units}
+            isFocus={isFocus}
+            student={student}
+            onBack={() => setSelectedExamPaper(null)}
+            onStartLearn={() => {
+              setLearningQueue(selectedSubject.units.map(u => u.id));
+              setLearningIndex(0);
+              setSelectedUnit(selectedSubject.units[0]);
+            }}
+          />
+        )}
+
         {/* Subject Selected — Main Menu or Sub-views */}
-        {selectedSubject && !selectedUnit && (
+        {selectedSubject && !selectedUnit && activeView && (
           <div>
             <button
               onClick={() => {
@@ -47386,20 +48584,17 @@ function BagrutAI() {
             if (idx >= 0) setLearningIndex(idx);
           };
           return (
-            <LessonView
+            <UnifiedTopicPage
               unit={selectedUnit}
               subject={selectedSubject}
               mode={mode}
-              onBack={() => { setSelectedUnit(null); }}
+              onBack={() => { setSelectedUnit(null); setSelectedExamPaper(null); }}
+              student={student}
               onAddMistake={(result) => student.addMistake(selectedSubject.id, result)}
               onNextUnit={goNext}
-              hasNextUnit={hasNext}
               onPrevUnit={goPrev}
-              hasPrevUnit={hasPrev}
               onGoToUnit={goToUnit}
               allUnits={queueUnits}
-              currentUnitNum={isInQueue ? currentIdx + 1 : 0}
-              totalUnits={isInQueue ? queueUnits.length : 0}
             />
           );
         })()}
@@ -47435,5 +48630,12 @@ function BagrutAI() {
       </footer>
     </div>
   );
-},
-  >
+}
+
+// ============================================
+// RENDER
+// ============================================
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<BagrutAI />);
+</script>
+</html>
