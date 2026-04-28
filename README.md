@@ -1,3 +1,3 @@
 # BagrutAI
-
-Smart Bagrut Exam Preparation App for Israeli Students
+Platform for Bagrut exam preparation.
+Deployed via GitHub Pages.
