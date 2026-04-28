@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -168,9 +168,39 @@ a{text-decoration:none;color:inherit}
   .subjects-grid{grid-template-columns:repeat(2,1fr)}
   .stat-num{font-size:22px}
 }
+/* Lock Screen */
+#lockScreen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#0f1117 0%,#1a1d2e 50%,#0f1117 100%);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;direction:rtl;font-family:'Heebo',sans-serif;transition:opacity 0.5s ease}
+#lockScreen.unlocked{opacity:0;pointer-events:none}
+.lock-logo{font-size:48px;font-weight:800;background:linear-gradient(135deg,#4f8cff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.lock-badge{display:inline-block;background:linear-gradient(135deg,#4f8cff,#a78bfa);color:#fff;font-size:14px;font-weight:700;padding:2px 10px;border-radius:8px;margin-right:6px;vertical-align:middle}
+.lock-subtitle{color:#a0a3b1;font-size:18px;margin-bottom:32px;text-align:center;line-height:1.6}
+.lock-construction{font-size:40px;margin-bottom:16px}
+.lock-box{background:rgba(255,255,255,0.05);border:1px solid rgba(79,140,255,0.2);border-radius:16px;padding:32px;text-align:center;max-width:400px;width:90%;backdrop-filter:blur(10px)}
+.lock-input{width:100%;padding:14px 16px;border-radius:12px;border:2px solid rgba(79,140,255,0.3);background:rgba(255,255,255,0.05);color:#fff;font-size:18px;font-family:'Heebo',sans-serif;text-align:center;outline:none;transition:border-color 0.3s;direction:ltr;letter-spacing:2px}
+.lock-input:focus{border-color:#4f8cff;box-shadow:0 0 20px rgba(79,140,255,0.2)}
+.lock-input::placeholder{color:#555;letter-spacing:0}
+.lock-btn{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#4f8cff,#a78bfa);color:#fff;font-size:18px;font-weight:700;font-family:'Heebo',sans-serif;cursor:pointer;margin-top:12px;transition:transform 0.2s,box-shadow 0.2s}
+.lock-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(79,140,255,0.3)}
+.lock-error{color:#ff6b6b;font-size:14px;margin-top:10px;min-height:20px}
+.lock-footer{color:#555;font-size:13px;margin-top:24px}
 </style>
 </head>
 <body>
+<div id="lockScreen">
+<div class="lock-box">
+<div class="lock-construction">&#128679;</div>
+<div class="lock-logo">BagrutAI <span class="lock-badge">AI</span></div>
+<div class="lock-subtitle">&#1492;&#1488;&#1514;&#1512; &#1489;&#1489;&#1504;&#1497;&#1497;&#1492;<br/>&#1490;&#1497;&#1513;&#1492; &#1502;&#1493;&#1490;&#1489;&#1500;&#1514; &#1500;&#1502;&#1493;&#1512;&#1513;&#1497;&#1501; &#1489;&#1500;&#1489;&#1491;</div>
+<input type="password" id="lockPass" class="lock-input" placeholder="&#1492;&#1494;&#1497;&#1504;&#1493; &#1505;&#1497;&#1505;&#1502;&#1492;" onkeydown="if(event.key==='Enter')checkLock()"/>
+<button class="lock-btn" onclick="checkLock()">&#1499;&#1504;&#1497;&#1505;&#1492; &#128275;</button>
+<div id="lockError" class="lock-error"></div>
+</div>
+<div class="lock-footer">&copy; 2026 BagrutAI</div>
+</div>
+<script>
+function checkLock(){var p=document.getElementById('lockPass').value;if(p==='036493001'){sessionStorage.setItem('bagrutai_unlocked','1');document.getElementById('lockScreen').classList.add('unlocked');setTimeout(function(){document.getElementById('lockScreen').style.display='none'},600)}else{document.getElementById('lockError').textContent='סיסמה שגויה, נסו שנית';document.getElementById('lockPass').value='';document.getElementById('lockPass').focus()}}
+if(sessionStorage.getItem('bagrutai_unlocked')==='1'){document.getElementById('lockScreen').style.display='none'}
+</script>
 
 <!-- NAV -->
 <nav class="nav">
