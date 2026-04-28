@@ -4106,14 +4106,7 @@ const SUBJECTS = {
       }
     ]
   }
-,
-  "math": {
-      "name": "מתמטיקה",
-      "icon": "📐",
-      "color": "#1e3a5f",
-      "isMathPathway": true,
-      "units": []
-}};
+};
 
 // ============================================
 // BAGRUT EXAMS — בחינות בגרות אמיתיות
@@ -58097,7 +58090,7 @@ function FormulaPanel({ isFocus, onNavigate }) {
   );
 }
 
-function ExamSimulation({ exam, isFocus, onNavigate }) {
+function MathExamSimulation({ exam, isFocus, onNavigate }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(1);
   const [timeRemaining, setTimeRemaining] = React.useState(180);
   const colors = { primary: "#1e3a5f", accent: "#dc4a4a", bgLight: "#f8f9fb", bgDark: "#0f1729", text: isFocus ? "#0f1729" : "#f8f9fb", subtext: isFocus ? "#666" : "#aaa" };
@@ -58247,7 +58240,7 @@ function MathRouter({ isFocus, onBackToSubjects }) {
   if (mathState.currentView === "practice") return <MathPractice isFocus={isFocus} onNavigate={handleNavigate} />;
   if (mathState.currentView === "diagnosis") return <MistakeDiagnosis isFocus={isFocus} onNavigate={handleNavigate} />;
   if (mathState.currentView === "formulas") return <FormulaPanel isFocus={isFocus} onNavigate={handleNavigate} />;
-  if (mathState.currentView === "simulation" && mathState.selectedExam) return <ExamSimulation exam={mathState.selectedExam} isFocus={isFocus} onNavigate={handleNavigate} />;
+  if (mathState.currentView === "simulation" && mathState.selectedExam) return <MathExamSimulation exam={mathState.selectedExam} isFocus={isFocus} onNavigate={handleNavigate} />;
   if (mathState.currentView === "paywall") return <MathPaywall isFocus={isFocus} onNavigate={handleNavigate} />;
 
   return null;
