@@ -188,8 +188,6 @@ a{text-decoration:none;color:inherit}
 </style>
 </head>
 <body>
-<div id="lockScreen"><div class="lock-box"><div class="lock-construction">&#128679;</div><div class="lock-logo">BagrutAI <span class="lock-badge">AI</span></div><div class="lock-subtitle">&#x5D4;&#x5D0;&#x5EA;&#x5E8; &#x5D1;&#x5D1;&#x5E0;&#x5D9;&#x5D9;&#x5D4;<br/>&#x5D2;&#x5D9;&#x5E9;&#x5D4; &#x5DE;&#x5D5;&#x5D2;&#x5D1;&#x5DC;&#x5EA; &#x5DC;&#x5DE;&#x5D5;&#x5E8;&#x5E9;&#x5D9;&#x5DD; &#x5D1;&#x5DC;&#x5D1;&#x5D3;</div><input type="password" id="lockPass" class="lock-input" placeholder="&#x5D4;&#x5D6;&#x5D9;&#x5E0;&#x5D5; &#x5E1;&#x5D9;&#x5E1;&#x5DE;&#x5D4;" onkeydown="if(event.key==='Enter')checkLock()"/><button class="lock-btn" onclick="checkLock()">&#x5DB;&#x5E0;&#x5D9;&#x5E1;&#x5D4; &#128275;</button><div id="lockError" class="lock-error"></div></div><div class="lock-footer">&copy; 2026 BagrutAI</div></div>
-<script>function checkLock(){var p=document.getElementById('lockPass').value;if(p==='036493001'){sessionStorage.setItem('bagrutai_unlocked','1');document.getElementById('lockScreen').classList.add('unlocked');setTimeout(function(){document.getElementById('lockScreen').style.display='none'},600)}else{document.getElementById('lockError').textContent='&#x5E1;&#x5D9;&#x5E1;&#x5DE;&#x5D4; &#x5E9;&#x5D2;&#x5D5;&#x5D9;&#x5D4;';document.getElementById('lockPass').value='';document.getElementById('lockPass').focus()}}if(sessionStorage.getItem('bagrutai_unlocked')==='1'){document.getElementById('lockScreen').style.display='none'}</script>
 <div id="lockScreen">
 <div class="lock-box">
 <div class="lock-construction">&#128679;</div>
