@@ -1,0 +1,26 @@
+{
+  "name": "BagrutAI - הכנה לבגרות",
+  "short_name": "BagrutAI",
+  "description": "הדרך החכמה להצליח בבגרות — תוכן מותאם אישית עם AI",
+  "start_url": "/app.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#7c3aed",
+  "lang": "he",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23ffffff'/><ellipse cx='96' cy='110' rx='66' ry='70' fill='%237c3aed'/><path d='M 42 54 L 58 28 L 70 60 Z' fill='%237c3aed'/><path d='M 122 60 L 134 28 L 150 54 Z' fill='%237c3aed'/><ellipse cx='96' cy='130' rx='42' ry='46' fill='%23e9d5ff'/><circle cx='73' cy='84' r='17' fill='%2306b6d4'/><circle cx='119' cy='84' r='17' fill='%2306b6d4'/><circle cx='73' cy='84' r='11' fill='white'/><circle cx='119' cy='84' r='11' fill='white'/><circle cx='77' cy='88' r='6' fill='%230f172a'/><circle cx='123' cy='88' r='6' fill='%230f172a'/><path d='M 90 108 L 96 120 L 102 108 Z' fill='%23fbbf24'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='84' fill='%23ffffff'/><ellipse cx='256' cy='292' rx='176' ry='186' fill='%237c3aed'/><path d='M 112 144 L 154 76 L 186 162 Z' fill='%237c3aed'/><path d='M 326 162 L 358 76 L 400 144 Z' fill='%237c3aed'/><ellipse cx='256' cy='344' rx='112' ry='124' fill='%23e9d5ff'/><circle cx='195' cy='224' r='46' fill='%2306b6d4'/><circle cx='317' cy='224' r='46' fill='%2306b6d4'/><circle cx='195' cy='224' r='30' fill='white'/><circle cx='317' cy='224' r='30' fill='white'/><circle cx='205' cy='234' r='16' fill='%230f172a'/><circle cx='327' cy='234' r='16' fill='%230f172a'/><path d='M 240 287 L 256 320 L 272 287 Z' fill='%23fbbf24'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
