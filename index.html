@@ -113,6 +113,100 @@ a{text-decoration:none;color:inherit}
 .intro-ban{max-width:1000px;margin:16px auto 0;background:linear-gradient(135deg,rgba(0,212,170,0.15),rgba(108,60,225,0.15));border:1px solid rgba(0,212,170,0.3);border-radius:12px;padding:12px 18px;text-align:center;position:relative;z-index:1;font-size:14px;color:#fff;font-weight:600}
 .intro-ban strong{color:#00D4AA}
 
+
+/* ===== UNIQUE VALUE ===== */
+.unique-section{padding:50px 20px;background:#fff}
+.unique-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.unique-card{background:linear-gradient(135deg,#faf6ff,#fff);border:1.5px solid #e8e0ff;border-radius:18px;padding:22px;transition:all .3s;position:relative;overflow:hidden}
+.unique-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(108,60,225,0.12);border-color:#c4b0ff}
+.unique-card::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(108,60,225,0.1),transparent 70%)}
+.unique-icon{font-size:36px;margin-bottom:12px;position:relative;z-index:1}
+.unique-card h3{font-size:17px;font-weight:800;margin-bottom:8px;color:#1a1a2e}
+.unique-card p{font-size:13.5px;color:#666;line-height:1.65}
+.unique-1 .unique-icon{filter:hue-rotate(0deg)}
+.unique-2{background:linear-gradient(135deg,#f0fdfd,#fff);border-color:#b8e8e2}
+.unique-3{background:linear-gradient(135deg,#fef7ff,#fff);border-color:#e8b8d8}
+.unique-4{background:linear-gradient(135deg,#fff8f0,#fff);border-color:#ffd4a8}
+.unique-5{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#a8e8c4}
+.unique-6{background:linear-gradient(135deg,#fff0f0,#fff);border-color:#ffb8b8}
+
+/* ===== BAGRUT PRACTICE ===== */
+.bagrut-practice-section{padding:50px 20px;background:linear-gradient(135deg,#1a1a2e 0%,#2d1b69 100%);color:#fff;position:relative;overflow:hidden}
+.bagrut-practice-section::before{content:'';position:absolute;bottom:-200px;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,170,0.15),transparent 70%);border-radius:50%}
+.bagrut-practice-section .section-title h2{color:#fff}
+.bagrut-practice-section .section-title h2 span{color:#00D4AA}
+.bagrut-practice-section .section-title p{color:rgba(255,255,255,0.55)}
+.practice-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1}
+.practice-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:26px 22px;transition:all .3s;position:relative}
+.practice-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.3);border-color:rgba(0,212,170,0.3)}
+.practice-pop{background:rgba(0,212,170,0.08);border-color:rgba(0,212,170,0.4);transform:scale(1.03)}
+.practice-tag{position:absolute;top:-12px;right:20px;background:#00D4AA;color:#1a1a2e;font-size:12px;font-weight:800;padding:4px 14px;border-radius:50px}
+.practice-num{position:absolute;top:18px;left:22px;width:40px;height:40px;background:rgba(108,60,225,0.4);border:2px solid rgba(108,60,225,0.6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff}
+.practice-icon{font-size:42px;margin-bottom:14px}
+.practice-card h3{font-size:18px;font-weight:800;margin-bottom:10px}
+.practice-card>p{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:14px}
+.practice-card ul{list-style:none;text-align:right}
+.practice-card li{padding:5px 0;font-size:13px;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:8px}
+.practice-card li::before{content:'¹3';color:#00D4AA;font-weight:700;font-size:14px}
+
+/* ===== ROADMAP ===== */
+.roadmap-section{padding:50px 20px;background:#fff}
+.roadmap-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch}
+.roadmap-step{background:linear-gradient(135deg,#fff,#faf6ff);border:1.5px solid #e8e0ff;border-radius:16px;padding:20px 14px;text-align:center;position:relative;transition:all .3s}
+.roadmap-step:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(108,60,225,0.12);border-color:#c4b0ff}
+.roadmap-final{background:linear-gradient(135deg,#f0fff4,#e8fff0);border-color:#a8e8c4}
+.step-num{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:32px;height:32px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+.roadmap-final .step-num{background:linear-gradient(135deg,#00D4AA,#00B894)}
+.step-icon{font-size:36px;margin:8px 0 10px}
+.roadmap-step h3{font-size:15px;font-weight:800;margin-bottom:6px}
+.roadmap-step p{font-size:12px;color:#666;line-height:1.55}
+.roadmap-arrow{display:flex;align-items:center;justify-content:center;font-size:28px;color:#c4b0ff;font-weight:bold}
+.roadmap-note{max-width:900px;margin:30px auto 0;padding:16px 22px;background:linear-gradient(135deg,#fff8f0,#fef0f8);border:1.5px solid #ffd4a8;border-radius:14px;text-align:center;font-size:14px;color:#444}
+.roadmap-note strong{color:#6C3CE1}
+.roadmap-note em{color:#00D4AA;font-style:normal;font-weight:700}
+
+/* ===== PLANNER ===== */
+.planner-section{padding:50px 20px;background:linear-gradient(135deg,#f8f6ff,#eef9f6)}
+.planner-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+.planner-feature{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start}
+.pf-icon{flex-shrink:0;width:48px;height:48px;background:linear-gradient(135deg,#fff,#faf6ff);border:1.5px solid #c4b0ff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.planner-feature h3{font-size:16px;font-weight:800;margin-bottom:4px;color:#1a1a2e}
+.planner-feature p{font-size:13.5px;color:#666;line-height:1.6}
+.planner-visual{display:flex;justify-content:center}
+.schedule-card{background:#fff;border-radius:20px;padding:22px;box-shadow:0 16px 50px rgba(108,60,225,0.15);width:100%;max-width:380px}
+.schedule-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1.5px solid #f0ecff;margin-bottom:14px}
+.schedule-title{font-size:16px;font-weight:800;color:#1a1a2e}
+.schedule-date{font-size:12px;color:#888;font-weight:600}
+.schedule-day{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:6px;font-size:13px;background:#f8f6ff;border:1px solid transparent}
+.day-label{font-weight:700;color:#6C3CE1;width:60px;text-align:right}
+.day-task{flex:1;color:#444;text-align:right;padding:0 10px}
+.day-status{font-weight:700;font-size:14px;color:#00D4AA}
+.schedule-today{background:linear-gradient(135deg,#fff8e1,#fff3c4);border-color:#ffd96b}
+.schedule-today .day-label{color:#b8860b}
+.schedule-today .day-status{color:#b8860b;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.schedule-day.pending{background:#f8f8fa;opacity:0.7}
+.schedule-day.pending .day-label{color:#999}
+.schedule-day.pending .day-status{color:#ccc}
+.schedule-progress{margin-top:14px;padding-top:14px;border-top:1.5px solid #f0ecff}
+.sp-label{font-size:12px;font-weight:700;color:#666;margin-bottom:6px;text-align:right}
+.sp-bar{height:8px;background:#f0ecff;border-radius:50px;overflow:hidden}
+.sp-fill{height:100%;width:33%;background:linear-gradient(90deg,#6C3CE1,#00D4AA);border-radius:50px;transition:width 0.5s}
+
+/* Responsive for new sections */
+@media(max-width:900px){
+  .unique-grid{grid-template-columns:repeat(2,1fr)}
+  .practice-grid{grid-template-columns:1fr;gap:14px}
+  .practice-pop{transform:none}
+  .roadmap-grid{grid-template-columns:1fr;gap:6px}
+  .roadmap-arrow{transform:rotate(90deg);margin:2px 0}
+  .planner-grid{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:500px){
+  .unique-grid{grid-template-columns:1fr}
+  .unique-card h3{font-size:16px}
+}
+
 /* ===== REGISTRATION MODAL ===== */
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:200;justify-content:center;align-items:center}
 .modal-overlay.show{display:flex}
@@ -298,6 +392,231 @@ if(sessionStorage.getItem('bagrutai_unlocked')==='1'){document.getElementById('l
     <div class="feat"><div class="feat-icon">📋</div><h3>בחינות עבר</h3><p>קישורים לבחינות בגרות ולחוברות מיקוד ממשרד החינוך.</p></div>
   </div>
 </section>
+
+
+<!-- ===== UNIQUE VALUE — מה מבדיל אותנו ===== -->
+<section class="unique-section">
+  <div class="section-title">
+    <h2>מה <span>ייחודי</span> ב-BagrutAI?</h2>
+    <p>שילוב חזק של AI, תוכן מקיף וחוויית למידה מתקדמת — שאין אצל אף אחד אחר</p>
+  </div>
+  <div class="unique-grid">
+    <div class="unique-card unique-1">
+      <div class="unique-icon">🦉</div>
+      <h3>4 ינשופים אישיים להקראה</h3>
+      <p>בחר/י את הסגנון שלך: רגוע, אנרגטי, רציני או מעודד — לכל ינשוף טון קול שונה ומאפיינים ייחודיים. ההקראה מותאמת לרגע (לימוד ראשוני / חזרה לפני מבחן / תמיכה במצבי לחץ).</p>
+    </div>
+    <div class="unique-card unique-2">
+      <div class="unique-icon">📚</div>
+      <h3>3 רמות יח״ל מותאמות</h3>
+      <p>לומד/ת ל-3 / 4 / 5 יח״ל? הפלטפורמה מסננת אוטומטית את היחידות הרלוונטיות לרמה שלך, ומראה גם את אלו של רמות אחרות (אם תרצי להעמיק).</p>
+    </div>
+    <div class="unique-card unique-3">
+      <div class="unique-icon">🎯</div>
+      <h3>שאלוני בגרות אמיתיים — 20 שנה אחורה</h3>
+      <p>3,280 בחינות בגרות אמיתיות ממשרד החינוך, ב-PDF פתוח עם פתרונות מודרכים. מסך מפוצל: שאלון מימין, מחברת תשובה משמאל — בדיוק כמו בבחינה.</p>
+    </div>
+    <div class="unique-card unique-4">
+      <div class="unique-icon">🤖</div>
+      <h3>תוכן מותאם אישית עם AI</h3>
+      <p>כל יחידה כוללת הסבר מודרך, דוגמאות, תרגול בזמן אמת ומשוב מיידי. עזרה אקדמית מיידית מבוססת על התוכן הפנימי — לא חיפוש כללי באינטרנט.</p>
+    </div>
+    <div class="unique-card unique-5">
+      <div class="unique-icon">📅</div>
+      <h3>תכנון חכם לפי תאריך הבחינה</h3>
+      <p>תני תאריך — והמערכת בונה לך לוח זמנים אישי: מה ללמוד בכל יום, כמה זמן להשקיע, מתי לחזור על נושאים, ומתי להתרכז בתרגול. תזכורות אוטומטיות לטלפון.</p>
+    </div>
+    <div class="unique-card unique-6">
+      <div class="unique-icon">🔥</div>
+      <h3>גיימיפיקציה ומוטיבציה</h3>
+      <p>מערכת רצף ימים (streak), כרטיסיות זיכרון עם spaced repetition, פומודורו אוטומטי, ותגי הישגים. למידה הופכת למשחק — וזה עובד.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REAL BAGRUT PRACTICE — תרגול אמיתי ===== -->
+<section class="bagrut-practice-section">
+  <div class="section-title">
+    <h2>תרגול בגרות <span>אמיתי</span> — 3 דרכים</h2>
+    <p>לא רק שאלות שאספנו — בחינות בגרות מקוריות מ-2006 ועד היום, עם 3 דרכי תרגול לבחירתך</p>
+  </div>
+  <div class="practice-grid">
+    <div class="practice-card">
+      <div class="practice-num">1</div>
+      <div class="practice-icon">📄</div>
+      <h3>שאלון מלא — בחינת בגרות אמיתית</h3>
+      <p>בוחר/ת מקצוע → סמל שאלון → שנה ומועד (חורף/קיץ) → פותחת בחינה אמיתית מהארכיון של משרד החינוך.</p>
+      <ul>
+        <li>3,280 בחינות מ-17 מקצועות</li>
+        <li>20 שנה אחורה (2006-2026)</li>
+        <li>מסך מפוצל: PDF + מחברת תשובות</li>
+        <li>תמיכה בתת-סעיפים (1א, 1ב, 1ג)</li>
+      </ul>
+    </div>
+    <div class="practice-card practice-pop">
+      <div class="practice-tag">🌟 מומלץ</div>
+      <div class="practice-num">2</div>
+      <div class="practice-icon">✏️</div>
+      <h3>תרגול לפי נושא — ממוקד</h3>
+      <p>בוחר/ת יחידה ספציפית → מקבל/ת שאלות מתוך כל הבחינות שעסקו בנושא הזה, עם רמות קושי הולכות וגדלות.</p>
+      <ul>
+        <li>783 שאלות מקוריות + שאלות בגרות מסוננות</li>
+        <li>פתרון מלא לכל שאלה</li>
+        <li>זיהוי חולשות והפניה לחומר</li>
+        <li>שמירת טעויות לחזרה</li>
+      </ul>
+    </div>
+    <div class="practice-card">
+      <div class="practice-num">3</div>
+      <div class="practice-icon">⏱️</div>
+      <h3>סימולציית בגרות מלאה</h3>
+      <p>בחינה מלאה עם טיימר, תנאי בגרות אמיתיים, ובסוף — ציון משוקלל לפי מחוון משרד החינוך.</p>
+      <ul>
+        <li>זמן מוגבל (כמו בבחינה)</li>
+        <li>מצב "ללא רמזים"</li>
+        <li>בדיקה אוטומטית + ציון</li>
+        <li>השוואה לציוני שנים קודמות</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEARNING ROADMAP — סכמה ויזואלית ===== -->
+<section class="roadmap-section">
+  <div class="section-title">
+    <h2>הדרך ל-<span>100</span> — סכמת הלמידה שלנו</h2>
+    <p>5 שלבים מבוססי-מחקר שמובילים לציון מצוין</p>
+  </div>
+  <div class="roadmap-grid">
+    <div class="roadmap-step">
+      <div class="step-num">1</div>
+      <div class="step-icon">📖</div>
+      <h3>הסבר מודרך</h3>
+      <p>קורא/ת את החומר המסוכם — מושגים, הגדרות, דוגמאות. ההסבר נבנה בשפה ברורה ופשוטה. אפשר להאזין במקום לקרוא.</p>
+    </div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step">
+      <div class="step-num">2</div>
+      <div class="step-icon">💡</div>
+      <h3>דוגמאות פתורות</h3>
+      <p>רואה דוגמאות עם הסבר שלב-שלב. הבנת איך לפתור היא הצעד הראשון לפני שמנסים לבד.</p>
+    </div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step">
+      <div class="step-num">3</div>
+      <div class="step-icon">✏️</div>
+      <h3>תרגול עצמי</h3>
+      <p>פותר/ת שאלות תרגול. המערכת מחכה ולא נותנת תשובה — את לבד. אפשר לקבל רמז אם נתקעת.</p>
+    </div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step">
+      <div class="step-num">4</div>
+      <div class="step-icon">🎯</div>
+      <h3>משוב + תיקון</h3>
+      <p>בודק/ת את התשובה. רואה איפה טעית ולמה. הטעויות נשמרות אוטומטית לחזרה ממוקדת אחר כך.</p>
+    </div>
+    <div class="roadmap-arrow">→</div>
+    <div class="roadmap-step roadmap-final">
+      <div class="step-num">5</div>
+      <div class="step-icon">🏁</div>
+      <h3>סיכום ושינון</h3>
+      <p>סיכום קצר של הנושא, כרטיסיות זיכרון לשינון לטווח ארוך, ובדיקה שהכל ברור לפני שעוברים הלאה.</p>
+    </div>
+  </div>
+  <div class="roadmap-note">
+    <strong>🔬 מבוסס מחקר:</strong> השיטה משלבת 4 עקרונות מוכחים: <em>active recall</em>, <em>spaced repetition</em>, <em>interleaving</em> ו-<em>retrieval practice</em>.
+  </div>
+</section>
+
+<!-- ===== SMART PLANNER — תכנון חכם ===== -->
+<section class="planner-section">
+  <div class="section-title">
+    <h2>תכנון חכם — <span>תני תאריך, נדאג להכל</span></h2>
+    <p>לא צריך לחשב לבד מה ללמוד מתי. אנחנו מפרקים את כל החומר עד הבחינה</p>
+  </div>
+  <div class="planner-grid">
+    <div class="planner-text">
+      <div class="planner-feature">
+        <div class="pf-icon">📅</div>
+        <div>
+          <h3>הזיני את תאריך הבחינה</h3>
+          <p>למשל: בגרות מתמטיקה ב-15.6.2026.</p>
+        </div>
+      </div>
+      <div class="planner-feature">
+        <div class="pf-icon">🧠</div>
+        <div>
+          <h3>המערכת מחשבת את העומס</h3>
+          <p>32 יחידות מתמטיקה, 60 ימים עד הבחינה — מחלקת ל-30 יחידות לימוד + 30 ימי תרגול וחזרה.</p>
+        </div>
+      </div>
+      <div class="planner-feature">
+        <div class="pf-icon">⏰</div>
+        <div>
+          <h3>לוח זמנים יומי מותאם</h3>
+          <p>"היום: 30 דק' אלגברה + 15 דק' תרגול. שלשום היה גיאומטריה — מומלץ לחזור 5 דק' לפני".</p>
+        </div>
+      </div>
+      <div class="planner-feature">
+        <div class="pf-icon">📲</div>
+        <div>
+          <h3>תזכורות פוש לטלפון</h3>
+          <p>מקבלת התראה ברגע הנכון: "הגיע הזמן ללמוד מתמטיקה — 30 דק' היום". שומרים על הקצב.</p>
+        </div>
+      </div>
+      <div class="planner-feature">
+        <div class="pf-icon">🔄</div>
+        <div>
+          <h3>התאמה דינמית</h3>
+          <p>פספסת יום? המערכת מאזנת את היומיים הבאים. הצלחת מוקדם? מקבלת חומרי העמקה.</p>
+        </div>
+      </div>
+    </div>
+    <div class="planner-visual">
+      <div class="schedule-card">
+        <div class="schedule-header">
+          <div class="schedule-title">תוכנית השבוע שלי</div>
+          <div class="schedule-date">14-20 ביוני</div>
+        </div>
+        <div class="schedule-day">
+          <span class="day-label">ראשון</span>
+          <span class="day-task">משוואות ריבועיות · 30 דק'</span>
+          <span class="day-status">✓</span>
+        </div>
+        <div class="schedule-day">
+          <span class="day-label">שני</span>
+          <span class="day-task">פונקציות · 25 דק'</span>
+          <span class="day-status">✓</span>
+        </div>
+        <div class="schedule-day schedule-today">
+          <span class="day-label">היום</span>
+          <span class="day-task">גיאומטריה אנליטית · 30 דק'</span>
+          <span class="day-status">▶</span>
+        </div>
+        <div class="schedule-day pending">
+          <span class="day-label">רביעי</span>
+          <span class="day-task">חזרה: משוואות · 15 דק'</span>
+          <span class="day-status">○</span>
+        </div>
+        <div class="schedule-day pending">
+          <span class="day-label">חמישי</span>
+          <span class="day-task">תרגול בגרות 2024 · 60 דק'</span>
+          <span class="day-status">○</span>
+        </div>
+        <div class="schedule-day pending">
+          <span class="day-label">שישי</span>
+          <span class="day-task">סיכום שבועי · 20 דק'</span>
+          <span class="day-status">○</span>
+        </div>
+        <div class="schedule-progress">
+          <div class="sp-label">התקדמות שבועית: 33%</div>
+          <div class="sp-bar"><div class="sp-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- PRICING -->
 <section class="pricing" id="pricing">
