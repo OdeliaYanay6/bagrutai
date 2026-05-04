@@ -231,6 +231,13 @@ a{text-decoration:none;color:inherit}
 .submit-btn{width:100%;padding:13px;border-radius:50px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .3s;margin-top:8px;font-family:'Heebo',sans-serif}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,60,225,0.3)}
 .modal-footer{margin-top:16px;font-size:12px;color:#aaa}
+.consent-group{margin:14px 0;padding:14px;background:#f8f6ff;border:1px solid #e8e0ff;border-radius:10px}
+.consent-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:13px;color:#444;cursor:pointer;line-height:1.5}
+.consent-row:last-child{margin-bottom:0}
+.consent-row input[type="checkbox"]{margin-top:2px;width:18px;height:18px;accent-color:#6C3CE1;cursor:pointer;flex-shrink:0}
+.consent-row a{color:#6C3CE1;font-weight:600;text-decoration:underline}
+.consent-row a:hover{color:#5B2CC7}
+
 
 /* ===== CTA ===== */
 .final-cta{padding:40px 20px;background:linear-gradient(135deg,#6C3CE1,#5B2CC7);text-align:center;color:#fff}
@@ -307,7 +314,7 @@ if(sessionStorage.getItem('bagrutai_unlocked')==='1'){document.getElementById('l
 </nav>
 
 <!-- HERO — ultra compact -->
-<section class="hero">
+<section class="hero" id="main-content" tabindex="-1">
   <div class="hero-inner">
     <div class="hero-text">
       <div class="hero-badges">
@@ -743,6 +750,16 @@ if(sessionStorage.getItem('bagrutai_unlocked')==='1'){document.getElementById('l
         <label>סיסמה</label>
         <input type="password" id="regPass" placeholder="לפחות 6 תווים" minlength="6" required>
       </div>
+      <div class="consent-group">
+        <label class="consent-row">
+          <input type="checkbox" id="agreeTerms" required>
+          <span>אני מסכים/ה ל<a href="/terms.html" target="_blank">תנאי השימוש</a> ו<a href="/privacy.html" target="_blank">מדיניות הפרטיות</a> <span style="color:#e74c3c">*</span></span>
+        </label>
+        <label class="consent-row">
+          <input type="checkbox" id="agreeMarketing">
+          <span>אני מסכים/ה לקבל עדכונים, טיפים ומבצעים בדוא"ל ו-SMS (אפשר לבטל בכל עת)</span>
+        </label>
+      </div>
       <button type="submit" class="submit-btn">הרשמה והתחלת למידה</button>
     </form>
 
@@ -787,6 +804,37 @@ document.getElementById('authModal').addEventListener('click',function(e){
 });
 
 // Save user and redirect
+
+// ===== CONSENT MANAGEMENT (Israeli Privacy Protection Law 1981, amendment 13) =====
+function saveConsentRecord(rec){
+  try{
+    var key='bagrutai_consents';
+    var arr=JSON.parse(localStorage.getItem(key)||'[]');
+    arr.push(rec);
+    localStorage.setItem(key,JSON.stringify(arr));
+    // Also send to a backend if configured (placeholder for future)
+    if(window.firebase && firebaseReady){
+      try{
+        firebase.firestore && firebase.firestore().collection('consents').add(rec);
+      }catch(e){}
+    }
+  }catch(e){console.warn('consent save failed',e);}
+}
+function exportConsents(){
+  var arr=JSON.parse(localStorage.getItem('bagrutai_consents')||'[]');
+  if(arr.length===0){alert('אין רשומות הסכמה נשמרות');return;}
+  var csv='שם,אימייל,הסכמה לתנאים,הסכמה לדיוור,תאריך\n';
+  arr.forEach(function(r){
+    csv+='"'+(r.name||'').replace(/"/g,'""')+'","'+(r.email||'')+'","'+(r.terms?'כן':'לא')+'","'+(r.marketing?'כן':'לא')+'","'+new Date(r.ts).toISOString()+'"\n';
+  });
+  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url; a.download='consents-'+new Date().toISOString().split('T')[0]+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+window.exportBagrutAIConsents = exportConsents;
+
 function saveAndGo(user){
   localStorage.setItem('bagrutai_user',JSON.stringify(user));
   window.location.href='app.html';
@@ -832,6 +880,11 @@ function signInEmail(e){
   var name=document.getElementById('regName').value;
   var email=document.getElementById('regEmail').value;
   var pass=document.getElementById('regPass').value;
+  var agreeTerms=document.getElementById('agreeTerms').checked;
+  var agreeMarketing=document.getElementById('agreeMarketing').checked;
+  if(!agreeTerms){alert('יש לאשר את תנאי השימוש כדי להמשיך');return;}
+  // Save consent record
+  saveConsentRecord({email:email,name:name,marketing:agreeMarketing,terms:true,ts:Date.now()});
 
   if(!firebaseReady){
     // Firebase not configured — save locally and redirect
@@ -865,5 +918,32 @@ if(localStorage.getItem('bagrutai_user')){
   // Optional: show welcome back
 }
 </script>
+
+<!-- ACCESSIBILITY WIDGET (Israeli Equal Rights for Persons with Disabilities Law) -->
+<button id="a11yBtn" onclick="toggleA11yMenu()" aria-label="פתיחת תפריט נגישות" title="נגישות" style="position:fixed;bottom:20px;right:20px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#0066cc,#004999);color:white;border:none;font-size:26px;cursor:pointer;z-index:9998;box-shadow:0 6px 20px rgba(0,102,204,0.4);display:flex;align-items:center;justify-content:center">♿</button>
+<div id="a11yMenu" style="display:none;position:fixed;bottom:84px;right:20px;background:white;border-radius:14px;padding:18px;box-shadow:0 12px 40px rgba(0,0,0,0.2);z-index:9999;min-width:260px;direction:rtl;font-family:'Heebo',sans-serif">
+  <h3 style="font-size:16px;font-weight:800;margin-bottom:12px;color:#1a1a2e">תפריט נגישות</h3>
+  <button onclick="a11yFont(1)" style="display:block;width:100%;padding:8px 12px;margin-bottom:6px;background:#f0f0f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px">📈 הגדל גופן</button>
+  <button onclick="a11yFont(-1)" style="display:block;width:100%;padding:8px 12px;margin-bottom:6px;background:#f0f0f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px">📉 הקטן גופן</button>
+  <button onclick="a11yContrast()" style="display:block;width:100%;padding:8px 12px;margin-bottom:6px;background:#f0f0f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px">🎨 ניגודיות גבוהה</button>
+  <button onclick="a11yGrayscale()" style="display:block;width:100%;padding:8px 12px;margin-bottom:6px;background:#f0f0f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px">⚫ גווני אפור</button>
+  <button onclick="a11yReadable()" style="display:block;width:100%;padding:8px 12px;margin-bottom:6px;background:#f0f0f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px">📖 גופן נגיש</button>
+  <button onclick="a11yLinks()" style="display:block;width:100%;padding:8px 12px;margin-bottom:6px;background:#f0f0f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px">🔗 הדגש קישורים</button>
+  <button onclick="a11yReset()" style="display:block;width:100%;padding:8px 12px;background:#fff5f5;border:1px solid #ffcccc;color:#c0392b;border-radius:8px;cursor:pointer;text-align:right;font-family:inherit;font-size:13px;font-weight:600">↺ איפוס</button>
+  <a href="/accessibility.html" style="display:block;text-align:center;font-size:12px;color:#6C3CE1;margin-top:12px;text-decoration:underline">הצהרת נגישות מפורטת</a>
+</div>
+<a href="#main-content" id="skipLink" style="position:absolute;top:-40px;right:0;background:#0066cc;color:white;padding:8px 16px;z-index:99999;text-decoration:none" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">דלג לתוכן הראשי</a>
+
+<script>
+var a11yState={fontDelta:0,contrast:false,grayscale:false,readable:false,links:false};
+function toggleA11yMenu(){var m=document.getElementById('a11yMenu');m.style.display=m.style.display==='none'?'block':'none';}
+function a11yFont(delta){a11yState.fontDelta+=delta;document.documentElement.style.fontSize=(100+a11yState.fontDelta*10)+'%';}
+function a11yContrast(){a11yState.contrast=!a11yState.contrast;document.body.style.filter=a11yState.contrast?'contrast(1.5)':(a11yState.grayscale?'grayscale(1)':'none');}
+function a11yGrayscale(){a11yState.grayscale=!a11yState.grayscale;document.body.style.filter=a11yState.grayscale?'grayscale(1)':(a11yState.contrast?'contrast(1.5)':'none');}
+function a11yReadable(){a11yState.readable=!a11yState.readable;document.body.style.fontFamily=a11yState.readable?'Arial, Helvetica, sans-serif':'';document.body.style.lineHeight=a11yState.readable?'1.8':'';}
+function a11yLinks(){a11yState.links=!a11yState.links;document.querySelectorAll('a').forEach(function(a){a.style.textDecoration=a11yState.links?'underline':'';a.style.fontWeight=a11yState.links?'700':'';});}
+function a11yReset(){a11yState={fontDelta:0,contrast:false,grayscale:false,readable:false,links:false};document.documentElement.style.fontSize='';document.body.style.filter='';document.body.style.fontFamily='';document.body.style.lineHeight='';document.querySelectorAll('a').forEach(function(a){a.style.textDecoration='';a.style.fontWeight='';});}
+</script>
+
 </body>
 </html>
